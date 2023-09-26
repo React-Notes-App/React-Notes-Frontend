@@ -8,6 +8,7 @@ function Register() {
   const handleRegisterClose = () => setShowRegister(false);
   return (
     <div>
+        <h1>I am the Register Page</h1>
       <Button variant="primary" onClick={handleRegisterShow}>
         Register Here
       </Button>
