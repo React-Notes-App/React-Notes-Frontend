@@ -52,7 +52,6 @@ const NoteAppProvider = ({ children }) => {
       id: nanoid(),
       title: "Climbing",
       todoItems: [
-        { id: nanoid(), item: "Call Alex", completed: true },
         { id: nanoid(), item: "Plan trip", completed: false },
         { id: nanoid(), item: "Buy new shoes", completed: false},
         { id: nanoid(), item: "Send Yellow", completed: false},
