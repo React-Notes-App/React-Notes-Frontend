@@ -1,13 +1,126 @@
-body {
+/* New CSS from original app */
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  background: white;
+}
+
+/* Note-App Styling Below */
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.dark-mode {
+  background-color: #282c34;
+}
+.dark-mode .header {
+  color: white;
+}
+.dark-mode .footer {
+  color: white;
+}
+
+.note-app-container {
+  max-width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  right: 3%;
+}
+
+.notes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 2rem;
+}
+
+.note.new {
+  background-color: #8fdd71;
+}
+
+.note {
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 1rem;
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  white-space: pre-wrap;
+}
+
+.note:hover {
+  box-shadow: 0 0 15px rgba(33, 33, 33, 0.4);
+}
+
+.note-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-check-input {
+  margin-right: 0.5rem;
+  background-color: transparent;
+  border-color: #282c34;
+}
+
+.itemListBackground {
+  margin-top: 0.5rem;
+  border: none;
+}
+/* .itemListBackground .done .itemText {
+  text-decoration: line-through;
+  opacity: 0.5;
+} */
+
+#editNoteTitle {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+}
+#editNoteTodoItem {
+  background-color: transparent;
+}
+.addTodoItem {
+  background-color: transparent;
+  border: none;
+  color: grey;
+}
+
+::placeholder {
+  color: black;
+}
+
+.deleteIcon {
+  cursor: pointer;
+}
+.deleteIcon:hover {
+  color: red;
+}
+
+.horizontal-rule {
+  margin: 0.5rem;
 }

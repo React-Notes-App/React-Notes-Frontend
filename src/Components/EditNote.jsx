@@ -4,7 +4,7 @@ import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Modal from "react-bootstrap/Modal";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-// import ItemList from "./ItemList";
+import ItemList from "./ItemList";
 import Form from "react-bootstrap/Form";
 import  ModalBody  from "react-bootstrap/ModalBody";
 
@@ -82,13 +82,13 @@ function EditNote({ id, title, color, todoItems }) {
 
           </Modal.Header>
           <Modal.Body style={{ backgroundColor: color }}>
-            {/* {todoItems
+            {todoItems
               .filter((todoItem) => {
                 return todoItem.completed === false;
               })
               .map((todoItem) => (
                 <ItemList todoItem={todoItem} key={todoItem.id} />
-              ))} */}
+              ))}
 
             <hr className="horizontal-rule" />
             <div className="d-flex flex-row align-items-center">
@@ -106,13 +106,13 @@ function EditNote({ id, title, color, todoItems }) {
           </Modal.Body>
 
           <ModalBody style={{ backgroundColor: color, border: "none" }}>
-            {/* {todoItems
+            {todoItems
               .filter((todoItem) => {
                 return todoItem.completed === true;
               })
               .map((todoItem) => (
                 <ItemList todoItem={todoItem} key={todoItem.id} />
-              ))} */}
+              ))}
           </ModalBody>
           <Modal.Footer
             style={{ backgroundColor: color, border: "none" }}

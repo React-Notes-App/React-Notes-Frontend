@@ -14,7 +14,7 @@ function NavBar() {
     <div>
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
-          <Navbar.Brand href="#home">Notes</Navbar.Brand>
+          <Navbar.Brand href="/">Notes</Navbar.Brand>
           <EditNoteIcon fontSize="large" className="me-2" />
           <Form.Control
             className="me-2 w-25"
