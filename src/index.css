@@ -1,6 +1,6 @@
 /* New CSS from original app */
 
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -10,15 +10,9 @@
 
 body {
   background: white;
-}
+} */
 
 /* Note-App Styling Below */
-.header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 1rem;
-}
 
 .dark-mode {
   background-color: #282c34;
@@ -91,10 +85,6 @@ body {
   margin-top: 0.5rem;
   border: none;
 }
-/* .itemListBackground .done .itemText {
-  text-decoration: line-through;
-  opacity: 0.5;
-} */
 
 #editNoteTitle {
   background-color: transparent;

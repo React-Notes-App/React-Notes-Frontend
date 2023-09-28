@@ -36,6 +36,7 @@ const NoteAppProvider = ({ children }) => {
     children: PropTypes.node.isRequired,
   };
   const [searchText, setSearchText] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
   const [notes, setNotes] = useState([
     {
       id: nanoid(),
@@ -69,6 +70,7 @@ const NoteAppProvider = ({ children }) => {
       ],
       date: "10/05/2021",
       color: "#8acefe",
+      label:[{id: nanoid(), title: "Work"}]
     },
     {
       id: nanoid(),
@@ -79,6 +81,7 @@ const NoteAppProvider = ({ children }) => {
       ],
       date: "15/05/2021",
       color: "#8efe8a",
+      label:[{id: nanoid(), title: "Running"}]
     },
     {
       id: nanoid(),
@@ -89,6 +92,7 @@ const NoteAppProvider = ({ children }) => {
       ],
       date: "15/05/2021",
       color: "#fe8a8a",
+      label:[{id: nanoid(), title: "Audrey"}]
     },
   ]);
 
@@ -202,6 +206,8 @@ const NoteAppProvider = ({ children }) => {
         deleteNote,
         searchText,
         setSearchText,
+        darkMode,
+        setDarkMode,
         editNoteTitle,
         addTodoItem,
         editTodoItem,

@@ -10,3 +10,4 @@ export { default as LogIn } from "./LogIn";
 export { default as ItemList } from "./ItemList";
 export { default as NoteDropDown } from "./NoteDropDown";
 export { default as Register } from "./Register";
+export { default as SideNav } from "./SideNav";

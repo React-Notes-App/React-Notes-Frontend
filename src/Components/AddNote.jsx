@@ -4,6 +4,7 @@ import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import { FormControl, InputGroup } from "react-bootstrap";
 
 function AddNote() {
   const { addNote } = useNoteAppContext();
@@ -41,27 +42,39 @@ function AddNote() {
 
   return (
     <div>
-      <AddBoxIcon sx={{fontSize: 60}} className="me-2" onClick={handleShow} />
+      <AddBoxIcon sx={{ fontSize: 60 }} className="me-2" onClick={handleShow} />
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
-            <textarea
-              rows="1"
+          <InputGroup className="mb-3">
+            <FormControl
+             style={{
+              border: "none",
+              backgroundColor: "transparent",
+              fontSize: "1.5rem"}}
+              aria-label="noteTitle"
+              aria-describedby="basic-addon1"
               placeholder="Title"
               onChange={handleTitleChange}
               value={noteTitle}
-              id="noteTitle"
-            ></textarea>
+            />
+          </InputGroup>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <textarea
-            rows="1"
-            placeholder="Item"
-            onChange={handleItemChange}
-            value={noteItem}
-            id="noteItem"
-          ></textarea>
+          <InputGroup className="mb-3">
+            <FormControl
+             style={{
+              border: "none",
+              backgroundColor: "transparent",
+              fontSize: "1.5rem",}}
+              aria-label="noteItem"
+              aria-describedby="basic-addon1"
+              placeholder="Item"
+              onChange={handleItemChange}
+              value={noteItem}
+            />
+          </InputGroup>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

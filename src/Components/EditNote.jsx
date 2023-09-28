@@ -59,6 +59,7 @@ function EditNote({ id, title, color, todoItems }) {
     <div>
       <div>
         <EditNoteIcon fontSize="large" className="me-2" onClick={handleShow} />
+      
 
         <Modal show={show} onHide={handleClose} centered>
           <Modal.Header

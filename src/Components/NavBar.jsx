@@ -1,11 +1,13 @@
 import React from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
-import { Container, Navbar, Nav, Form } from "react-bootstrap";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import LogIn from "./LogIn";
+import { LogIn, Header, SideNav } from "./";
+import { Container, Navbar, Nav, Form, NavDropdown } from "react-bootstrap";
+import FaceIcon from "@mui/icons-material/Face";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 function NavBar() {
-  const { searchText, setSearchText } = useNoteAppContext();
+  const { searchText, setSearchText, setDarkMode } = useNoteAppContext();
+
   function handleSearch(event) {
     setSearchText(event.target.value);
     console.log(event.target.value);
@@ -13,22 +15,45 @@ function NavBar() {
   return (
     <div>
       <Navbar expand="lg" className="bg-body-tertiary">
-        <Container>
+        <Container fluid>
+          <SideNav setDarkMode={setDarkMode}/>
           <Navbar.Brand href="/">Notes</Navbar.Brand>
-          <EditNoteIcon fontSize="large" className="me-2" />
-          <Form.Control
-            className="me-2 w-25"
-            type="search"
-            id="searchBar1"
-            placeholder="Search"
-            aria-label="Search"
-            value={searchText}
-            onChange={handleSearch}
-          />
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto">
-              <LogIn />
+          <Navbar.Collapse id="basic-navbar-nav" >
+            <Nav className="ms-auto p-2"
+            >
+              <Form.Control
+                className="me-2 w-auto"
+                type="search"
+                id="searchBar1"
+                placeholder="Search"
+                aria-label="Search"
+                value={searchText}
+                onChange={handleSearch}
+              />
+              <NavDropdown
+                title={<SettingsIcon />}
+                id="basic-nav-dropdown"
+                drop="down"
+                align={{ lg: "end" }}
+              >
+                <NavDropdown.Item>
+                  {<Header handleToggleDarkMode={setDarkMode} />}
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item>Settings</NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown
+                title={<FaceIcon />}
+                id="basic-nav-dropdown"
+                drop="down"
+                align={{ lg: "end" }}
+              >
+                <LogIn />
+                <NavDropdown.Item>Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item>Log Out</NavDropdown.Item>
+              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>

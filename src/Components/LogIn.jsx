@@ -3,8 +3,8 @@ import { useState } from "react";
 // import { useNoteAppContext } from "../provider/NoteAppProvider";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import FaceIcon from "@mui/icons-material/Face";
-import { FormControl, InputGroup } from "react-bootstrap";
+// import FaceIcon from "@mui/icons-material/Face";
+import { FormControl, InputGroup, NavDropdown } from "react-bootstrap";
 
 function LogIn() {
   const [showLogin, setShowLogin] = useState(false);
@@ -16,8 +16,8 @@ function LogIn() {
   };
   return (
     <div>
-      <FaceIcon onClick={handleShowLogin} />
-
+      {/* <FaceIcon onClick={handleShowLogin} /> */}
+      <NavDropdown.Item onClick={handleShowLogin}>Login</NavDropdown.Item>
       <Modal show={showLogin} onHide={handleCloseLogin}>
         <Modal.Header closeButton>
           <Modal.Title>Log In</Modal.Title>
