@@ -9,16 +9,16 @@ function DarkModeToggle({ handleToggleDarkMode }) {
   };
 
   return (
-    
-      <FormCheck 
-        type="switch"
-        id="flexSwitchCheckDefault"
-        label="Dark Mode"
-        onClick={() =>
-          handleToggleDarkMode((previousDarkMode) => !previousDarkMode)
-        }
-      />
-
+    <FormCheck
+      className="d-flex align-items-center ms-5"
+      
+      type="switch"
+      id="flexSwitchCheckDefault"
+      label="Dark Mode"
+      onClick={() =>
+        handleToggleDarkMode((previousDarkMode) => !previousDarkMode)
+      }
+    />
   );
 }
 

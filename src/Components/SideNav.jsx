@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import DarkModeToggle from "./DarkModeToggle";
+
 import Offcanvas from "react-bootstrap/Offcanvas";
 import MenuIcon from "@mui/icons-material/Menu";
 
-function SideNav({setDarkMode}) {
+function SideNav() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -21,7 +21,7 @@ function SideNav({setDarkMode}) {
         <Offcanvas.Body>
           Some text as placeholder. In real life you can have the elements you
           have chosen. Like, text, images, lists, etc.
-          <DarkModeToggle handleToggleDarkMode={setDarkMode} />
+         
         </Offcanvas.Body>
       </Offcanvas>
     </div>

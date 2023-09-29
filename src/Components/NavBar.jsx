@@ -1,6 +1,12 @@
 import React from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
-import { ColumnViewToggle, GridViewToggle, LogIn, SideNav } from "./";
+import {
+  ColumnViewToggle,
+  GridViewToggle,
+  LogIn,
+  SideNav,
+  DarkModeToggle,
+} from "./";
 import {
   Container,
   Navbar,
@@ -10,7 +16,6 @@ import {
   NavLink,
 } from "react-bootstrap";
 import FaceIcon from "@mui/icons-material/Face";
-import SettingsIcon from "@mui/icons-material/Settings";
 
 function NavBar() {
   const { searchText, setSearchText, setDarkMode, gridView } =
@@ -30,7 +35,7 @@ function NavBar() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto p-2">
               <Form.Control
-                className="me-2 w-auto"
+                className=" w-auto"
                 type="search"
                 id="searchBar1"
                 placeholder="Search"
@@ -38,6 +43,9 @@ function NavBar() {
                 value={searchText}
                 onChange={handleSearch}
               />
+              
+              <DarkModeToggle handleToggleDarkMode={setDarkMode} />
+
               {gridView ? (
                 <NavLink>
                   <GridViewToggle />
@@ -47,15 +55,6 @@ function NavBar() {
                   <ColumnViewToggle />
                 </NavLink>
               )}
-              <NavDropdown
-                title={<SettingsIcon />}
-                id="basic-nav-dropdown"
-                drop="down"
-                align={{ lg: "end" }}
-              >
-                <NavDropdown.Divider />
-                <NavDropdown.Item>Settings</NavDropdown.Item>
-              </NavDropdown>
               <NavDropdown
                 title={<FaceIcon />}
                 id="basic-nav-dropdown"

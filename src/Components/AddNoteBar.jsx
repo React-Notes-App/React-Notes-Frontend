@@ -49,7 +49,7 @@ function AddNoteBar() {
               style={{
                 border: "none",
                 backgroundColor: "transparent",
-                fontSize: "1.5rem",
+                fontSize: "1rem",
                 paddingLeft: "0px",
               }}
               aria-label="noteTitle"
@@ -72,7 +72,7 @@ function AddNoteBar() {
                   style={{
                     border: "none",
                     backgroundColor: "transparent",
-                    fontSize: "1.5rem",
+                    fontSize: "1rem",
                   }}
                   aria-label="noteItem"
                   aria-describedby="basic-addon1"
