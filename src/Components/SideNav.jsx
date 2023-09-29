@@ -21,7 +21,6 @@ function SideNav() {
         <Offcanvas.Body>
           Some text as placeholder. In real life you can have the elements you
           have chosen. Like, text, images, lists, etc.
-         
         </Offcanvas.Body>
       </Offcanvas>
     </div>
