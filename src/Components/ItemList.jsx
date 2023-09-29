@@ -20,7 +20,7 @@ function ItemList({ todoItem, }) {
   const [editedTodoItem, setEditedTodoItem] = useState("");
   const [todoItemId, setTodoItemId] = useState("");
 
-// const [checked, setChecked] = useState(todoItem.completed);
+
   const styles = {
     textDecoration: todoItem.completed ? "line-through" : "none",
     backgroundColor: "transparent",

@@ -3,9 +3,9 @@ import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Note from "./Note";
 
 function NotesList() {
-  const { notes, searchText } = useNoteAppContext();
+  const { notes, searchText, gridView } = useNoteAppContext();
   return (
-    <div className="notes-list">
+    <div className={gridView ? "column-mode" : "notes-list"}>
       {notes
         .filter((note) => {
           return (

@@ -37,6 +37,7 @@ const NoteAppProvider = ({ children }) => {
   };
   const [searchText, setSearchText] = useState("");
   const [darkMode, setDarkMode] = useState(false);
+  const [gridView, setGridView] = useState(false);
   const [notes, setNotes] = useState([
     {
       id: nanoid(),
@@ -212,7 +213,9 @@ const NoteAppProvider = ({ children }) => {
         addTodoItem,
         editTodoItem,
         deleteTodoItem,
-        checkTodoItem
+        checkTodoItem,
+        gridView,
+        setGridView,
       }}
     >
       {children}

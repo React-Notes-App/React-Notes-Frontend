@@ -49,6 +49,7 @@ function Note({ id, title, todoItems, date, color, label }) {
             <ColorPalette id={id} color={color} />
           </div>
         </div>
+        
         <div className="itemListBackground" style={{ paddingLeft: "0px" }}>
           {todoItems?.filter((todoItem) => {
           return todoItem.completed === false;

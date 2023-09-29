@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 import FormCheck from "react-bootstrap/FormCheck";
 
-function Header({ handleToggleDarkMode }) {
-  Header.propTypes = {
+function DarkModeToggle({ handleToggleDarkMode }) {
+  DarkModeToggle.propTypes = {
     handleToggleDarkMode: PropTypes.func.isRequired,
   };
 
@@ -22,4 +22,4 @@ function Header({ handleToggleDarkMode }) {
   );
 }
 
-export default Header;
+export default DarkModeToggle;
