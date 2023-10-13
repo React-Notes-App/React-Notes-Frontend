@@ -11,7 +11,7 @@ import Button from "react-bootstrap/Button";
 
 function ColorPalette({id, color}) {
   ColorPalette.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   color: PropTypes.string.isRequired,
   }
 

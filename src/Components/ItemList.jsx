@@ -6,62 +6,61 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-function ItemList({ todoItem, }) {
+function ItemList({ item }) {
   ItemList.propTypes = {
-    todoItem: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      item: PropTypes.string.isRequired,
+    item: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      item_name: PropTypes.string.isRequired,
       completed: PropTypes.bool.isRequired,
     }).isRequired,
    
   };
 
-  const { deleteTodoItem, editTodoItem, checkTodoItem } = useNoteAppContext();
-  const [editedTodoItem, setEditedTodoItem] = useState("");
-  const [todoItemId, setTodoItemId] = useState("");
+  const { deleteItem, editItem, checkItem } = useNoteAppContext();
+  const [editedItem, setEditedItem] = useState("");
+  const [itemId, setItemId] = useState("");
 
 
   const styles = {
-    textDecoration: todoItem.completed ? "line-through" : "none",
+    textDecoration: item.completed ? "line-through" : "none",
     backgroundColor: "transparent",
     border: "none",
   };
 
   const handleCheck = () => {
-    checkTodoItem(todoItem.id,);
+    checkItem(item.id,);
   };
 
   const handleEditItem = (e) => {
-    setEditedTodoItem(e.target.value);
+    setEditedItem(e.target.value);
   };
   const handleEditItemSubmit = (e) => {
-    const id = todoItemId;
-    if (e.keyCode === 13 && editedTodoItem.trim().length > 0) {
+    const id = itemId;
+    if (e.keyCode === 13 && editedItem.trim().length > 0) {
       e.preventDefault();
-      editTodoItem(editedTodoItem, id);
-      setEditedTodoItem("");
+      editItem(editedItem, id);
     }
   };
   function handleDeleteItemClick() {
-    const id = todoItemId;
-    deleteTodoItem(id);
+    const id = itemId;
+    deleteItem(id);
   }
   return (
     <div
-      key={todoItem.id}
-      onMouseEnter={() => setTodoItemId(todoItem.id)}
+      key={item.id}
+      onMouseEnter={() => setItemId(item.id)}
     >
       <InputGroup className="mb-3 align-items-center">
         <Form.Check
           type="checkbox"
           id="customControlInline"
-          value={todoItem.completed}
+          value={item.completed}
           onChange={handleCheck}
         />
         <Form.Control
           style={styles}
-          placeholder={todoItem.item}
-          value={editedTodoItem}
+          placeholder={item.item_name}
+          value={editedItem}
           onChange={handleEditItem}
           onKeyDown={handleEditItemSubmit}
         ></Form.Control>

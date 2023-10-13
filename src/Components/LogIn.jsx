@@ -1,19 +1,59 @@
 import React from "react";
 import { useState } from "react";
-// import { useNoteAppContext } from "../provider/NoteAppProvider";
+import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 // import FaceIcon from "@mui/icons-material/Face";
 import { FormControl, InputGroup, NavDropdown } from "react-bootstrap";
+import { getUserNotesCall, loginCall } from "../API-Adapter";
 
 function LogIn() {
+
+  const { setToken, setUser, setIsLoggedIn, token, user, getUserNotes } = useNoteAppContext();
   const [showLogin, setShowLogin] = useState(false);
   const handleShowLogin = () => setShowLogin(true);
   const handleCloseLogin = () => setShowLogin(false);
 
-  const handleLogin = () => {
-    console.log("login");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
   };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+  const handleLogin = async (event) => {
+    console.log("login:", email, password);
+    event.preventDefault();
+    try {
+      if (localStorage.getItem("token")) {
+        alert("You are already logged in!");
+      } else {
+        const result = await loginCall(email, password);
+        console.log(result);
+        if (result.success) {
+          localStorage.setItem("token", result.token);
+          localStorage.setItem("user", JSON.stringify(result.user));
+          setToken(result.token);
+          setUser(result.user);
+          setIsLoggedIn(true);
+          console.log("token:", result.token);
+          console.log("user:", result.user);
+          console.log(token);
+          console.log(user);
+          getUserNotes(result.token, result.user.id);
+          handleCloseLogin();
+        } else {
+          alert(result.message);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       {/* <FaceIcon onClick={handleShowLogin} /> */}
@@ -30,6 +70,7 @@ function LogIn() {
               aria-describedby="emailHelp"
               placeholder="Email Address"
               required
+              onChange={handleEmail}
             />
           </InputGroup>
           <InputGroup className="mb-3">
@@ -39,6 +80,7 @@ function LogIn() {
               aria-describedby="passwordHelp"
               placeholder="Password"
               required
+              onChange={handlePassword}
             />
           </InputGroup>
         </Modal.Body>

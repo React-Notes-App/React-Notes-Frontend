@@ -10,7 +10,7 @@ function DarkModeToggle({ handleToggleDarkMode }) {
 
   return (
     <FormCheck
-      className="d-flex align-items-center ms-5"
+      className="d-flex align-items-center"
       
       type="switch"
       id="flexSwitchCheckDefault"

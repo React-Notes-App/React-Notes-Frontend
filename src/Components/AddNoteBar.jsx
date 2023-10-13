@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import { FormControl, InputGroup, FormCheck, Button } from "react-bootstrap";
 
+
 function AddNoteBar() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -10,7 +11,7 @@ function AddNoteBar() {
   const [noteTitle, setNoteTitle] = useState("");
   const [noteItem, setNoteItem] = useState("");
 
-  const { addNote } = useNoteAppContext();
+  const { createNote } = useNoteAppContext();
 
   const itemCharacterLimit = 200;
 
@@ -28,7 +29,8 @@ function AddNoteBar() {
   };
   const handleSaveClick = () => {
     if (noteTitle.trim().length > 0) {
-      addNote(noteTitle, noteItem);
+      // addNote(noteTitle, noteItem);
+      createNote(noteTitle, noteItem);
       setNoteTitle("");
       setNoteItem("");
       setOpen(false);

@@ -6,24 +6,24 @@ import ColorPalette from "./ColorPalette";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ItemList from "./ItemList";
 
-function Note({ id, title, todoItems, date, color, label }) {
+function Note({ id, title, items, date, color, labels }) {
   Note.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    todoItems: PropTypes.arrayOf(
+    items: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        item: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        item_name: PropTypes.string.isRequired,
         completed: PropTypes.bool.isRequired,
       }).isRequired
     ).isRequired,
     date: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
-    label: PropTypes.arrayOf(
+    labels: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-      }).isRequired
+        id: PropTypes.number.isRequired,
+        label_name: PropTypes.string.isRequired,
+      })
     ).isRequired,
   };
 
@@ -42,7 +42,7 @@ function Note({ id, title, todoItems, date, color, label }) {
           <div className="d-flex align-items-center">
             <EditNote
               id={id}
-              todoItems={todoItems}
+              items={items}
               color={color}
               title={title}
             />
@@ -51,24 +51,24 @@ function Note({ id, title, todoItems, date, color, label }) {
         </div>
         
         <div className="itemListBackground" style={{ paddingLeft: "0px" }}>
-          {todoItems?.filter((todoItem) => {
-          return todoItem.completed === false;
-          }).map((todoItem) => (
-            <ItemList todoItem={todoItem} key={todoItem.id} />
+          {items?.filter((item) => {
+          return item.completed === false;
+          }).map((item) => (
+            <ItemList item={item} key={item.id} />
           ))}
         </div>
         <hr className="horizontal-rule"/>
         <div className="itemListBackground" style={{ paddingLeft: "0px" }}>
-          {todoItems?.filter((todoItem) => {
-          return todoItem.completed === true;
-          }).map((todoItem) => (
-            <ItemList todoItem={todoItem} key={todoItem.id} />
+          {items?.filter((item) => {
+          return item.completed === true;
+          }).map((item) => (
+            <ItemList item={item} key={item.id} />
           ))}
         </div>
         <div>
-          {label?.map((label) => (
+          {labels?.map((label) => (
             <div key={label.id} className="label">
-              <small>{label.title}</small>
+              <small>{label.label_name}</small>
             </div>
           ))}
           </div>

@@ -3,10 +3,10 @@ import ViewAgendaOutlinedIcon from "@mui/icons-material/ViewAgendaOutlined";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 
 function ColumnViewToggle() {
-  const { setGridView } = useNoteAppContext();
+  const { setColumnView } = useNoteAppContext();
   const handleColumnView = () => {
     console.log("Column View");
-    setGridView(true);
+    setColumnView(true);
   };
   return <ViewAgendaOutlinedIcon  onClick={handleColumnView} />;
 }

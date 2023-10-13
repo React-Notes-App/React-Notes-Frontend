@@ -3,16 +3,17 @@ import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Note from "./Note";
 
 function NotesList() {
-  const { notes, searchText, gridView } = useNoteAppContext();
+  const { notes, searchText, columnView, isLoggedIn } = useNoteAppContext();
   return (
-    <div className={gridView ? "column-mode" : "notes-list"}>
-      {notes
+    <div className={columnView ? "notes-list-column" : "notes-list-grid"}>
+      {isLoggedIn ? (
+      notes
         .filter((note) => {
           return (
             searchText.toLowerCase() === "" ||
             note.title.toLowerCase().includes(searchText) ||
-            note.todoItems.some((todoItem) =>
-              todoItem.item.toLowerCase().includes(searchText)
+            note.items.some((item) =>
+              item.item_name.toLowerCase().includes(searchText)
             )
           );
         })
@@ -21,12 +22,17 @@ function NotesList() {
             key={note.id}
             id={note.id}
             title={note.title}
-            todoItems={note.todoItems}
+            items={note.items}
             date={note.date}
             color={note.color}
-            label={note.label}
+            labels={note.labels}
           />
-        ))}
+        ))
+      ) : (
+        <div className="d-flex justify-content-center align-items-center">
+          <h1 className="text-center">Please log in to see your notes</h1>
+        </div>
+      )}
     </div>
   );
 }

@@ -9,31 +9,31 @@ import Form from "react-bootstrap/Form";
 import  ModalBody  from "react-bootstrap/ModalBody";
 
 
-function EditNote({ id, title, color, todoItems }) {
+function EditNote({ id, title, color, items }) {
   EditNote.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
-    todoItems: PropTypes.arrayOf(
+    items: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        item: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        item_name: PropTypes.string.isRequired,
         completed: PropTypes.bool.isRequired,
       })
     ).isRequired,
   };
 
-  const { editNoteTitle, addTodoItem } = useNoteAppContext();
+  const { editNoteTitle, createItem } = useNoteAppContext();
 
   const [newTitle, setNewTitle] = useState("");
-  const [newTodoItem, setNewTodoItem] = useState("");
+  const [newItem, setNewItem] = useState("");
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleNewItem = (e) => {
-    setNewTodoItem(e.target.value);
+    setNewItem(e.target.value);
   };
 
   const handleNewTitle = (e) => {
@@ -45,13 +45,14 @@ function EditNote({ id, title, color, todoItems }) {
       e.preventDefault();
       editNoteTitle(newTitle, id);
       setNewTitle("");
+      console.log(newTitle, id);
     }
   };
   const handleItemSubmit = (e) => {
-    if (e.keyCode === 13 && newTodoItem.trim().length > 0) {
+    if (e.keyCode === 13 && newItem.trim().length > 0) {
       e.preventDefault();
-      addTodoItem(newTodoItem, id);
-      setNewTodoItem("");
+      createItem(newItem, id);
+      setNewItem("");
     }
   };
 
@@ -83,12 +84,12 @@ function EditNote({ id, title, color, todoItems }) {
 
           </Modal.Header>
           <Modal.Body style={{ backgroundColor: color }}>
-            {todoItems
-              .filter((todoItem) => {
-                return todoItem.completed === false;
+            {items
+              .filter((item) => {
+                return item.completed === false;
               })
-              .map((todoItem) => (
-                <ItemList todoItem={todoItem} key={todoItem.id} />
+              .map((item) => (
+                <ItemList item={item} key={item.id} />
               ))}
 
             <hr className="horizontal-rule" />
@@ -98,7 +99,7 @@ function EditNote({ id, title, color, todoItems }) {
               <Form.Control
                 style={{ border: "none", backgroundColor: "transparent" }}
                 placeholder="List item"
-                value={newTodoItem}
+                value={newItem}
                 onChange={handleNewItem}
                 onKeyDown={handleItemSubmit}
               />
@@ -107,12 +108,12 @@ function EditNote({ id, title, color, todoItems }) {
           </Modal.Body>
 
           <ModalBody style={{ backgroundColor: color, border: "none" }}>
-            {todoItems
-              .filter((todoItem) => {
-                return todoItem.completed === true;
+            {items
+              .filter((item) => {
+                return item.completed === true;
               })
-              .map((todoItem) => (
-                <ItemList todoItem={todoItem} key={todoItem.id} />
+              .map((item) => (
+                <ItemList item={item} key={item.id} />
               ))}
           </ModalBody>
           <Modal.Footer
