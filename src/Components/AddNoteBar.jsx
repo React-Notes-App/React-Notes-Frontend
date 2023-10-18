@@ -29,7 +29,6 @@ function AddNoteBar() {
   };
   const handleSaveClick = () => {
     if (noteTitle.trim().length > 0) {
-      // addNote(noteTitle, noteItem);
       createNote(noteTitle, noteItem);
       setNoteTitle("");
       setNoteItem("");

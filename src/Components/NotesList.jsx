@@ -4,6 +4,7 @@ import Note from "./Note";
 
 function NotesList() {
   const { notes, searchText, columnView, isLoggedIn } = useNoteAppContext();
+  // console.log('notes: ', notes)
   return (
     <div className={columnView ? "notes-list-column" : "notes-list-grid"}>
       {isLoggedIn ? (
@@ -17,8 +18,9 @@ function NotesList() {
             )
           );
         })
-        .map((note) => (
-          <Note
+        .map((note) => {
+          // console.log('note: ', note);
+          return (<Note
             key={note.id}
             id={note.id}
             title={note.title}
@@ -26,8 +28,8 @@ function NotesList() {
             date={note.date}
             color={note.color}
             labels={note.labels}
-          />
-        ))
+          />)
+          })
       ) : (
         <div className="d-flex justify-content-center align-items-center">
           <h1 className="text-center">Please log in to see your notes</h1>

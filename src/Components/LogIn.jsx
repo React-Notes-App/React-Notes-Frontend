@@ -3,13 +3,12 @@ import { useState } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-// import FaceIcon from "@mui/icons-material/Face";
 import { FormControl, InputGroup, NavDropdown } from "react-bootstrap";
-import { getUserNotesCall, loginCall } from "../API-Adapter";
+import { loginCall } from "../API-Adapter";
 
 function LogIn() {
 
-  const { setToken, setUser, setIsLoggedIn, token, user, getUserNotes } = useNoteAppContext();
+  const { setToken, setUser, setIsLoggedIn } = useNoteAppContext();
   const [showLogin, setShowLogin] = useState(false);
   const handleShowLogin = () => setShowLogin(true);
   const handleCloseLogin = () => setShowLogin(false);
@@ -39,11 +38,6 @@ function LogIn() {
           setToken(result.token);
           setUser(result.user);
           setIsLoggedIn(true);
-          console.log("token:", result.token);
-          console.log("user:", result.user);
-          console.log(token);
-          console.log(user);
-          getUserNotes(result.token, result.user.id);
           handleCloseLogin();
         } else {
           alert(result.message);

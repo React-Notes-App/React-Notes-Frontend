@@ -131,3 +131,19 @@ body {
 .horizontal-rule {
   margin: 0.5rem;
 }
+
+@media screen and (max-width: 400px) {
+  .add-note-bar {
+    width: 100%;
+  }
+
+  .note {
+    width: 100%;
+  }
+
+  .note-app-container {
+    padding-top: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}

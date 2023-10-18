@@ -3,9 +3,13 @@ import PropTypes from "prop-types";
 import {
   getUserNotesCall,
   createNoteCall,
+  deleteNoteCall,
   createItemCall,
-  editNoteCall,
-  editItemCall,
+  editNoteTitleCall,
+  editNoteColorCall,
+  editItemNameCall,
+  editItemStatusCall,
+  deleteItemCall,
 } from "../API-Adapter";
 
 const DEFAULT_NOTE_COLOR = "#eeeee4";
@@ -76,153 +80,141 @@ const NoteAppProvider = ({ children }) => {
   const createNote = async (title, name) => {
     const result = await createNoteCall(token, title, name);
     const newNote = result.note;
-
     const newNotes = [...notes, newNote];
 
     setNotes(newNotes);
   };
 
-  const editNoteTitle = async (title, id) => {
-    const result = await editNoteCall(token, id, {title: title})
-    const newTitle = result.note;
-    const editedNote = notes.map((note) => {
+  const editNoteTitle = async (id, title) => {
+    const result = await editNoteTitleCall(token, id, title);
+    const newNote = result.note;
+    const newNotes = notes.map((note) => {
       if (note.id === id) {
-        note.title = newTitle;
-      }
-      return note;
-    });
-    setNotes(editedNote);
-  };
-
-const editItem = async (text, id) => {
-  const result = await editItemCall(token, id, {item_name: text, completed: false})
-  const newItem = result.item;
-  const editedNote = notes.map((note) => {
-    note.items.map((item) => {
-      if (item.id === id) {
-        item.item_name = newItem;
-      }
-      return item;
-    });
-    return note;
-  });
-  setNotes(editedNote);
-};
-
-
-  const createItem = async (text, id) => {
-    const result = await createItemCall(token, id, text, false)
-    if (id) {
-      const editedNote = notes.map((note) => {
-        if (note.id === id) {
-          note.items = [...note.items, result.item];
-        }
-        return note;
-      });
-
-      setNotes(editedNote);
-    }
-  };
-
-  // const editNoteTitle = (title, id) => {
-  //   const newTitle = title;
-  //   if (id) {
-  //     const editedNote = notes.map((note) => {
-  //       if (note.id === id) {
-  //         note.title = newTitle;
-  //       }
-  //       return note;
-  //     });
-
-  //     setNotes(editedNote);
-  //   }
-  // };
-
-  const editTodoItem = (todoItem, id) => {
-    const editedItem = todoItem;
-    if (id) {
-      const editedNote = notes.map((note) => {
-        note.todoItems.map((todoItem) => {
-          if (todoItem.id === id) {
-            todoItem.item = editedItem;
-          }
-          return todoItem;
-        });
-        return note;
-      });
-
-      setNotes(editedNote);
-    }
-  };
-
-  const editNoteColor = (color, id) => {
-    const editedNote = notes.map((note) => {
-      if (note.id === id) {
-        note.color = color;
+        return newNote;
       }
       return note;
     });
 
-    setNotes(editedNote);
-  };
-
-  const deleteNote = (id) => {
-    const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
   };
 
-  const deleteTodoItem = (id) => {
-    const editedNote = notes.map((note) => {
-      note.todoItems = note.todoItems.filter((todoItem) => todoItem.id !== id);
+  const editNoteColor = async (id, color) => {
+    const result = await editNoteColorCall(token, id, color);
+    const newNote = result.note;
+    const newNotes = notes.map((note) => {
+      if (note.id === id) {
+        return newNote;
+      }
       return note;
     });
-    setNotes(editedNote);
+    setNotes(newNotes);
   };
 
-  const checkTodoItem = (id) => {
-    const editedNote = notes.map((note) => {
-      note.todoItems.map((todoItem) => {
-        if (todoItem.id === id) {
-          todoItem.completed = !todoItem.completed;
-        }
-        return todoItem;
-      });
+  const deleteNote = async (id) => {
+    const result = await deleteNoteCall(token, id);
+    console.log(result);
+    const deletedNote = result.note;
+    const newNotes = notes.filter((note) => {
+      return note.id !== deletedNote.id;
+      
+   
+    });
+    console.log(deletedNote)
+    console.log(newNotes);
+    setNotes(newNotes);
+  };
+
+  const createItem = async (id, name) => {
+    const result = await createItemCall(token, id, name);
+    console.log(result);
+    const newNote = result.note;
+    const newNotes = notes.map((note) => {
+      if (note.id === id) {
+        return newNote;
+      }
       return note;
     });
-
-    setNotes(editedNote);
+    console.log(newNotes);
+    setNotes(newNotes);
   };
+
+  const editItemName = async (itemId, text, noteId) => {
+    const result = await editItemNameCall(token, itemId, text, noteId);
+    const newNote = result.note;
+    const newNotes = notes.map((note) => {
+      if (note.id === noteId) {
+        return newNote;
+      }
+      return note;
+    });
+    setNotes(newNotes);
+  };
+
+  const checkItem = async (itemId, completed, noteId) => {
+    const result = await editItemStatusCall(token, itemId, completed, noteId);
+    const newNote = result.note;
+    const newNotes = notes.map((note) => {
+      if (note.id === noteId) {
+        return newNote;
+      }
+      return note;
+    });
+    setNotes(newNotes);
+  };
+
+  const deleteItem = async (itemId, noteId) => {
+    const result = await deleteItemCall(token, itemId, noteId);
+    const newNote = result.note;
+    const newNotes = notes.map((note) => {
+      if (note.id === noteId) {
+        return newNote;
+      }
+      return note;
+    });
+    setNotes(newNotes);
+  };
+
+  // const checkTodoItem = (id) => {
+  //   const editedNote = notes.map((note) => {
+  //     note.todoItems.map((todoItem) => {
+  //       if (todoItem.id === id) {
+  //         todoItem.completed = !todoItem.completed;
+  //       }
+  //       return todoItem;
+  //     });
+  //     return note;
+  //   });
+
+  //   setNotes(editedNote);
+  // };
 
   return (
     <NoteAppProviderContext.Provider
       value={{
-        //login
+        //state
         token,
         setToken,
         user,
         setUser,
         isLoggedIn,
         setIsLoggedIn,
-
-        //notes
-        getUserNotes,
-        createNote,
-        editNoteTitle,
-        editItem,
-        createItem,
         notes,
-        editNoteColor,
-        // addNote,
-        deleteNote,
         searchText,
         setSearchText,
         darkMode,
         setDarkMode,
-        editTodoItem,
-        deleteTodoItem,
-        checkTodoItem,
         columnView,
         setColumnView,
+        //actions
+        getUserNotes,
+        createNote,
+        editNoteTitle,
+        createItem,
+        editItemName,
+        editNoteColor,
+        deleteNote,
+        deleteItem,
+        checkItem,
       }}
     >
       {children}
@@ -231,77 +223,3 @@ const editItem = async (text, id) => {
 };
 
 export default NoteAppProvider;
-
-// localStorage.setItem("react-notes-app-data", JSON.stringify(notes));
-
-// const [notes, setNotes] = useState([
-//   {
-//     id: nanoid(),
-//     title: "Home",
-//     todoItems: [
-//       { id: nanoid(), item: "Take out trash", completed: true },
-//       { id: nanoid(), item: "Call Ricky", completed: false },
-//     ],
-//     date: "05/05/2021",
-//     color: DEFAULT_NOTE_COLOR,
-//     label:[{id: nanoid(), title: "Home"}]
-//   },
-//   {
-//     id: nanoid(),
-//     title: "Climbing",
-//     todoItems: [
-//       { id: nanoid(), item: "Plan trip", completed: false },
-//       { id: nanoid(), item: "Buy new shoes", completed: false},
-//       { id: nanoid(), item: "Send Yellow", completed: false},
-//     ],
-//     date: "05/05/2021",
-//     color: "#fe3a8a",
-//     label:[{id: nanoid(), title: "Climbing"}]
-//   },
-//   {
-//     id: nanoid(),
-//     title: "Work",
-//     todoItems: [
-//       { id: nanoid(), item: "Finish Note App", completed: true },
-//       { id: nanoid(), item: "Finish Code Review", completed: true },
-//     ],
-//     date: "10/05/2021",
-//     color: "#8acefe",
-//     label:[{id: nanoid(), title: "Work"}]
-//   },
-//   {
-//     id: nanoid(),
-//     title: "Running",
-//     todoItems: [
-//       { id: nanoid(), item: "Threshold Workout", completed: false },
-//       { id: nanoid(), item: "Long Run Saturday", completed: false },
-//     ],
-//     date: "15/05/2021",
-//     color: "#8efe8a",
-//     label:[{id: nanoid(), title: "Running"}]
-//   },
-//   {
-//     id: nanoid(),
-//     title: "Audrey",
-//     todoItems: [
-//       { id: nanoid(), item: "Field Trip", completed: false },
-//       { id: nanoid(), item: "Snorkeling", completed: false },
-//     ],
-//     date: "15/05/2021",
-//     color: "#fe8a8a",
-//     label:[{id: nanoid(), title: "Audrey"}]
-//   },
-// ]);
-
-// const addNote = (title, item) => {
-//   const date = new Date();
-//   const newNote = {
-//     id: nanoid(),
-//     title: title,
-//     todoItems: [{ id: nanoid(), item: item, completed: false }],
-//     date: date.toLocaleDateString(),
-//     color: DEFAULT_NOTE_COLOR,
-//   };
-//   const newNotes = [...notes, newNote];
-//   setNotes(newNotes);
-// };

@@ -6,8 +6,8 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ItemList from "./ItemList";
 import Form from "react-bootstrap/Form";
-import  ModalBody  from "react-bootstrap/ModalBody";
-
+import ModalBody from "react-bootstrap/ModalBody";
+import Button from "react-bootstrap/Button";
 
 function EditNote({ id, title, color, items }) {
   EditNote.propTypes = {
@@ -43,15 +43,13 @@ function EditNote({ id, title, color, items }) {
   const handleTitleSubmit = (e) => {
     if (e.keyCode === 13 && newTitle.trim().length > 0) {
       e.preventDefault();
-      editNoteTitle(newTitle, id);
-      setNewTitle("");
-      console.log(newTitle, id);
+      editNoteTitle(id, newTitle);
     }
   };
   const handleItemSubmit = (e) => {
     if (e.keyCode === 13 && newItem.trim().length > 0) {
       e.preventDefault();
-      createItem(newItem, id);
+      createItem(id, newItem);
       setNewItem("");
     }
   };
@@ -60,8 +58,6 @@ function EditNote({ id, title, color, items }) {
     <div>
       <div>
         <EditNoteIcon fontSize="large" className="me-2" onClick={handleShow} />
-      
-
         <Modal show={show} onHide={handleClose} centered>
           <Modal.Header
             closeButton
@@ -80,8 +76,6 @@ function EditNote({ id, title, color, items }) {
                 onKeyDown={handleTitleSubmit}
               />
             </Modal.Title>
-            
-
           </Modal.Header>
           <Modal.Body style={{ backgroundColor: color }}>
             {items
@@ -94,7 +88,6 @@ function EditNote({ id, title, color, items }) {
 
             <hr className="horizontal-rule" />
             <div className="d-flex flex-row align-items-center">
-            
               <AddCircleOutlineIcon />
               <Form.Control
                 style={{ border: "none", backgroundColor: "transparent" }}
@@ -116,9 +109,9 @@ function EditNote({ id, title, color, items }) {
                 <ItemList item={item} key={item.id} />
               ))}
           </ModalBody>
-          <Modal.Footer
-            style={{ backgroundColor: color, border: "none" }}
-          ></Modal.Footer>
+          <Modal.Footer style={{ backgroundColor: color, border: "none" }}>
+            <Button onClick={handleClose}>Close</Button>
+          </Modal.Footer>
         </Modal>
       </div>
     </div>

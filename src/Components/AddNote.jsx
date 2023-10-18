@@ -7,7 +7,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import { FormControl, InputGroup } from "react-bootstrap";
 
 function AddNote() {
-  const { addNote, createNote } = useNoteAppContext();
+  const { createNote } = useNoteAppContext();
 
   const [show, setShow] = useState(false);
 
@@ -33,7 +33,6 @@ function AddNote() {
   };
   const handleSaveClick = () => {
     if (noteTitle.trim().length > 0) {
-      // addNote(noteTitle, noteItem);
       createNote(noteTitle)
       setNoteTitle("");
     } else {

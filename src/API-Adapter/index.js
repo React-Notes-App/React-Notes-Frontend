@@ -113,14 +113,14 @@ export const createNoteCall = async (token, title, name, color, label_name) => {
   }
 };
 
-export const editNoteCall = async (token, id, fields) => {
+export const editNoteTitleCall = async (token, id, title) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/edit_note`, {
       method: "PATCH",
       headers: makeHeaders(token),
       body: JSON.stringify({
         id: id,
-        ...fields,
+        title: title,
       }),
     });
     const result = await response.json();
@@ -131,18 +131,19 @@ export const editNoteCall = async (token, id, fields) => {
     throw error;
   }
 };
-export const createItemCall = async (token, noteId, name) => {
+
+export const editNoteColorCall = async (token, id, color) => {
   try {
-    const response = await fetch(`${URL}/api/notes/user/add_item`, {
-      method: "POST",
+    const response = await fetch(`${URL}/api/notes/user/edit_note_color`, {
+      method: "PATCH",
       headers: makeHeaders(token),
       body: JSON.stringify({
-        noteId: noteId,
-        name: name,
+        id: id,
+        color: color,
       }),
     });
     const result = await response.json();
-    console.log("Result from createNoteItem: ", result);
+    console.log("Result from editNoteColorCall: ", result);
     return result;
   } catch (error) {
     console.error(error);
@@ -150,18 +151,39 @@ export const createItemCall = async (token, noteId, name) => {
   }
 };
 
-export const editItemCall = async (token, id, fields) => {
+export const createItemCall = async (token, id, name) => {
+  try {
+    console.log("createItemCall: ", id, name);
+    const response = await fetch(`${URL}/api/notes/user/add_item`, {
+      method: "POST",
+      headers: makeHeaders(token),
+      body: JSON.stringify({
+        id: id,
+        name: name,
+      }),
+    });
+    const result = await response.json();
+    console.log("Result from createItemCall: ", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const editItemNameCall = async (token, id, item_name, noteId) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/edit_item`, {
       method: "PATCH",
       headers: makeHeaders(token),
       body: JSON.stringify({
         id: id,
-        ...fields,
+        item_name: item_name,
+        noteId: noteId,
       }),
     });
     const result = await response.json();
-    console.log("Result from editItemCall: ", result);
+    console.log("Result from editItemNameCall: ", result);
     return result;
   } catch (error) {
     console.error(error);
@@ -169,16 +191,54 @@ export const editItemCall = async (token, id, fields) => {
   }
 };
 
-export const deleteNote = async (token, noteId) => {
+export const editItemStatusCall = async (token, id, completed, noteId) => {
   try {
-    const response = await fetch(
-      `${URL}/api/notes/user/${noteId}/delete_note`,
-      {
-        body: JSON.stringify({
-          noteId: noteId,
-        }),
-      }
-    );
+    const response = await fetch(`${URL}/api/notes/user/toggle_status`, {
+      method: "PATCH",
+      headers: makeHeaders(token),
+      body: JSON.stringify({
+        id: id,
+        completed: completed,
+        noteId: noteId,
+      }),
+    });
+    const result = await response.json();
+    console.log("Result from editItemStatusCall: ", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const deleteItemCall = async (token, itemId, noteId) => {
+  try {
+    const response = await fetch(`${URL}/api/notes/user/delete_item`, {
+      method: "DELETE",
+      headers: makeHeaders(token),
+      body: JSON.stringify({
+        itemId: itemId,
+        noteId: noteId,
+      }),
+    });
+    const result = await response.json();
+    console.log("Result from deleteItemCall: ", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const deleteNoteCall = async (token, noteId) => {
+  try {
+    const response = await fetch(`${URL}/api/notes/user/delete_note`, {
+      method: "DELETE",
+      headers: makeHeaders(token),
+      body: JSON.stringify({
+        noteId: noteId,
+      }),
+    });
     const result = await response.json();
     console.log("Result from deleteNote: ", result);
     return result;

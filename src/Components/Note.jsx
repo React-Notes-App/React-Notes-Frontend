@@ -13,6 +13,7 @@ function Note({ id, title, items, date, color, labels }) {
     items: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
+        notes_id: PropTypes.number.isRequired,
         item_name: PropTypes.string.isRequired,
         completed: PropTypes.bool.isRequired,
       }).isRequired
@@ -28,9 +29,10 @@ function Note({ id, title, items, date, color, labels }) {
   };
 
   const { deleteNote } = useNoteAppContext();
+  const noteId = id;
 
   function handleDeleteNoteClick() {
-    deleteNote(id);
+    deleteNote(noteId);
   }
 
   
@@ -74,7 +76,7 @@ function Note({ id, title, items, date, color, labels }) {
           </div>
         <div className="note-footer">
           <small>{date}</small>
-          <DeleteForeverIcon
+          <DeleteForeverIcon 
             className="deleteIcon"
             onClick={handleDeleteNoteClick}
           />

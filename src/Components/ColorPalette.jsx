@@ -23,7 +23,7 @@ function ColorPalette({id, color}) {
   
 
   const handleChangeComplete = (color) => {
-    editNoteColor(color.hex, id);
+    editNoteColor(id, color.hex);
   };
 
   return (
