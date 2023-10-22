@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import Offcanvas from "react-bootstrap/Offcanvas";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Nav } from "react-bootstrap";
 
 function SideNav() {
   const [show, setShow] = useState(false);
@@ -16,11 +17,11 @@ function SideNav() {
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+          <Offcanvas.Title>Notes</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          Some text as placeholder. In real life you can have the elements you
-          have chosen. Like, text, images, lists, etc.
+          <Nav.Link href="/">Notes</Nav.Link>
+          <Nav.Link href="/archived_notes">Archived</Nav.Link>
         </Offcanvas.Body>
       </Offcanvas>
     </div>

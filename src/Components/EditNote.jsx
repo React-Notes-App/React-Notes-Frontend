@@ -60,10 +60,10 @@ function EditNote({ id, title, color, items }) {
         <EditNoteIcon fontSize="large" className="me-2" onClick={handleShow} />
         <Modal show={show} onHide={handleClose} centered>
           <Modal.Header
-            closeButton
+            className="border-0"
             style={{ backgroundColor: color, border: "none" }}
           >
-            <Modal.Title>
+            <Modal.Title className="border-0">
               <Form.Control
                 style={{
                   border: "none",
@@ -77,7 +77,7 @@ function EditNote({ id, title, color, items }) {
               />
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body style={{ backgroundColor: color }}>
+          <Modal.Body className="border-0" style={{ backgroundColor: color }}>
             {items
               .filter((item) => {
                 return item.completed === false;
@@ -100,7 +100,7 @@ function EditNote({ id, title, color, items }) {
             <hr className="horizontal-rule" />
           </Modal.Body>
 
-          <ModalBody style={{ backgroundColor: color, border: "none" }}>
+          <ModalBody className="border-0" style={{ backgroundColor: color, border: "none" }}>
             {items
               .filter((item) => {
                 return item.completed === true;
@@ -109,7 +109,7 @@ function EditNote({ id, title, color, items }) {
                 <ItemList item={item} key={item.id} />
               ))}
           </ModalBody>
-          <Modal.Footer style={{ backgroundColor: color, border: "none" }}>
+          <Modal.Footer className="border-0" style={{ backgroundColor: color, border: "none" }}>
             <Button onClick={handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>

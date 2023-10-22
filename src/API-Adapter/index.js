@@ -82,7 +82,10 @@ export const getUserNotesCall = async (token) => {
 
 export const getArchivedNotesCall = async (token) => {
   try {
-    const response = await fetch(`${URL}/api/notes/user/archived`, {});
+    const response = await fetch(`${URL}/api/notes/user/archived`, {
+      method: "GET",
+      headers: makeHeaders(token),
+    });
     const result = await response.json();
     console.log("Result from getArchivedNotes: ", result);
     return result;
@@ -240,7 +243,7 @@ export const deleteNoteCall = async (token, noteId) => {
       }),
     });
     const result = await response.json();
-    console.log("Result from deleteNote: ", result);
+    console.log("Result from deleteNoteCall: ", result);
     return result;
   } catch (error) {
     console.error(error);
@@ -248,18 +251,17 @@ export const deleteNoteCall = async (token, noteId) => {
   }
 };
 
-export const archiveNote = async (token, noteId) => {
+export const archiveNoteCall = async (token, noteId) => {
   try {
-    const response = await fetch(
-      `${URL}/api/notes/user/${noteId}/archive_note`,
-      {
-        body: JSON.stringify({
-          noteId: noteId,
-        }),
-      }
-    );
+    const response = await fetch(`${URL}/api/notes/user/archive_note`, {
+      method: "PATCH",
+      headers: makeHeaders(token),
+      body: JSON.stringify({
+        noteId: noteId,
+      }),
+    });
     const result = await response.json();
-    console.log("Result from archiveNote: ", result);
+    console.log("Result from archiveNoteCall: ", result);
     return result;
   } catch (error) {
     console.error(error);
@@ -267,16 +269,15 @@ export const archiveNote = async (token, noteId) => {
   }
 };
 
-export const unarchiveNote = async (token, noteId) => {
+export const unarchiveNoteCall = async (token, noteId) => {
   try {
-    const response = await fetch(
-      `${URL}/api/notes/user/${noteId}/unarchive_note`,
-      {
-        body: JSON.stringify({
-          noteId: noteId,
-        }),
-      }
-    );
+    const response = await fetch(`${URL}/api/notes/user/unarchive_note`, {
+      method: "PATCH",
+      headers: makeHeaders(token),
+      body: JSON.stringify({
+        noteId: noteId,
+      }),
+    });
     const result = await response.json();
     console.log("Result from unarchiveNote: ", result);
     return result;

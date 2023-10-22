@@ -4,7 +4,7 @@ import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { FormControl, InputGroup } from "react-bootstrap";
+import { FormCheck, FormControl, InputGroup } from "react-bootstrap";
 
 function AddNote() {
   const { createNote } = useNoteAppContext();
@@ -44,14 +44,15 @@ function AddNote() {
     <div>
       <AddBoxIcon sx={{ fontSize: 60 }} className="me-2" onClick={handleShow} />
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header className="border-0">
           <Modal.Title>
-          <InputGroup className="mb-3">
+          <InputGroup className="mb-3 align-items-center">
             <FormControl
              style={{
               border: "none",
               backgroundColor: "transparent",
-              fontSize: "1.5rem"}}
+              fontSize: "1rem",
+              paddingLeft: "0px",}}
               aria-label="noteTitle"
               aria-describedby="basic-addon1"
               placeholder="Title"
@@ -61,13 +62,15 @@ function AddNote() {
           </InputGroup>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <InputGroup className="mb-3">
+          <hr className="horizontal-rule" />
+        <Modal.Body className="border-0">
+          <InputGroup className="mb-3 align-items-center">
+            <FormCheck/>
             <FormControl
              style={{
               border: "none",
               backgroundColor: "transparent",
-              fontSize: "1.5rem",}}
+              fontSize: "1rem",}}
               aria-label="noteItem"
               aria-describedby="basic-addon1"
               placeholder="Item"
@@ -76,7 +79,7 @@ function AddNote() {
             />
           </InputGroup>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="border-0">
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>

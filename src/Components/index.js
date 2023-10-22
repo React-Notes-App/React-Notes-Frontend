@@ -16,3 +16,5 @@ export { default as SideNav } from "./SideNav";
 export { default as GridViewToggle } from "./GridViewToggle";
 export { default as ColumnViewToggle } from "./ColumnViewToggle";
 export { default as AddNoteBar } from "./AddNoteBar";
+export { default as ArchivedNotes } from "./ArchivedNotes";
+export { default as NoteTitle } from "./NoteTitle";

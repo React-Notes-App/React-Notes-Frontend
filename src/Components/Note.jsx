@@ -4,9 +4,12 @@ import PropTypes from "prop-types";
 import EditNote from "./EditNote";
 import ColorPalette from "./ColorPalette";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import ArchiveIcon from "@mui/icons-material/Archive";
+import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import ItemList from "./ItemList";
+import NoteTitle from "./NoteTitle";
 
-function Note({ id, title, items, date, color, labels }) {
+function Note({ id, title, items, date, color, labels, is_archived }) {
   Note.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -25,47 +28,56 @@ function Note({ id, title, items, date, color, labels }) {
         id: PropTypes.number.isRequired,
         label_name: PropTypes.string.isRequired,
       })
-    ).isRequired,
+      ).isRequired,
+      is_archived: PropTypes.bool.isRequired,
   };
 
-  const { deleteNote } = useNoteAppContext();
+  const { deleteNote, archiveNote, unarchiveNote } = useNoteAppContext();
   const noteId = id;
 
-  function handleDeleteNoteClick() {
+  const handleDeleteNoteClick = () => {
     deleteNote(noteId);
   }
 
-  
+  const handleArchiveNoteClick = () => {
+    archiveNote(noteId);
+  }
+
+  const handleUnarchiveNoteClick = () => {
+    unarchiveNote (noteId);
+  }
+
   return (
     <div>
       <div className="note" style={{ backgroundColor: color }}>
         <div className="d-flex justify-content-between align-items-center">
-          <h5 style={{ margin: 0 }}>{title}</h5>
+          {/* <h5 style={{ margin: 0 }}>{title}</h5> */}
+          
+          <NoteTitle id={id} title={title} />
           <div className="d-flex align-items-center">
-            <EditNote
-              id={id}
-              items={items}
-              color={color}
-              title={title}
-            />
+            <EditNote id={id} items={items} color={color} title={title} />
             <ColorPalette id={id} color={color} />
           </div>
         </div>
-        
+
         <div className="itemListBackground" style={{ paddingLeft: "0px" }}>
-          {items?.filter((item) => {
-          return item.completed === false;
-          }).map((item) => (
-            <ItemList item={item} key={item.id} />
-          ))}
+          {items
+            ?.filter((item) => {
+              return item.completed === false;
+            })
+            .map((item) => (
+              <ItemList item={item} key={item.id} />
+            ))}
         </div>
-        <hr className="horizontal-rule"/>
+        <hr className="horizontal-rule" />
         <div className="itemListBackground" style={{ paddingLeft: "0px" }}>
-          {items?.filter((item) => {
-          return item.completed === true;
-          }).map((item) => (
-            <ItemList item={item} key={item.id} />
-          ))}
+          {items
+            ?.filter((item) => {
+              return item.completed === true;
+            })
+            .map((item) => (
+              <ItemList item={item} key={item.id} />
+            ))}
         </div>
         <div>
           {labels?.map((label) => (
@@ -73,13 +85,20 @@ function Note({ id, title, items, date, color, labels }) {
               <small>{label.label_name}</small>
             </div>
           ))}
-          </div>
+        </div>
         <div className="note-footer">
           <small>{date}</small>
-          <DeleteForeverIcon 
-            className="deleteIcon"
-            onClick={handleDeleteNoteClick}
-          />
+          <div>
+            {is_archived === false ? (
+              <ArchiveIcon className="" onClick={handleArchiveNoteClick} />
+            ) : (
+              <UnarchiveIcon className="" onClick={handleUnarchiveNoteClick}/>
+            )}
+            <DeleteForeverIcon
+              className="deleteIcon"
+              onClick={handleDeleteNoteClick}
+            />
+          </div>
         </div>
       </div>
     </div>

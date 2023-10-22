@@ -31,7 +31,7 @@ function ColorPalette({id, color}) {
       <PaletteIcon onClick={handleShow}/>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header className="border-0">
           <Modal.Title>Select Color</Modal.Title>
         </Modal.Header>
         <Modal.Body className="d-flex justify-content-center">
@@ -40,12 +40,9 @@ function ColorPalette({id, color}) {
                 onChangeComplete={handleChangeComplete}
               />
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="border-0">
           <Button variant="secondary" onClick={handleClose}>
             Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>

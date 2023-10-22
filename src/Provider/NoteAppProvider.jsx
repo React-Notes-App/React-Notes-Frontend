@@ -2,8 +2,11 @@ import React, { useState, useContext, createContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   getUserNotesCall,
+  getArchivedNotesCall,
   createNoteCall,
   deleteNoteCall,
+  archiveNoteCall,
+  unarchiveNoteCall,
   createItemCall,
   editNoteTitleCall,
   editNoteColorCall,
@@ -54,12 +57,18 @@ const NoteAppProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(false);
   const [columnView, setColumnView] = useState(false);
 
+  const [archivedNotes, setArchivedNotes] = useState([]);
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
       setUser(JSON.parse(localStorage.getItem("user")));
       setIsLoggedIn(true);
       getUserNotes(
+        localStorage.getItem("token"),
+        JSON.parse(localStorage.getItem("user")).id
+      );
+      getArchivedNotes(
         localStorage.getItem("token"),
         JSON.parse(localStorage.getItem("user")).id
       );
@@ -72,6 +81,17 @@ const NoteAppProvider = ({ children }) => {
       const notes = result.notes;
 
       setNotes(notes);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getArchivedNotes = async (token, id) => {
+    try {
+      const result = await getArchivedNotesCall(token, id);
+      const notes = result.notes;
+
+      setArchivedNotes(notes);
     } catch (error) {
       console.log(error);
     }
@@ -116,12 +136,29 @@ const NoteAppProvider = ({ children }) => {
     const deletedNote = result.note;
     const newNotes = notes.filter((note) => {
       return note.id !== deletedNote.id;
-      
-   
     });
-    console.log(deletedNote)
-    console.log(newNotes);
+
     setNotes(newNotes);
+  };
+
+  const archiveNote = async (id) => {
+    const result = await archiveNoteCall(token, id);
+    console.log(result);
+    const archivedNote = result.note;
+    const newNotes = notes.filter((note) => {
+      return note.id !== archivedNote.id;
+    });
+    setNotes(newNotes);
+  };
+
+  const unarchiveNote = async (id) => {
+    const result = await unarchiveNoteCall(token, id);
+    console.log(result);
+    const unarchivedNote = result.note;
+    const newNotes = archivedNotes.filter((note) => {
+      return note.id !== unarchivedNote.id;
+    });
+    setArchivedNotes(newNotes);
   };
 
   const createItem = async (id, name) => {
@@ -174,20 +211,6 @@ const NoteAppProvider = ({ children }) => {
     setNotes(newNotes);
   };
 
-  // const checkTodoItem = (id) => {
-  //   const editedNote = notes.map((note) => {
-  //     note.todoItems.map((todoItem) => {
-  //       if (todoItem.id === id) {
-  //         todoItem.completed = !todoItem.completed;
-  //       }
-  //       return todoItem;
-  //     });
-  //     return note;
-  //   });
-
-  //   setNotes(editedNote);
-  // };
-
   return (
     <NoteAppProviderContext.Provider
       value={{
@@ -205,14 +228,19 @@ const NoteAppProvider = ({ children }) => {
         setDarkMode,
         columnView,
         setColumnView,
+        archivedNotes,
+        setArchivedNotes,
         //actions
         getUserNotes,
+        getArchivedNotes,
         createNote,
         editNoteTitle,
         createItem,
         editItemName,
         editNoteColor,
         deleteNote,
+        archiveNote,
+        unarchiveNote,
         deleteItem,
         checkItem,
       }}
