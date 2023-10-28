@@ -132,6 +132,24 @@ body {
   margin: 0.5rem;
 }
 
+.note-label {
+  font-weight: 500;
+  border: solid #282c34 1px;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+.note-label:hover {
+  background-color: #282c34;
+  color: white;
+}
+
+.label-delete-icon {
+  cursor: pointer;
+}
+.label-delete-icon:hover {
+  color: red;
+}
 @media screen and (max-width: 400px) {
   .add-note-bar {
     width: 100%;

@@ -17,7 +17,6 @@ function ItemList({ item }) {
   };
 
   const { deleteItem, editItemName, checkItem } = useNoteAppContext();
-  const [editedItem, setEditedItem] = useState("");
   const [completed, setCompleted] = useState(item.completed);
   const noteId = item.notes_id;
 
@@ -30,17 +29,15 @@ function ItemList({ item }) {
   const handleCheck = () => {
     const id = item.id;
     setCompleted(!completed);
-    console.log(completed);
     checkItem(id, !completed, noteId);
   };
 
-  const handleEditItem = (e) => {
-    setEditedItem(e.target.value);
-  };
+
+
   const handleEditItemSubmit = (e) => {
     const id = item.id;
+    const editedItem = e.target.value;
     if (e.keyCode === 13 && editedItem.trim().length > 0) {
-      e.preventDefault();
       editItemName(id, editedItem, noteId);
     }
   };
@@ -58,11 +55,11 @@ function ItemList({ item }) {
           onChange={handleCheck}
         />
         <Form.Control
+        key={item.item_name}
           style={styles}
           placeholder={item.item_name}
-          value={editedItem}
-          onChange={handleEditItem}
           onKeyDown={handleEditItemSubmit}
+          defaultValue={item.item_name}
         ></Form.Control>
 
         <HighlightOffIcon

@@ -5,7 +5,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { useNoteAppContext } from '../Provider/NoteAppProvider'
 import { CirclePicker } from "react-color";
-import PaletteIcon from '@mui/icons-material/Palette';
+import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
@@ -28,7 +28,7 @@ function ColorPalette({id, color}) {
 
   return (
     <div>
-      <PaletteIcon onClick={handleShow}/>
+      <PaletteOutlinedIcon onClick={handleShow}/>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header className="border-0">

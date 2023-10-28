@@ -4,7 +4,6 @@ import Note from "./Note";
 
 function NotesList() {
   const { notes, searchText, columnView, isLoggedIn } = useNoteAppContext();
-  // console.log('notes: ', notes)
   return (
     <div className={columnView ? "notes-list-column" : "notes-list-grid"}>
       {isLoggedIn ? (
@@ -19,7 +18,6 @@ function NotesList() {
           );
         })
         .map((note) => {
-          // console.log('note: ', note);
           return (<Note
             key={note.id}
             id={note.id}

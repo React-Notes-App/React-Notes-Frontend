@@ -3,11 +3,12 @@ import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import PropTypes from "prop-types";
 import EditNote from "./EditNote";
 import ColorPalette from "./ColorPalette";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import ArchiveIcon from "@mui/icons-material/Archive";
-import UnarchiveIcon from "@mui/icons-material/Unarchive";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
 import ItemList from "./ItemList";
 import NoteTitle from "./NoteTitle";
+import  HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 function Note({ id, title, items, date, color, labels, is_archived }) {
   Note.propTypes = {
@@ -28,8 +29,8 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
         id: PropTypes.number.isRequired,
         label_name: PropTypes.string.isRequired,
       })
-      ).isRequired,
-      is_archived: PropTypes.bool.isRequired,
+    ).isRequired,
+    is_archived: PropTypes.bool.isRequired,
   };
 
   const { deleteNote, archiveNote, unarchiveNote } = useNoteAppContext();
@@ -37,25 +38,29 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
 
   const handleDeleteNoteClick = () => {
     deleteNote(noteId);
-  }
+  };
 
   const handleArchiveNoteClick = () => {
     archiveNote(noteId);
-  }
+  };
 
   const handleUnarchiveNoteClick = () => {
-    unarchiveNote (noteId);
-  }
+    unarchiveNote(noteId);
+  };
 
   return (
     <div>
       <div className="note" style={{ backgroundColor: color }}>
         <div className="d-flex justify-content-between align-items-center">
-          {/* <h5 style={{ margin: 0 }}>{title}</h5> */}
-          
           <NoteTitle id={id} title={title} />
           <div className="d-flex align-items-center">
-            <EditNote id={id} items={items} color={color} title={title} />
+            <EditNote
+              id={id}
+              title={title}
+              items={items}
+              color={color}
+              labels={labels}
+            />
             <ColorPalette id={id} color={color} />
           </div>
         </div>
@@ -81,8 +86,9 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
         </div>
         <div>
           {labels?.map((label) => (
-            <div key={label.id} className="label">
-              <small>{label.label_name}</small>
+            <div key={label.id} >
+              <small className="note-label">{label.label_name}</small>
+              <HighlightOffIcon className="label-delete-icon" />
             </div>
           ))}
         </div>
@@ -90,11 +96,17 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
           <small>{date}</small>
           <div>
             {is_archived === false ? (
-              <ArchiveIcon className="" onClick={handleArchiveNoteClick} />
+              <ArchiveOutlinedIcon
+                className=""
+                onClick={handleArchiveNoteClick}
+              />
             ) : (
-              <UnarchiveIcon className="" onClick={handleUnarchiveNoteClick}/>
+              <UnarchiveOutlinedIcon
+                className=""
+                onClick={handleUnarchiveNoteClick}
+              />
             )}
-            <DeleteForeverIcon
+            <DeleteForeverOutlinedIcon
               className="deleteIcon"
               onClick={handleDeleteNoteClick}
             />

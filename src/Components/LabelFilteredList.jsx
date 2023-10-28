@@ -1,17 +1,23 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Note from "./Note";
 
-function ArchivedNotes() {
-  const { archivedNotes, searchText, columnView, isLoggedIn, darkMode } =
-    useNoteAppContext();
-  //   console.log("notes: ", archivedNotes);
+function LabelFilteredList() {
+  const { id } = useParams();
+  const { notes, isLoggedIn, columnView, searchText, darkMode } = useNoteAppContext();
+
+  
+  const filteredNotes = notes.filter((note) => {
+    return note.labels.some((label) => label.id === parseInt(id));
+  });
+
   return (
     <div className={`${darkMode && "dark-mode"}`}>
       <div className="note-app-container">
         <div className={columnView ? "notes-list-column" : "notes-list-grid"}>
-          {isLoggedIn && archivedNotes ? (
-            archivedNotes
+          {isLoggedIn && filteredNotes ? (
+            filteredNotes
               .filter((note) => {
                 return (
                   searchText.toLowerCase() === "" ||
@@ -37,7 +43,7 @@ function ArchivedNotes() {
               })
           ) : (
             <div className="d-flex justify-content-center align-items-center">
-              <h1 className="text-center">There are no archived notes</h1>
+              <h1 className="text-center">No Notes with that label.</h1>
             </div>
           )}
         </div>
@@ -46,4 +52,4 @@ function ArchivedNotes() {
   );
 }
 
-export default ArchivedNotes;
+export default LabelFilteredList;

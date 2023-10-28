@@ -13,6 +13,10 @@ import {
   editItemNameCall,
   editItemStatusCall,
   deleteItemCall,
+  getUserLabelsCall,
+  addLabelToNoteCall,
+  createLabelCall,
+  editLabelCall,
 } from "../API-Adapter";
 
 const DEFAULT_NOTE_COLOR = "#eeeee4";
@@ -52,12 +56,13 @@ const NoteAppProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [notes, setNotes] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [darkMode, setDarkMode] = useState(false);
   const [columnView, setColumnView] = useState(false);
 
+  const [notes, setNotes] = useState([]);
   const [archivedNotes, setArchivedNotes] = useState([]);
+  const [userLabels, setUserLabels] = useState([]);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -69,6 +74,10 @@ const NoteAppProvider = ({ children }) => {
         JSON.parse(localStorage.getItem("user")).id
       );
       getArchivedNotes(
+        localStorage.getItem("token"),
+        JSON.parse(localStorage.getItem("user")).id
+      );
+      getUserLabels(
         localStorage.getItem("token"),
         JSON.parse(localStorage.getItem("user")).id
       );
@@ -108,13 +117,13 @@ const NoteAppProvider = ({ children }) => {
   const editNoteTitle = async (id, title) => {
     const result = await editNoteTitleCall(token, id, title);
     const newNote = result.note;
+
     const newNotes = notes.map((note) => {
       if (note.id === id) {
         return newNote;
       }
       return note;
     });
-
     setNotes(newNotes);
   };
 
@@ -175,8 +184,8 @@ const NoteAppProvider = ({ children }) => {
     setNotes(newNotes);
   };
 
-  const editItemName = async (itemId, text, noteId) => {
-    const result = await editItemNameCall(token, itemId, text, noteId);
+  const editItemName = async (id, name, noteId) => {
+    const result = await editItemNameCall(token, id, name, noteId);
     const newNote = result.note;
     const newNotes = notes.map((note) => {
       if (note.id === noteId) {
@@ -184,6 +193,7 @@ const NoteAppProvider = ({ children }) => {
       }
       return note;
     });
+    console.log(newNotes);
     setNotes(newNotes);
   };
 
@@ -211,6 +221,51 @@ const NoteAppProvider = ({ children }) => {
     setNotes(newNotes);
   };
 
+  const getUserLabels = async (token, id) => {
+    try {
+      const result = await getUserLabelsCall(token, id);
+      const labels = result.labels;
+
+      setUserLabels(labels);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addLabelToNote = async (labelId, noteId) => {
+    const result = await addLabelToNoteCall(token, labelId, noteId);
+    const newNote = result.note;
+    console.log(newNote);
+    const newNotes = notes.map((note) => {
+      if (note.id === noteId) {
+        return newNote;
+      }
+      console.log(note.id, noteId);
+      return note;
+    });
+    console.log(newNotes);
+    setNotes(newNotes);
+  };
+
+  const createLabel = async (labelName) => {
+    const result = await createLabelCall(token, labelName);
+    const newLabel = result.label;
+    const newLabels = [...userLabels, newLabel];
+    setUserLabels(newLabels);
+  };
+
+  const editLabel = async (labelId, label_name) => {
+    const result = await editLabelCall(token, labelId, label_name);
+    console.log(labelId, label_name);
+    const newLabel = result.label;
+    const newLabels = userLabels.map((label) => {
+      if (label.id === labelId) {
+        return newLabel;
+      }
+      return label;
+    });
+    setUserLabels(newLabels);
+  };
   return (
     <NoteAppProviderContext.Provider
       value={{
@@ -230,6 +285,8 @@ const NoteAppProvider = ({ children }) => {
         setColumnView,
         archivedNotes,
         setArchivedNotes,
+        userLabels,
+        setUserLabels,
         //actions
         getUserNotes,
         getArchivedNotes,
@@ -243,6 +300,10 @@ const NoteAppProvider = ({ children }) => {
         unarchiveNote,
         deleteItem,
         checkItem,
+        getUserLabels,
+        addLabelToNote,
+        createLabel,
+        editLabel,
       }}
     >
       {children}

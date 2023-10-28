@@ -8,8 +8,10 @@ import ItemList from "./ItemList";
 import Form from "react-bootstrap/Form";
 import ModalBody from "react-bootstrap/ModalBody";
 import Button from "react-bootstrap/Button";
+import NoteTitle from "./NoteTitle";
+import AddLabelDropDown from "./AddLabelDropDown";
 
-function EditNote({ id, title, color, items }) {
+function EditNote({ id, title, color, items, labels }) {
   EditNote.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -21,11 +23,17 @@ function EditNote({ id, title, color, items }) {
         completed: PropTypes.bool.isRequired,
       })
     ).isRequired,
+    labels: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        labels_id: PropTypes.number.isRequired,
+        label_name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
   };
 
-  const { editNoteTitle, createItem } = useNoteAppContext();
+  const { createItem } = useNoteAppContext();
 
-  const [newTitle, setNewTitle] = useState("");
   const [newItem, setNewItem] = useState("");
 
   const [show, setShow] = useState(false);
@@ -36,16 +44,6 @@ function EditNote({ id, title, color, items }) {
     setNewItem(e.target.value);
   };
 
-  const handleNewTitle = (e) => {
-    setNewTitle(e.target.value);
-  };
-
-  const handleTitleSubmit = (e) => {
-    if (e.keyCode === 13 && newTitle.trim().length > 0) {
-      e.preventDefault();
-      editNoteTitle(id, newTitle);
-    }
-  };
   const handleItemSubmit = (e) => {
     if (e.keyCode === 13 && newItem.trim().length > 0) {
       e.preventDefault();
@@ -53,6 +51,8 @@ function EditNote({ id, title, color, items }) {
       setNewItem("");
     }
   };
+
+
 
   return (
     <div>
@@ -64,17 +64,7 @@ function EditNote({ id, title, color, items }) {
             style={{ backgroundColor: color, border: "none" }}
           >
             <Modal.Title className="border-0">
-              <Form.Control
-                style={{
-                  border: "none",
-                  backgroundColor: "transparent",
-                  fontSize: "1.5rem",
-                }}
-                placeholder={title}
-                value={newTitle}
-                onChange={handleNewTitle}
-                onKeyDown={handleTitleSubmit}
-              />
+              <NoteTitle id={id} title={title} />
             </Modal.Title>
           </Modal.Header>
           <Modal.Body className="border-0" style={{ backgroundColor: color }}>
@@ -109,7 +99,8 @@ function EditNote({ id, title, color, items }) {
                 <ItemList item={item} key={item.id} />
               ))}
           </ModalBody>
-          <Modal.Footer className="border-0" style={{ backgroundColor: color, border: "none" }}>
+          <Modal.Footer className="border-0 justify-content-between" style={{ backgroundColor: color, border: "none" }}>
+          <AddLabelDropDown id={id} labels={labels} />
             <Button onClick={handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>
