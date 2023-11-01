@@ -8,7 +8,7 @@ import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
 import ItemList from "./ItemList";
 import NoteTitle from "./NoteTitle";
-import  HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import LabelList from "./LabelList";
 
 function Note({ id, title, items, date, color, labels, is_archived }) {
   Note.propTypes = {
@@ -27,15 +27,16 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
     labels: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
+        notes_id: PropTypes.number.isRequired,
+        labels_id: PropTypes.number.isRequired,
         label_name: PropTypes.string.isRequired,
       })
     ).isRequired,
     is_archived: PropTypes.bool.isRequired,
   };
 
-  const { deleteNote, archiveNote, unarchiveNote } = useNoteAppContext();
+  const { deleteNote, archiveNote, unarchiveNote, } = useNoteAppContext();
   const noteId = id;
-
   const handleDeleteNoteClick = () => {
     deleteNote(noteId);
   };
@@ -47,6 +48,7 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
   const handleUnarchiveNoteClick = () => {
     unarchiveNote(noteId);
   };
+
 
   return (
     <div>
@@ -86,10 +88,7 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
         </div>
         <div>
           {labels?.map((label) => (
-            <div key={label.id} >
-              <small className="note-label">{label.label_name}</small>
-              <HighlightOffIcon className="label-delete-icon" />
-            </div>
+            <LabelList label={label} key={label.id} />
           ))}
         </div>
         <div className="note-footer">

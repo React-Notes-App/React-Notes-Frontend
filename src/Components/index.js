@@ -20,6 +20,7 @@ export { default as ArchivedNotes } from "./ArchivedNotes";
 export { default as NoteTitle } from "./NoteTitle";
 export { default as LabelFilteredList } from "./LabelFilteredList";
 export { default as Home } from "./Home";
-export { default as EditLabels } from "./EditLabels";
+export { default as EditLabelsModal } from "./EditLabelsModal";
 export { default as CreateLabel } from "./CreateLabel";
 export { default as LabelList } from "./LabelList";
+export { default as EditLabelsList } from "./EditLabelsList";

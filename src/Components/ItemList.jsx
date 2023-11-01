@@ -47,7 +47,7 @@ function ItemList({ item }) {
   }
   return (
     <div key={item.id}>
-      <InputGroup className="mb-3 align-items-center">
+      <InputGroup className="mb-2 align-items-center">
         <Form.Check
           type="checkbox"
           id="customControlInline"

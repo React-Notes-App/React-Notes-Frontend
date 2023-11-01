@@ -1,3 +1,5 @@
+const URL = "http://localhost:4000";
+
 export const loginCall = async (email, password) => {
   try {
     const response = await fetch(`${URL}/api/users/login`, {

@@ -246,6 +246,21 @@ export const unarchiveNoteCall = async (token, id) => {
   }
 };
 
+export const getActiveLabelsCall = async (token) => {
+  try {
+    const response = await fetch(`${URL}/api/notes/user/active_labels`, {
+      method: "GET",
+      headers: makeHeaders(token),
+    });
+    const result = await response.json();
+    console.log("Result from getActiveLabelsCall: ", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const getUserLabelsCall = async (token) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/labels`, {
@@ -298,13 +313,13 @@ export const createLabelCall = async (token, label_name) => {
   }
 };
 
-export const deleteLabelCall = async (token, label_name) => {
+export const deleteLabelCall = async (token, labelId) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/delete_label`, {
       method: "DELETE",
       headers: makeHeaders(token),
       body: JSON.stringify({
-        label_name: label_name,
+        labelId: labelId,
       }),
     });
     const result = await response.json();
@@ -328,6 +343,43 @@ export const addLabelToNoteCall = async (token, labelId, noteId) => {
     });
     const result = await response.json();
     console.log("Result from addLabelToNoteCall: ", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const removeLabelFromNoteCall = async (token, labelId, noteId) => {
+  try {
+    const response = await fetch(
+      `${URL}/api/notes/user/remove_label_from_note`,
+      {
+        method: "PATCH",
+        headers: makeHeaders(token),
+        body: JSON.stringify({
+          labelId: labelId,
+          noteId: noteId,
+        }),
+      }
+    );
+    const result = await response.json();
+    console.log("Result from removeLabelFromNoteCall: ", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getNotesByLabelCall = async (token) => {
+  try {
+    const response = await fetch(`${URL}/api/notes/user/notes_by_label`, {
+      method: "GET",
+      headers: makeHeaders(token),
+    });
+    const result = await response.json();
+    console.log("Result from getNotesByLabelCall: ", result);
     return result;
   } catch (error) {
     console.error(error);

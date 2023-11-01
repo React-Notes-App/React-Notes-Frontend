@@ -2,7 +2,7 @@ import React, { useState, useContext, createContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   getUserNotesCall,
-  getArchivedNotesCall,
+  // getArchivedNotesCall,
   createNoteCall,
   deleteNoteCall,
   archiveNoteCall,
@@ -17,12 +17,17 @@ import {
   addLabelToNoteCall,
   createLabelCall,
   editLabelCall,
+  removeLabelFromNoteCall,
+  deleteLabelCall,
+  getNotesByLabelCall,
+  // getNotesByLabelCall,
 } from "../API-Adapter";
 
 const DEFAULT_NOTE_COLOR = "#eeeee4";
 
 const NoteAppProviderContext = createContext({
   notes: [],
+  userLabels: [],
   currentNoteColor: DEFAULT_NOTE_COLOR,
   // eslint-disable-next-line no-unused-vars
   updateNoteColor: (_color) => {
@@ -61,8 +66,9 @@ const NoteAppProvider = ({ children }) => {
   const [columnView, setColumnView] = useState(false);
 
   const [notes, setNotes] = useState([]);
-  const [archivedNotes, setArchivedNotes] = useState([]);
+  // const [archivedNotes, setArchivedNotes] = useState([]);
   const [userLabels, setUserLabels] = useState([]);
+  const [notesLabels, setNotesLabels] = useState([]);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -73,11 +79,15 @@ const NoteAppProvider = ({ children }) => {
         localStorage.getItem("token"),
         JSON.parse(localStorage.getItem("user")).id
       );
-      getArchivedNotes(
+      // getArchivedNotes(
+      //   localStorage.getItem("token"),
+      //   JSON.parse(localStorage.getItem("user")).id
+      // );
+      getUserLabels(
         localStorage.getItem("token"),
         JSON.parse(localStorage.getItem("user")).id
       );
-      getUserLabels(
+      getNotesByLabel(
         localStorage.getItem("token"),
         JSON.parse(localStorage.getItem("user")).id
       );
@@ -95,16 +105,16 @@ const NoteAppProvider = ({ children }) => {
     }
   };
 
-  const getArchivedNotes = async (token, id) => {
-    try {
-      const result = await getArchivedNotesCall(token, id);
-      const notes = result.notes;
+  // const getArchivedNotes = async (token, id) => {
+  //   try {
+  //     const result = await getArchivedNotesCall(token, id);
+  //     const notes = result.notes;
 
-      setArchivedNotes(notes);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     setArchivedNotes(notes);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const createNote = async (title, name) => {
     const result = await createNoteCall(token, title, name);
@@ -154,8 +164,11 @@ const NoteAppProvider = ({ children }) => {
     const result = await archiveNoteCall(token, id);
     console.log(result);
     const archivedNote = result.note;
-    const newNotes = notes.filter((note) => {
-      return note.id !== archivedNote.id;
+    const newNotes = notes.map((note) => {
+      if (note.id === archivedNote.id) {
+        return archivedNote;
+      }
+      return note;
     });
     setNotes(newNotes);
   };
@@ -164,10 +177,13 @@ const NoteAppProvider = ({ children }) => {
     const result = await unarchiveNoteCall(token, id);
     console.log(result);
     const unarchivedNote = result.note;
-    const newNotes = archivedNotes.filter((note) => {
-      return note.id !== unarchivedNote.id;
+    const newNotes = notes.map((note) => {
+      if (note.id === unarchivedNote.id) {
+        return unarchivedNote;
+      }
+      return note;
     });
-    setArchivedNotes(newNotes);
+    setNotes(newNotes);
   };
 
   const createItem = async (id, name) => {
@@ -245,13 +261,29 @@ const NoteAppProvider = ({ children }) => {
     });
     console.log(newNotes);
     setNotes(newNotes);
+    await getUserLabels(token, user.id);
   };
 
   const createLabel = async (labelName) => {
     const result = await createLabelCall(token, labelName);
     const newLabel = result.label;
+    console.log(newLabel);
     const newLabels = [...userLabels, newLabel];
+    console.log(newLabels);
     setUserLabels(newLabels);
+  };
+
+  const deleteLabel = async (labelId) => {
+    const result = await deleteLabelCall(token, labelId);
+    console.log(labelId, "labelId")
+    const deletedLabel = result.label;
+    console.log(deletedLabel);
+    const newLabels = userLabels.filter((label) => {
+      return label.id !== deletedLabel.id;
+    });
+    setUserLabels(newLabels);
+  
+    console.log(newLabels)
   };
 
   const editLabel = async (labelId, label_name) => {
@@ -266,6 +298,33 @@ const NoteAppProvider = ({ children }) => {
     });
     setUserLabels(newLabels);
   };
+
+  const removeLabelFromNote = async (labelId, noteId) => {
+    const result = await removeLabelFromNoteCall(token, labelId, noteId);
+    const newNote = result.note;
+    const newNotes = notes.map((note) => {
+      if (note.id === noteId) {
+        return newNote;
+      }
+      return note;
+    });
+    setNotes(newNotes);
+    await getUserLabels(token, user.id);
+  };
+
+  const getNotesByLabel = async ( token, id) => {
+    const result = await getNotesByLabelCall(token, id);
+    const notes = result.notes;
+    console.log(notes);
+    setNotesLabels(notes);
+    console.log(notesLabels);
+  }
+
+  // const getNotesByLabel = async (token, id) => {
+  //   const result = await getNotesByLabelCall(token, id);
+  //   const notes = result.notes;
+  //   setNotesLabels(notes);
+  // };
   return (
     <NoteAppProviderContext.Provider
       value={{
@@ -283,13 +342,15 @@ const NoteAppProvider = ({ children }) => {
         setDarkMode,
         columnView,
         setColumnView,
-        archivedNotes,
-        setArchivedNotes,
+        // archivedNotes,
+        // setArchivedNotes,
         userLabels,
         setUserLabels,
+        // notesLabels,
+        // setNotesLabels,
         //actions
         getUserNotes,
-        getArchivedNotes,
+        // getArchivedNotes,
         createNote,
         editNoteTitle,
         createItem,
@@ -304,6 +365,9 @@ const NoteAppProvider = ({ children }) => {
         addLabelToNote,
         createLabel,
         editLabel,
+        removeLabelFromNote,
+        deleteLabel,
+        getNotesByLabel,
       }}
     >
       {children}

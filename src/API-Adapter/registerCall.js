@@ -1,3 +1,5 @@
+const URL = "http://localhost:4000";
+
 export const registerCall = async (name, email, password) => {
   try {
     const response = await fetch(`${URL}/api/users/register`, {

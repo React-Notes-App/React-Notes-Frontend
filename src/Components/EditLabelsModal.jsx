@@ -1,54 +1,56 @@
 import React from "react";
 import { useState } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
-
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Nav from "react-bootstrap/Nav";
+import { InputGroup } from "react-bootstrap";
+import EditLabelsList from "./EditLabelsList";
 
-function EditLabels() {
-  const { userLabels, editLabel, createLabel } = useNoteAppContext();
+function EditLabelsModal() {
+  const { userLabels, createLabel } = useNoteAppContext();
+  console.log(userLabels, "userLabels");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+ 
+
+  const createLabelStyles = {
+    backgroundColor: "transparent",
+    border: "none",
+  };
+
   const handleCreateLabel = (e) => {
     const label_name = e.target.value;
     if (e.keyCode === 13) {
       createLabel(label_name);
     }
   };
-  const handleEditLabel = (e) => {
-    const labelId = parseInt(e.target.id);
-    const label_name = e.target.value;
-    if (e.keyCode === 13) {
-      editLabel(labelId, label_name);
-    }
-  };
+ 
   return (
     <div>
       <div className="d-flex" onClick={handleShow}>
         <EditOutlinedIcon />
-        <Nav.Item>Edit Labels</Nav.Item>
+        <Nav.Item style={{ marginLeft: ".5rem" }}>Edit Labels</Nav.Item>
       </div>
       <Modal show={show}>
         <Modal.Header>
           <Modal.Title>Edit Labels</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Control
-            placeholder="Create Label"
-            onKeyDown={handleCreateLabel}
-          />
-          {userLabels.map((label) => (
+          <InputGroup className="mb-2 align-items-center">
+            <EditOutlinedIcon />
             <Form.Control
-              key={label.label_name}
-              id={label.id}
-              placeholder={label.label_name}
-              onKeyDown={handleEditLabel}
-              defaultValue={label.label_name}
+              style={createLabelStyles}
+              placeholder="Create Label"
+              onKeyDown={handleCreateLabel}
             />
+          </InputGroup>
+          {userLabels.map((label) => (
+           <EditLabelsList label={label} key={label.id} />
           ))}
         </Modal.Body>
         <Modal.Footer>
@@ -61,4 +63,4 @@ function EditLabels() {
   );
 }
 
-export default EditLabels;
+export default EditLabelsModal;

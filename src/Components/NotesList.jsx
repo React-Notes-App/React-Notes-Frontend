@@ -10,12 +10,14 @@ function NotesList() {
       notes
         .filter((note) => {
           return (
-            searchText.toLowerCase() === "" ||
+            (note.is_archived === false) &&
+            (searchText.toLowerCase() === "" ||
             note.title.toLowerCase().includes(searchText) ||
             note.items.some((item) =>
               item.item_name.toLowerCase().includes(searchText)
-            )
-          );
+            ))
+          )
+          
         })
         .map((note) => {
           return (<Note

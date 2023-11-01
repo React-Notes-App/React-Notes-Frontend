@@ -3,9 +3,12 @@ import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Note from "./Note";
 
 function ArchivedNotes() {
-  const { archivedNotes, searchText, columnView, isLoggedIn, darkMode } =
+  const {  searchText, columnView, isLoggedIn, darkMode, notes } =
     useNoteAppContext();
-  //   console.log("notes: ", archivedNotes);
+    // archivedNotes
+
+    const archivedNotes = notes.filter((note) => note.is_archived === true);
+    console.log(archivedNotes);
   return (
     <div className={`${darkMode && "dark-mode"}`}>
       <div className="note-app-container">

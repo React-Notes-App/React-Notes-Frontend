@@ -9,6 +9,7 @@ function NoteTitle({ id, title }) {
     border: "none",
     backgroundColor: "transparent",
     fontSize: "1.5rem",
+    paddingLeft: "0",
   };
 
   const handleTitleSubmit = (e) => {
