@@ -17,7 +17,7 @@ function AddLabelDropDown({ labels, id }) {
     <div>
       {/* <MoreVertIcon /> */}
       <Dropdown>
-        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
           Add Label
         </Dropdown.Toggle>
         <Dropdown.Menu>

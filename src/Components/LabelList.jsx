@@ -14,8 +14,6 @@ if (label.id === labelId) {
   return label.label_name
 }
 })
-console.log(foo)
-
   return (
     <div
       className="d-flex align-items-center"

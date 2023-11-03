@@ -1,4 +1,5 @@
-const URL = "http://localhost:4000";
+const URL = "https://todo-app-7yv2.onrender.com" || "http://localhost:4000";
+// const URL = "http://localhost:4000";
 
 export const registerCall = async (name, email, password) => {
   try {

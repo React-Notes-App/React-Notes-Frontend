@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { FormCheck, FormControl, InputGroup } from "react-bootstrap";
+import CreateLabelDropDown from "./CreateLabelDropDown";
 
 function AddNote() {
   const { createNote } = useNoteAppContext();
@@ -33,7 +34,7 @@ function AddNote() {
   };
   const handleSaveClick = () => {
     if (noteTitle.trim().length > 0) {
-      createNote(noteTitle)
+      createNote(noteTitle);
       setNoteTitle("");
     } else {
       alert("Please enter a title");
@@ -44,15 +45,16 @@ function AddNote() {
     <div>
       <AddBoxIcon sx={{ fontSize: 60 }} className="me-2" onClick={handleShow} />
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header className="border-0">
-          <Modal.Title>
-          <InputGroup className="mb-3 align-items-center">
+        <Modal.Header className="border-0 justify-content-center" style={{ paddingBottom: "0px" }}>
+          <InputGroup className="align-items-center">
             <FormControl
-             style={{
-              border: "none",
-              backgroundColor: "transparent",
-              fontSize: "1rem",
-              paddingLeft: "0px",}}
+              style={{
+                border: "none",
+                backgroundColor: "transparent",
+                fontSize: "1rem",
+                paddingLeft: "0px",
+               
+              }}
               aria-label="noteTitle"
               aria-describedby="basic-addon1"
               placeholder="Title"
@@ -60,17 +62,17 @@ function AddNote() {
               value={noteTitle}
             />
           </InputGroup>
-          </Modal.Title>
         </Modal.Header>
-          <hr className="horizontal-rule" />
-        <Modal.Body className="border-0">
+        <hr  style={{marginLeft: "1.5rem", marginRight: "1.5rem"}} />
+        <Modal.Body className="border-0" style={{ paddingBottom: "0px", paddingTop:"0px" }}>
           <InputGroup className="mb-3 align-items-center">
-            <FormCheck/>
+            <FormCheck />
             <FormControl
-             style={{
-              border: "none",
-              backgroundColor: "transparent",
-              fontSize: "1rem",}}
+              style={{
+                border: "none",
+                backgroundColor: "transparent",
+                fontSize: "1rem",
+              }}
               aria-label="noteItem"
               aria-describedby="basic-addon1"
               placeholder="Item"
@@ -79,13 +81,24 @@ function AddNote() {
             />
           </InputGroup>
         </Modal.Body>
-        <Modal.Footer className="border-0">
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSaveClick}>
-            Save Changes
-          </Button>
+        <Modal.Footer className="border-0 d-flex justify-content-between">
+          <CreateLabelDropDown />
+          <div>
+            <Button
+              variant="secondary"
+              style={{ marginLeft: ".5em" }}
+              onClick={handleClose}
+            >
+              Close
+            </Button>
+            <Button
+              variant="primary"
+              style={{ marginLeft: ".5em" }}
+              onClick={handleSaveClick}
+            >
+              Save
+            </Button>
+          </div>
         </Modal.Footer>
       </Modal>
 

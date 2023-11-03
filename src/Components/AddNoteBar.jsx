@@ -1,8 +1,17 @@
 import React from "react";
 import { useState } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
-import { FormControl, InputGroup, FormCheck, Button } from "react-bootstrap";
-
+import {
+  FormControl,
+  InputGroup,
+  FormCheck,
+  Button,
+  Dropdown,
+  Form,
+} from "react-bootstrap";
+import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import CreateLabelDropDown from "./CreateLabelDropDown";
 
 function AddNoteBar() {
   const [open, setOpen] = useState(false);
@@ -10,8 +19,18 @@ function AddNoteBar() {
   const handleClose = () => setOpen(false);
   const [noteTitle, setNoteTitle] = useState("");
   const [noteItem, setNoteItem] = useState("");
+  // const [labelId, setLabelId] = useState("");
+  // const [label_name, setLabel_Name] = useState("");
 
-  const { createNote } = useNoteAppContext();
+  const { createNote, userLabels, label_name, labelId} = useNoteAppContext();
+
+  const createLabelStyles = {
+    backgroundColor: "transparent",
+    border: "none",
+  };
+  const dropDownStyles = {
+    paddingLeft: ".5rem",
+  };
 
   const itemCharacterLimit = 200;
 
@@ -29,7 +48,8 @@ function AddNoteBar() {
   };
   const handleSaveClick = () => {
     if (noteTitle.trim().length > 0) {
-      createNote(noteTitle, noteItem);
+      console.log(label_name, "labelValue");
+      createNote(noteTitle, noteItem, label_name, labelId);
       setNoteTitle("");
       setNoteItem("");
       setOpen(false);
@@ -82,13 +102,51 @@ function AddNoteBar() {
                   value={noteItem}
                 />
               </InputGroup>
-              <div className="d-flex justify-content-end">
-                <Button variant="secondary" onClick={handleClose} style={{marginLeft:".5em"}}>
-                  Close
-                </Button>
-                <Button variant="primary" onClick={handleSaveClick} style={{marginLeft:".5em"}}>
-                  Save
-                </Button>
+              <div className="d-flex justify-content-between">
+                <CreateLabelDropDown/>
+                {/* <Dropdown>
+                  <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    Add Label
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu style={dropDownStyles}>
+                    <InputGroup className="mb-2 align-items-center">
+                      <EditOutlinedIcon />
+                      <Form.Control
+                        style={createLabelStyles}
+                        placeholder="Create Label"
+                        onChange={(e) => setLabel_Name(e.target.value)}
+                      />
+                    </InputGroup>
+                    {userLabels.map((label) => (
+                      <div key={label.id} className="d-flex align-items-center">
+                        <LabelOutlinedIcon />
+                        <Dropdown.Item
+                          as="button"
+                          value={label.id}
+                          onClick={(e) => setLabelId(e.target.value)}
+                        >
+                          {label.label_name}
+                        </Dropdown.Item>
+                      </div>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown> */}
+                <div>
+                  <Button
+                    variant="secondary"
+                    onClick={handleClose}
+                    style={{ marginLeft: ".5em" }}
+                  >
+                    Close
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={handleSaveClick}
+                    style={{ marginLeft: ".5em" }}
+                  >
+                    Save
+                  </Button>
+                </div>
               </div>
             </div>
           ) : null}

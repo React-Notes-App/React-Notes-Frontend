@@ -87,9 +87,10 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
             ))}
         </div>
         <div>
-          {labels?.map((label) => (
+          {labels?.length > 0 ?
+          (labels.map((label) => (
             <LabelList label={label} key={label.id} />
-          ))}
+          ))) : null}
         </div>
         <div className="note-footer">
           <small>{date}</small>

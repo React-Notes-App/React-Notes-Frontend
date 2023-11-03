@@ -65,7 +65,7 @@ function SideNav() {
                   </Nav.Link>
                 </div>
                 {label.note_count > 0 && (
-                  <Badge bg="primary" style={{ marginLeft: ".5rem" }}>
+                  <Badge bg="primary" style={{ }}>
                     {label.note_count}
                   </Badge>
                 )}
@@ -78,13 +78,15 @@ function SideNav() {
               Notes
             </Nav.Link>
           </div>
-          <div className="d-flex">
-            <ArchiveOutlinedIcon />
-            <Nav.Link href="/archived_notes" style={{ marginLeft: ".5rem" }}>
-              Archived
-            </Nav.Link>
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center">
+              <ArchiveOutlinedIcon />
+              <Nav.Link href="/archived_notes" style={{ marginLeft: ".5rem"}}>
+                Archived
+              </Nav.Link>
+            </div>
             {archivedNoteCount > 0 && (
-              <Badge pill bg="secondary" style={{ marginLeft: ".5rem" }}>
+              <Badge bg="secondary" style={{  }}>
                 {archivedNoteCount}
               </Badge>
             )}
@@ -92,7 +94,7 @@ function SideNav() {
           <div className="d-flex">
             <DeleteForeverOutlined />
             <Nav.Link href="/deleted_notes" style={{ marginLeft: ".5rem" }}>
-              Deleted
+              Trash
             </Nav.Link>
           </div>
           <hr />

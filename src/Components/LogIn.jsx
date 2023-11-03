@@ -8,7 +8,7 @@ import { loginCall } from "../API-Adapter";
 
 function LogIn() {
 
-  const { setToken, setUser, setIsLoggedIn } = useNoteAppContext();
+  const { setToken, setUser, setIsLoggedIn, getUserNotes, getUserLabels } = useNoteAppContext();
   const [showLogin, setShowLogin] = useState(false);
   const handleShowLogin = () => setShowLogin(true);
   const handleCloseLogin = () => setShowLogin(false);
@@ -38,6 +38,8 @@ function LogIn() {
           setToken(result.token);
           setUser(result.user);
           setIsLoggedIn(true);
+          await getUserNotes(result.token, result.user.id)
+          await getUserLabels(result.token, result.user.id)
           handleCloseLogin();
         } else {
           alert(result.message);

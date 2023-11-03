@@ -69,6 +69,8 @@ const NoteAppProvider = ({ children }) => {
   // const [archivedNotes, setArchivedNotes] = useState([]);
   const [userLabels, setUserLabels] = useState([]);
   const [notesLabels, setNotesLabels] = useState([]);
+  const [labelId, setLabelId] = useState("");
+  const [label_name, setLabel_Name] = useState("");
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -116,12 +118,15 @@ const NoteAppProvider = ({ children }) => {
   //   }
   // };
 
-  const createNote = async (title, name) => {
-    const result = await createNoteCall(token, title, name);
+  const createNote = async (title, name, label_name, labelId) => {
+    console.log(title, name, label_name, labelId);
+    let color = DEFAULT_NOTE_COLOR;
+    const result = await createNoteCall(token, title, name, color, label_name, labelId);
     const newNote = result.note;
     const newNotes = [...notes, newNote];
-
+    console.log(notes)
     setNotes(newNotes);
+    await getUserLabels(token, user.id);
   };
 
   const editNoteTitle = async (id, title) => {
@@ -158,6 +163,7 @@ const NoteAppProvider = ({ children }) => {
     });
 
     setNotes(newNotes);
+    await getUserLabels(token, user.id);
   };
 
   const archiveNote = async (id) => {
@@ -317,7 +323,6 @@ const NoteAppProvider = ({ children }) => {
     const notes = result.notes;
     console.log(notes);
     setNotesLabels(notes);
-    console.log(notesLabels);
   }
 
   // const getNotesByLabel = async (token, id) => {
@@ -348,6 +353,13 @@ const NoteAppProvider = ({ children }) => {
         setUserLabels,
         // notesLabels,
         // setNotesLabels,
+        labelId,
+        setLabelId,
+        label_name,
+        setLabel_Name,
+
+
+
         //actions
         getUserNotes,
         // getArchivedNotes,

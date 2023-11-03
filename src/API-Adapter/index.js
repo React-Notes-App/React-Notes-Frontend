@@ -1,4 +1,4 @@
-const URL = "http://localhost:4000";
+const URL = "https://todo-app-7yv2.onrender.com" || "http://localhost:4000";
 
 export { registerCall } from "./registerCall";
 export { loginCall } from "./loginCall";
@@ -55,7 +55,14 @@ export const getArchivedNotesCall = async (token) => {
   }
 };
 
-export const createNoteCall = async (token, title, name, color, label_name) => {
+export const createNoteCall = async (
+  token,
+  title,
+  name,
+  color,
+  label_name,
+  labelId
+) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/create_note`, {
       method: "POST",
@@ -65,6 +72,7 @@ export const createNoteCall = async (token, title, name, color, label_name) => {
         name: name,
         color: color,
         label_name: label_name,
+        labelId: labelId,
       }),
     });
     const result = await response.json();
