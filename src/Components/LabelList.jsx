@@ -13,6 +13,7 @@ const foo = userLabels.map((label) => {
 if (label.id === labelId) {
   return label.label_name
 }
+return null
 })
   return (
     <div

@@ -1,16 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
-import {
-  FormControl,
-  InputGroup,
-  FormCheck,
-  Button,
-  Dropdown,
-  Form,
-} from "react-bootstrap";
-import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { FormControl, InputGroup, FormCheck, Button } from "react-bootstrap";
+
 import CreateLabelDropDown from "./CreateLabelDropDown";
 
 function AddNoteBar() {
@@ -22,15 +14,7 @@ function AddNoteBar() {
   // const [labelId, setLabelId] = useState("");
   // const [label_name, setLabel_Name] = useState("");
 
-  const { createNote, userLabels, label_name, labelId} = useNoteAppContext();
-
-  const createLabelStyles = {
-    backgroundColor: "transparent",
-    border: "none",
-  };
-  const dropDownStyles = {
-    paddingLeft: ".5rem",
-  };
+  const { createNote, label_name, labelId } = useNoteAppContext();
 
   const itemCharacterLimit = 200;
 
@@ -103,34 +87,8 @@ function AddNoteBar() {
                 />
               </InputGroup>
               <div className="d-flex justify-content-between">
-                <CreateLabelDropDown/>
-                {/* <Dropdown>
-                  <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Add Label
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu style={dropDownStyles}>
-                    <InputGroup className="mb-2 align-items-center">
-                      <EditOutlinedIcon />
-                      <Form.Control
-                        style={createLabelStyles}
-                        placeholder="Create Label"
-                        onChange={(e) => setLabel_Name(e.target.value)}
-                      />
-                    </InputGroup>
-                    {userLabels.map((label) => (
-                      <div key={label.id} className="d-flex align-items-center">
-                        <LabelOutlinedIcon />
-                        <Dropdown.Item
-                          as="button"
-                          value={label.id}
-                          onClick={(e) => setLabelId(e.target.value)}
-                        >
-                          {label.label_name}
-                        </Dropdown.Item>
-                      </div>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown> */}
+                <CreateLabelDropDown />
+
                 <div>
                   <Button
                     variant="secondary"
