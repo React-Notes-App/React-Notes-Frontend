@@ -5,6 +5,7 @@ export const loginCall = async (email, password) => {
   try {
     const response = await fetch(`${URL}/api/users/login`, {
       method: "POST",
+      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
@@ -14,7 +15,6 @@ export const loginCall = async (email, password) => {
       }),
     });
     const result = await response.json();
-    console.log("Result from loginCall: ", result);
     return result;
   } catch (error) {
     console.error(error);

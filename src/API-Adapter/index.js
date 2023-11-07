@@ -1,5 +1,5 @@
 const URL = "https://todo-app-7yv2.onrender.com";
-// const URL = "http://localhost:4000"
+// const URL = "http://localhost:4000";
 
 export { registerCall } from "./registerCall";
 export { loginCall } from "./loginCall";
@@ -16,6 +16,7 @@ export const getMeCall = async (token) => {
   try {
     const response = await fetch(`${URL}/api/users/me`, {
       method: "GET",
+      mode: "cors",
       headers: makeHeaders(token),
     });
     const result = await response.json();
@@ -30,6 +31,7 @@ export const getUserNotesCall = async (token) => {
   try {
     const response = await fetch(`${URL}/api/notes/user`, {
       method: "GET",
+      mode: "cors",
       headers: makeHeaders(token),
     });
 
@@ -45,6 +47,7 @@ export const getArchivedNotesCall = async (token) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/archived`, {
       method: "GET",
+      mode: "cors",
       headers: makeHeaders(token),
     });
     const result = await response.json();
@@ -67,6 +70,7 @@ export const createNoteCall = async (
   try {
     const response = await fetch(`${URL}/api/notes/user/create_note`, {
       method: "POST",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         title: title,
@@ -89,6 +93,7 @@ export const editNoteTitleCall = async (token, id, title) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/edit_note`, {
       method: "PATCH",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         id: id,
@@ -108,6 +113,7 @@ export const editNoteColorCall = async (token, id, color) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/edit_note_color`, {
       method: "PATCH",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         id: id,
@@ -127,6 +133,7 @@ export const createItemCall = async (token, id, name) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/add_item`, {
       method: "POST",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         id: id,
@@ -146,6 +153,7 @@ export const editItemNameCall = async (token, id, name, noteId) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/edit_item`, {
       method: "PATCH",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         id: id,
@@ -166,6 +174,7 @@ export const editItemStatusCall = async (token, id, completed, noteId) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/toggle_status`, {
       method: "PATCH",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         id: id,
@@ -186,6 +195,7 @@ export const deleteItemCall = async (token, itemId, noteId) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/delete_item`, {
       method: "DELETE",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         itemId: itemId,
@@ -205,6 +215,7 @@ export const deleteNoteCall = async (token, id) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/delete_note`, {
       method: "DELETE",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         id: id,
@@ -223,6 +234,7 @@ export const archiveNoteCall = async (token, id) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/archive_note`, {
       method: "PATCH",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         id: id,
@@ -241,6 +253,7 @@ export const unarchiveNoteCall = async (token, id) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/unarchive_note`, {
       method: "PATCH",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         id: id,
@@ -259,6 +272,7 @@ export const getActiveLabelsCall = async (token) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/active_labels`, {
       method: "GET",
+      mode: "cors",
       headers: makeHeaders(token),
     });
     const result = await response.json();
@@ -274,6 +288,7 @@ export const getUserLabelsCall = async (token) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/labels`, {
       method: "GET",
+      mode: "cors",
       headers: makeHeaders(token),
     });
     const result = await response.json();
@@ -289,6 +304,7 @@ export const editLabelCall = async (token, labelId, label_name) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/edit_label`, {
       method: "PATCH",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         labelId: labelId,
@@ -308,6 +324,7 @@ export const createLabelCall = async (token, label_name) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/create_label`, {
       method: "POST",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         label_name: label_name,
@@ -326,6 +343,7 @@ export const deleteLabelCall = async (token, labelId) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/delete_label`, {
       method: "DELETE",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         labelId: labelId,
@@ -344,6 +362,7 @@ export const addLabelToNoteCall = async (token, labelId, noteId) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/add_label_to_note`, {
       method: "PATCH",
+      mode: "cors",
       headers: makeHeaders(token),
       body: JSON.stringify({
         labelId: labelId,
@@ -365,6 +384,7 @@ export const removeLabelFromNoteCall = async (token, labelId, noteId) => {
       `${URL}/api/notes/user/remove_label_from_note`,
       {
         method: "PATCH",
+        mode: "cors",
         headers: makeHeaders(token),
         body: JSON.stringify({
           labelId: labelId,
@@ -385,6 +405,7 @@ export const getNotesByLabelCall = async (token) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/notes_by_label`, {
       method: "GET",
+      mode: "cors",
       headers: makeHeaders(token),
     });
     const result = await response.json();

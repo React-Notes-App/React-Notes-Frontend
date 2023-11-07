@@ -5,6 +5,7 @@ export const registerCall = async (name, email, password) => {
   try {
     const response = await fetch(`${URL}/api/users/register`, {
       method: "POST",
+      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
