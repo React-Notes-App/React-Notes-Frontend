@@ -6,7 +6,6 @@ import ColorPalette from "./ColorPalette";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import UnarchiveOutlinedIcon from "@mui/icons-material/UnarchiveOutlined";
-import { MoreVertOutlined } from "@mui/icons-material";
 import ItemList from "./ItemList";
 import NoteTitle from "./NoteTitle";
 import LabelList from "./LabelList";

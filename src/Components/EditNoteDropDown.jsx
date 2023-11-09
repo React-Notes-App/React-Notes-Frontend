@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import { EditNote, ColorPalette } from "./";
 import { MoreVertOutlined } from "@mui/icons-material";
 import { Dropdown } from "react-bootstrap";
@@ -13,9 +12,6 @@ function EditNoteDropDown({ id, title, items, color, labels }) {
     <div>
       <MoreVertOutlined onClick={() => setShow((previousShow) => !previousShow)} />
       <Dropdown show={show}>
-        {/* <Dropdown.Toggle id="dropdown-basic">
-          <MoreVertOutlined />
-        </Dropdown.Toggle> */}
         <DropdownMenu>
           <EditNote
             id={id}
