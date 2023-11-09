@@ -6,7 +6,7 @@ import Badge from "react-bootstrap/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 import Nav from "react-bootstrap/Nav";
-import EditLabels from "./EditLabelsModal";
+import EditLabelsModal from "./EditLabelsModal";
 import DeleteForeverOutlined from "@mui/icons-material/DeleteForeverOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
@@ -98,7 +98,7 @@ function SideNav() {
             </Nav.Link>
           </div>
           <hr />
-          <EditLabels />
+          <EditLabelsModal />
         </Offcanvas.Body>
       </Offcanvas>
     </div>

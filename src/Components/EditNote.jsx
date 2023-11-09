@@ -10,6 +10,7 @@ import ModalBody from "react-bootstrap/ModalBody";
 import Button from "react-bootstrap/Button";
 import NoteTitle from "./NoteTitle";
 import AddLabelDropDown from "./AddLabelDropDown";
+import LabelList from "./LabelList";
 
 function EditNote({ id, title, color, items, labels }) {
   EditNote.propTypes = {
@@ -67,7 +68,7 @@ function EditNote({ id, title, color, items, labels }) {
               <NoteTitle id={id} title={title} />
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body className="border-0" style={{ backgroundColor: color }}>
+          <Modal.Body className="border-0" style={{ backgroundColor: color, paddingBottom: "0px" }}>
             {items
               .filter((item) => {
                 return item.completed === false;
@@ -89,8 +90,7 @@ function EditNote({ id, title, color, items, labels }) {
             </div>
             <hr className="horizontal-rule" />
           </Modal.Body>
-
-          <ModalBody className="border-0" style={{ backgroundColor: color, border: "none" }}>
+          <ModalBody className="border-0" style={{ backgroundColor: color, border: "none", paddingTop: "0px", paddingBottom: "0px" }}>
             {items
               .filter((item) => {
                 return item.completed === true;
@@ -99,6 +99,11 @@ function EditNote({ id, title, color, items, labels }) {
                 <ItemList item={item} key={item.id} />
               ))}
           </ModalBody>
+          <Modal.Footer className="border-0 justify-content-start" style={{ backgroundColor: color, border: "none" }}>
+            {labels?.length > 0 ? labels.map((label) => (
+            <LabelList label={label} />
+          )) : null}
+          </Modal.Footer>
           <Modal.Footer className="border-0 justify-content-between" style={{ backgroundColor: color, border: "none" }}>
           <AddLabelDropDown id={id} labels={labels} />
             <Button onClick={handleClose}>Close</Button>

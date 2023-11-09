@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { FormControl, InputGroup, NavDropdown } from "react-bootstrap";
 import { loginCall } from "../API-Adapter";
+import Register from "./Register";
 
 function LogIn() {
 
@@ -81,9 +82,10 @@ function LogIn() {
           </InputGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" href="/register">
+          {/* <Button variant="primary" href="/register">
             Register Here
-          </Button>
+          </Button> */}
+          <Register handleCloseLogin={handleCloseLogin}/>
           <Button variant="secondary" onClick={handleCloseLogin}>
             Close
           </Button>

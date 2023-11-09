@@ -11,10 +11,10 @@ function AddNoteBar() {
   const handleClose = () => setOpen(false);
   const [noteTitle, setNoteTitle] = useState("");
   const [noteItem, setNoteItem] = useState("");
-  // const [labelId, setLabelId] = useState("");
-  // const [label_name, setLabel_Name] = useState("");
+  const [labelId, setLabelId] = useState("");
+  const [label_name, setLabel_Name] = useState("");
 
-  const { createNote, label_name, labelId } = useNoteAppContext();
+  const { createNote } = useNoteAppContext();
 
   const itemCharacterLimit = 200;
 
@@ -33,6 +33,9 @@ function AddNoteBar() {
   const handleSaveClick = () => {
     if (noteTitle.trim().length > 0) {
       console.log(label_name, "labelValue");
+      console.log(labelId, "labelId");
+      console.log(noteTitle, "noteTitle");
+      console.log(noteItem, "noteItem");
       createNote(noteTitle, noteItem, label_name, labelId);
       setNoteTitle("");
       setNoteItem("");
@@ -87,8 +90,7 @@ function AddNoteBar() {
                 />
               </InputGroup>
               <div className="d-flex justify-content-between">
-                <CreateLabelDropDown />
-
+                <CreateLabelDropDown label_name={label_name} setLabel_Name={setLabel_Name} labelId={labelId} setLabelId={setLabelId}/>
                 <div>
                   <Button
                     variant="secondary"

@@ -13,7 +13,7 @@ function ArchivedNotes() {
     <div className={`${darkMode && "dark-mode"}`}>
       <div className="note-app-container">
         <div className={columnView ? "notes-list-column" : "notes-list-grid"}>
-          {isLoggedIn && archivedNotes ? (
+          {isLoggedIn && archivedNotes.length ? (
             archivedNotes
               .filter((note) => {
                 return (

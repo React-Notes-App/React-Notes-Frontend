@@ -66,11 +66,10 @@ const NoteAppProvider = ({ children }) => {
   const [columnView, setColumnView] = useState(false);
 
   const [notes, setNotes] = useState([]);
-  // const [archivedNotes, setArchivedNotes] = useState([]);
   const [userLabels, setUserLabels] = useState([]);
   const [notesLabels, setNotesLabels] = useState([]);
-  const [labelId, setLabelId] = useState("");
-  const [label_name, setLabel_Name] = useState("");
+ 
+  const archivedNotes = notes.filter((note) => note.is_archived === true);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -347,17 +346,12 @@ const NoteAppProvider = ({ children }) => {
         setDarkMode,
         columnView,
         setColumnView,
-        // archivedNotes,
-        // setArchivedNotes,
+        archivedNotes,
         userLabels,
         setUserLabels,
         notesLabels,
         setNotesLabels,
-        labelId,
-        setLabelId,
-        label_name,
-        setLabel_Name,
-
+      
 
 
         //actions

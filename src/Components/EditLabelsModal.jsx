@@ -49,6 +49,7 @@ function EditLabelsModal() {
               onKeyDown={handleCreateLabel}
             />
           </InputGroup>
+          <hr className="horizontal-rule"/>
           {userLabels.map((label) => (
            <EditLabelsList label={label} key={label.id} />
           ))}

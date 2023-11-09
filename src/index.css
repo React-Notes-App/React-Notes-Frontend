@@ -67,7 +67,7 @@ body {
 
 .notes-list-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 0.33fr));
   grid-gap: 1rem;
 }
 
@@ -137,6 +137,7 @@ body {
   border: solid #282c34 1px;
   padding: 1px 5px;
   border-radius: 10px;
+  white-space: nowrap;
 }
 
 .note-label:hover {
@@ -163,5 +164,15 @@ body {
     padding-top: 1rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    max-width: 95%;
+  }
+
+  .notes-list-column {
+    grid-template-columns: 1fr;
+  }
+
+  .notes-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   }
 }

@@ -4,8 +4,8 @@ import { Dropdown } from "react-bootstrap";
 import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 import CreateLabel from "./CreateLabel";
 
-function CreateLabelDropDown() {
-  const { userLabels, setLabelId } = useNoteAppContext();
+function CreateLabelDropDown({ setLabelId, setLabel_Name }) {
+  const { userLabels } = useNoteAppContext();
 
   const dropDownStyles = {
     paddingLeft: ".5rem",
@@ -17,15 +17,8 @@ function CreateLabelDropDown() {
         Add Label
       </Dropdown.Toggle>
       <Dropdown.Menu style={dropDownStyles}>
-        {/* <InputGroup className="mb-2 align-items-center">
-            <EditOutlinedIcon />
-            <Form.Control
-              style={createLabelStyles}
-              placeholder="Create Label"
-              onChange={(e) => setLabelValue(e.target.value)}
-            />
-          </InputGroup> */}
-        <CreateLabel />
+        <CreateLabel setLabel_Name={setLabel_Name} />
+        <hr className="horizontal-rule"/>
         {userLabels.map((label) => (
           <div key={label.id} className="d-flex align-items-center">
             <LabelOutlinedIcon />

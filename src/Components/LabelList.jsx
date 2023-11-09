@@ -24,7 +24,7 @@ return null
       <small className="note-label">{foo}</small>
       <HighlightOffIcon
         className="label-delete-icon"
-        style={{ marginLeft: ".5rem" }}
+        style={{ marginLeft: ".5rem", marginRight: ".5rem" }}
         label={label}
         onClick={handleRemoveLabel}
       />
