@@ -51,7 +51,7 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
     unarchiveNote(noteId);
   };
 
-  let mql = window.matchMedia("(max-width:400px)");
+  let mql = window.matchMedia("(max-width:450px)");
 
 
   return (

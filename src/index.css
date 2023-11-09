@@ -151,7 +151,7 @@ body {
 .label-delete-icon:hover {
   color: red;
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
   .add-note-bar {
     width: 100%;
   }
@@ -174,5 +174,9 @@ body {
   .notes-list-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  }
+
+  .add-note-bar {
+    width: 95%;
   }
 }
