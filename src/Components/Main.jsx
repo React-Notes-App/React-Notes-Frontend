@@ -5,24 +5,18 @@ import {
   NavBar,
   ArchivedNotes,
   LabelFilteredList,
-  NoArchivedNotes,
 } from "./";
 import NoteAppProvider from "../Provider/NoteAppProvider";
-import { useNoteAppContext } from "../Provider/NoteAppProvider";
+
 
 function Main() {
-  const { isLoggedIn, archivedNotes } = useNoteAppContext();
   return (
     <div>
       <NoteAppProvider>
         <NavBar />
         <Routes>
           <Route path="/" element={<NoteApp />} />
-          {isLoggedIn && archivedNotes.length ? (
-            <Route path="/archived_notes" element={<ArchivedNotes />} />
-          ) : (
-            <Route path="/archived_notes" element={<NoArchivedNotes />} />
-          )}
+          <Route path="/archived_notes" element={<ArchivedNotes />} />
           <Route path="/labels/:id" element={<LabelFilteredList />} />
         </Routes>
       </NoteAppProvider>

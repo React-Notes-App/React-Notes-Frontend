@@ -4,6 +4,7 @@ import {
   getUserNotesCall,
   // getArchivedNotesCall,
   createNoteCall,
+  createCopyCall,
   deleteNoteCall,
   archiveNoteCall,
   unarchiveNoteCall,
@@ -68,7 +69,7 @@ const NoteAppProvider = ({ children }) => {
   const [notes, setNotes] = useState([]);
   const [userLabels, setUserLabels] = useState([]);
   const [notesLabels, setNotesLabels] = useState([]);
- 
+
   const archivedNotes = notes.filter((note) => note.is_archived === true);
 
   useEffect(() => {
@@ -80,10 +81,7 @@ const NoteAppProvider = ({ children }) => {
         localStorage.getItem("token"),
         JSON.parse(localStorage.getItem("user")).id
       );
-      // getArchivedNotes(
-      //   localStorage.getItem("token"),
-      //   JSON.parse(localStorage.getItem("user")).id
-      // );
+
       getUserLabels(
         localStorage.getItem("token"),
         JSON.parse(localStorage.getItem("user")).id
@@ -106,26 +104,51 @@ const NoteAppProvider = ({ children }) => {
     }
   };
 
-  // const getArchivedNotes = async (token, id) => {
-  //   try {
-  //     const result = await getArchivedNotesCall(token, id);
-  //     const notes = result.notes;
-
-  //     setArchivedNotes(notes);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const createNote = async (title, name, label_name, labelId) => {
     console.log(title, name, label_name, labelId);
     let color = DEFAULT_NOTE_COLOR;
-    const result = await createNoteCall(token, title, name, color, label_name, labelId);
+    const result = await createNoteCall(
+      token,
+      title,
+      name,
+      color,
+      label_name,
+      labelId
+    );
     const newNote = result.note;
     const newNotes = [...notes, newNote];
-    console.log(notes)
+    console.log(notes);
     setNotes(newNotes);
     await getUserLabels(token, user.id);
+  };
+
+  const createCopy = async (id) => {
+    const oldNote = notes.find((note) => note.id === id);
+    console.log(oldNote);
+
+    const title = "Copy of\n " + oldNote.title 
+    const color = oldNote.color;
+    const noteItems = oldNote.items.map((item) => item.item_name);
+    const itemsCompleted = oldNote.items.map((item) => item.completed);
+    console.log(noteItems);
+    const labelIds = oldNote.labels.map((label) => label.id);
+
+    console.log(title, color, noteItems, labelIds);
+
+    const result = await createCopyCall(
+      token,
+      title,
+      color,
+      noteItems,
+      itemsCompleted,
+      labelIds
+    );
+    const newNote = result.note;
+    console.log(newNote);
+    const newNotes = [...notes, newNote];
+    setNotes(newNotes);
+    await getUserLabels(token, user.id);
+   
   };
 
   const editNoteTitle = async (id, title) => {
@@ -280,15 +303,15 @@ const NoteAppProvider = ({ children }) => {
 
   const deleteLabel = async (labelId) => {
     const result = await deleteLabelCall(token, labelId);
-    console.log(labelId, "labelId")
+    console.log(labelId, "labelId");
     const deletedLabel = result.label;
     console.log(deletedLabel);
     const newLabels = userLabels.filter((label) => {
       return label.id !== deletedLabel.id;
     });
     setUserLabels(newLabels);
-  
-    console.log(newLabels)
+
+    console.log(newLabels);
   };
 
   const editLabel = async (labelId, label_name) => {
@@ -317,18 +340,13 @@ const NoteAppProvider = ({ children }) => {
     await getUserLabels(token, user.id);
   };
 
-  const getNotesByLabel = async ( token, id) => {
+  const getNotesByLabel = async (token, id) => {
     const result = await getNotesByLabelCall(token, id);
     const notes = result.notes;
     console.log(notes);
     setNotesLabels(notes);
-  }
+  };
 
-  // const getNotesByLabel = async (token, id) => {
-  //   const result = await getNotesByLabelCall(token, id);
-  //   const notes = result.notes;
-  //   setNotesLabels(notes);
-  // };
   return (
     <NoteAppProviderContext.Provider
       value={{
@@ -351,12 +369,9 @@ const NoteAppProvider = ({ children }) => {
         setUserLabels,
         notesLabels,
         setNotesLabels,
-      
-
 
         //actions
         getUserNotes,
-        // getArchivedNotes,
         createNote,
         editNoteTitle,
         createItem,
@@ -374,6 +389,7 @@ const NoteAppProvider = ({ children }) => {
         removeLabelFromNote,
         deleteLabel,
         getNotesByLabel,
+        createCopy,
       }}
     >
       {children}

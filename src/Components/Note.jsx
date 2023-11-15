@@ -1,7 +1,7 @@
 import React from "react";
+import { useState } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import PropTypes from "prop-types";
-import EditNote from "./EditNote";
 import ColorPalette from "./ColorPalette";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
@@ -10,6 +10,7 @@ import ItemList from "./ItemList";
 import NoteTitle from "./NoteTitle";
 import LabelList from "./LabelList";
 import EditNoteDropDown from "./EditNoteDropDown";
+
 
 function Note({ id, title, items, date, color, labels, is_archived }) {
   Note.propTypes = {
@@ -36,8 +37,7 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
     is_archived: PropTypes.bool.isRequired,
   };
 
-  const { deleteNote, archiveNote, unarchiveNote} =
-    useNoteAppContext();
+  const { deleteNote, archiveNote, unarchiveNote } = useNoteAppContext();
   const noteId = id;
   const handleDeleteNoteClick = () => {
     deleteNote(noteId);
@@ -51,34 +51,22 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
     unarchiveNote(noteId);
   };
 
-  let mql = window.matchMedia("(max-width:450px)");
+  const [isShown, setIsShown] = useState(false);
+
+  
+
 
 
   return (
     <div>
-      <div className="note" style={{ backgroundColor: color }}>
+      <div
+        className="note"
+        style={{ backgroundColor: color }}
+        onMouseEnter={() => setIsShown(true)}
+        onMouseLeave={() => setIsShown(false)}
+      >
         <div className="d-flex justify-content-between align-items-center">
           <NoteTitle id={id} title={title} />
-          {mql.matches ? (
-            <EditNoteDropDown
-              id={id}
-              title={title}
-              items={items}
-              color={color}
-              labels={labels}
-            />
-          ) : (
-          <div className="d-flex align-items-center">
-            <EditNote
-              id={id}
-              title={title}
-              items={items}
-              color={color}
-              labels={labels}
-            />
-            <ColorPalette id={id} color={color} />
-          </div>
-          )}
         </div>
         <div className="itemListBackground" style={{ paddingLeft: "0px" }}>
           {items
@@ -105,24 +93,36 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
             : null}
         </div>
         <div className="note-footer">
-          <small>{date}</small>
-          <div>
-            {is_archived === false ? (
-              <ArchiveOutlinedIcon
-                className=""
-                onClick={handleArchiveNoteClick}
+          {isShown && (
+            <div className="d-flex justify-content-evenly align-items-center">
+              {/* <small>{createdAt}</small> */}
+              <div className="icon">
+                <ColorPalette id={id} color={color} />
+              </div>
+
+              {is_archived === false ? (
+                <div className="icon">
+                  <ArchiveOutlinedIcon onClick={handleArchiveNoteClick} />
+                </div>
+              ) : (
+                <div className="icon">
+                  <UnarchiveOutlinedIcon onClick={handleUnarchiveNoteClick} />
+                </div>
+              )}
+              <div className="icon">
+                <DeleteForeverOutlinedIcon onClick={handleDeleteNoteClick} />
+              </div>
+              <div className="icon">
+              <EditNoteDropDown
+                id={id}
+                title={title}
+                items={items}
+                color={color}
+                labels={labels}
               />
-            ) : (
-              <UnarchiveOutlinedIcon
-                className=""
-                onClick={handleUnarchiveNoteClick}
-              />
-            )}
-            <DeleteForeverOutlinedIcon
-              className="deleteIcon"
-              onClick={handleDeleteNoteClick}
-            />
-          </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -3,18 +3,16 @@ import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Note from "./Note";
 
 function ArchivedNotes() {
-  const {  searchText, columnView, isLoggedIn, darkMode, notes } =
+  const {  searchText, columnView, darkMode, archivedNotes } =
     useNoteAppContext();
-    // archivedNotes
 
-    const archivedNotes = notes.filter((note) => note.is_archived === true);
+    // const archivedNotes = notes.filter((note) => note.is_archived === true);
     console.log(archivedNotes);
   return (
     <div className={`${darkMode && "dark-mode"}`}>
       <div className="note-app-container">
         <div className={columnView ? "notes-list-column" : "notes-list-grid"}>
-          {isLoggedIn && archivedNotes.length ? (
-            archivedNotes
+            {archivedNotes
               .filter((note) => {
                 return (
                   searchText.toLowerCase() === "" ||
@@ -38,11 +36,10 @@ function ArchivedNotes() {
                   />
                 );
               })
-          ) : (
-            <div className="d-flex justify-content-center align-items-center">
+            }
+            {/* <div className="d-flex justify-content-center align-items-center">
               <h1 className="text-center">There are no archived notes</h1>
-            </div>
-          )}
+            </div> */}
         </div>
       </div>
     </div>

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Modal from "react-bootstrap/Modal";
-import EditNoteIcon from "@mui/icons-material/EditNote";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ItemList from "./ItemList";
 import Form from "react-bootstrap/Form";
@@ -11,8 +10,10 @@ import Button from "react-bootstrap/Button";
 import NoteTitle from "./NoteTitle";
 import AddLabelDropDown from "./AddLabelDropDown";
 import LabelList from "./LabelList";
+import Dropdown from "react-bootstrap/Dropdown";
+import moment from "moment";
 
-function EditNote({ id, title, color, items, labels }) {
+function EditNote({ id, title, color, items, date, labels }) {
   EditNote.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -37,9 +38,9 @@ function EditNote({ id, title, color, items, labels }) {
 
   const [newItem, setNewItem] = useState("");
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [showEdit, setShowEdit] = useState(false);
+  const handleEditClose = () => setShowEdit(false);
+  const handleEditShow = () => setShowEdit(true);
 
   const handleNewItem = (e) => {
     setNewItem(e.target.value);
@@ -53,13 +54,13 @@ function EditNote({ id, title, color, items, labels }) {
     }
   };
 
-
+  let createdAt = moment(date).format("MMM Do YYYY");
 
   return (
     <div>
       <div>
-        <EditNoteIcon fontSize="large" className="me-2" onClick={handleShow} />
-        <Modal show={show} onHide={handleClose} centered>
+        <Dropdown.Item onClick={handleEditShow}>Edit note</Dropdown.Item>
+        <Modal show={showEdit} onHide={handleEditClose} centered>
           <Modal.Header
             className="border-0"
             style={{ backgroundColor: color, border: "none" }}
@@ -68,7 +69,10 @@ function EditNote({ id, title, color, items, labels }) {
               <NoteTitle id={id} title={title} />
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body className="border-0" style={{ backgroundColor: color, paddingBottom: "0px" }}>
+          <Modal.Body
+            className="border-0"
+            style={{ backgroundColor: color, paddingBottom: "0px" }}
+          >
             {items
               .filter((item) => {
                 return item.completed === false;
@@ -90,7 +94,15 @@ function EditNote({ id, title, color, items, labels }) {
             </div>
             <hr className="horizontal-rule" />
           </Modal.Body>
-          <ModalBody className="border-0" style={{ backgroundColor: color, border: "none", paddingTop: "0px", paddingBottom: "0px" }}>
+          <ModalBody
+            className="border-0"
+            style={{
+              backgroundColor: color,
+              border: "none",
+              paddingTop: "0px",
+              paddingBottom: "0px",
+            }}
+          >
             {items
               .filter((item) => {
                 return item.completed === true;
@@ -99,14 +111,27 @@ function EditNote({ id, title, color, items, labels }) {
                 <ItemList item={item} key={item.id} />
               ))}
           </ModalBody>
-          <Modal.Footer className="border-0 justify-content-start" style={{ backgroundColor: color, border: "none" }}>
-            {labels?.length > 0 ? labels.map((label) => (
-            <LabelList label={label} />
-          )) : null}
-          </Modal.Footer>
-          <Modal.Footer className="border-0 justify-content-between" style={{ backgroundColor: color, border: "none" }}>
-          <AddLabelDropDown id={id} labels={labels} />
-            <Button onClick={handleClose}>Close</Button>
+          <ModalBody
+            className="border-0"
+            style={{
+              backgroundColor: color
+            }}
+          >
+            <div className="d-flex flex-wrap">
+              {labels?.length > 0
+                ? labels.map((label) => <LabelList label={label} />)
+                : null}
+            </div>
+            <div>
+              <small className="text-muted">created{" "}{createdAt}</small>
+            </div>
+          </ModalBody>
+          <Modal.Footer
+            className="border-0 justify-content-between"
+            style={{ backgroundColor: color, border: "none" }}
+          >
+            <AddLabelDropDown id={id} labels={labels} />
+            <Button onClick={handleEditClose}>Close</Button>
           </Modal.Footer>
         </Modal>
       </div>

@@ -27,3 +27,4 @@ export { default as EditLabelsList } from "./EditLabelsList";
 export { default as EditNoteDropDown } from "./EditNoteDropDown";
 export { default as PleaseLogin } from "./PleaseLogin";
 export { default as NoArchivedNotes } from "./NoArchivedNotes";
+export { default as NestedAddLabelDropDown } from "./NestedAddLabelDropDown";

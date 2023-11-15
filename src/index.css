@@ -87,15 +87,21 @@ body {
 }
 
 .note-footer {
-  display: flex;
-  justify-content: space-between;
+  height: 1.5rem;
+  display: block;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .form-check-input {
   margin-right: 0.5rem;
   background-color: transparent;
   border-color: #282c34;
+}
+
+.form-check-input:checked {
+  background-color: #282c34;
+  color: #282c34;
 }
 
 .itemListBackground {
@@ -121,11 +127,24 @@ body {
   color: black;
 }
 
-.deleteIcon {
-  cursor: pointer;
+.dropdown-toggle::after {
+  display: none;
 }
-.deleteIcon:hover {
-  color: red;
+
+.dropend .dropdown-toggle::after {
+  display: none;
+}
+
+.icon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 200ms ease-in-out;
+  border-radius: 25px;
+  padding: 0.5rem;
+}
+.icon:hover {
+  background-color: #b0b8b8;
 }
 
 .horizontal-rule {
@@ -178,5 +197,9 @@ body {
 
   .add-note-bar {
     width: 95%;
+  }
+
+  .note-footer {
+    align-items: center;
   }
 }

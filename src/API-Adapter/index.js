@@ -1,5 +1,5 @@
-const URL = "https://todo-app-7yv2.onrender.com";
-// const URL = "http://localhost:4000";
+// const URL = "https://todo-app-7yv2.onrender.com";
+const URL = "http://localhost:4000";
 
 export { registerCall } from "./registerCall";
 export { loginCall } from "./loginCall";
@@ -82,6 +82,36 @@ export const createNoteCall = async (
     });
     const result = await response.json();
     console.log("Result from createNote: ", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const createCopyCall = async (
+  token,
+  title,
+  color,
+  noteItems,
+  itemsCompleted,
+  labelIds
+) => {
+  try {
+    const response = await fetch(`${URL}/api/notes/user/create_note_copy`, {
+      method: "POST",
+      mode: "cors",
+      headers: makeHeaders(token),
+      body: JSON.stringify({
+        title: title,
+        color: color,
+        noteItems: noteItems,
+        itemsCompleted: itemsCompleted,
+        labelIds: labelIds,
+      }),
+    });
+    const result = await response.json();
+    console.log("Result from createCopyCall: ", result);
     return result;
   } catch (error) {
     console.error(error);
