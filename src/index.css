@@ -14,6 +14,17 @@ body {
 
 /* Note-App Styling Below */
 
+.navbar-nav {
+  gap: 1rem;
+}
+
+#profile1 {
+  display: none;
+}
+
+#logout1 {
+  display: none;
+}
 .dark-mode {
   background-color: #282c34;
 }
@@ -104,6 +115,11 @@ body {
   color: #282c34;
 }
 
+form .form-control:focus {
+  border-color: #282c34;
+  box-shadow: none;
+}
+
 .itemListBackground {
   margin-top: 0.5rem;
   border: none;
@@ -153,7 +169,8 @@ body {
 
 .note-label {
   font-weight: 500;
-  border: solid #282c34 1px;
+  font-size: 0.8rem;
+  border: solid #282c34 1.5px;
   padding: 1px 5px;
   border-radius: 10px;
   white-space: nowrap;
@@ -170,11 +187,102 @@ body {
 .label-delete-icon:hover {
   color: red;
 }
+
+#profile-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+#profile-container img {
+  width: 15rem;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+#profile-container img:hover {
+  opacity: 0.75;
+  transition: opacity 0.5s ease-in-out;
+}
+#edit-profile-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+#edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+#edit-profile-form {
+  width: 90%;
+}
+
+#edit-profile-buttons {
+  gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+}
 @media screen and (max-width: 450px) {
-  .add-note-bar {
-    width: 100%;
+  .navbar-toggler-icon {
+    background-image: url("https://pyxis.nymag.com/v1/imgs/692/8f5/2180fb8d862b6a57d7b3f406795e950360-26-atomic-blonde.rsquare.w400.jpg");
+    background-size: cover;
+    border-radius: 50%;
   }
 
+  .navbar-toggler {
+    background-color: transparent;
+    border: none;
+  }
+  .navbar-nav {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    justify-items: center;
+  }
+
+  #searchBar1 {
+    grid-column: 1 / 4;
+    grid-row: 1/2;
+    width: 100% !important;
+  }
+
+  #dark-mode-toggle {
+    grid-column: 1 / 1;
+    display: none;
+  }
+
+  #grid-view-toggle {
+    grid-column: 2 / 2;
+    display: none;
+  }
+
+  #column-view-toggle {
+    grid-column: 2 / 2;
+    display: none;
+  }
+
+  #basic-nav-dropdown {
+    grid-column: 3 / 3;
+    display: none;
+  }
+
+  #profile1 {
+    display: block;
+    grid-column: 1 / 1;
+  }
+
+  #logout1 {
+    display: block;
+    grid-column: 3/ 3;
+  }
   .note {
     width: 100%;
   }

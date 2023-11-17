@@ -28,3 +28,4 @@ export { default as EditNoteDropDown } from "./EditNoteDropDown";
 export { default as PleaseLogin } from "./PleaseLogin";
 export { default as NoArchivedNotes } from "./NoArchivedNotes";
 export { default as NestedAddLabelDropDown } from "./NestedAddLabelDropDown";
+export { default as Profile } from "./Profile";

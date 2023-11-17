@@ -3,13 +3,19 @@ import { useState } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { FormControl, InputGroup, NavDropdown } from "react-bootstrap";
+import {
+  FloatingLabel,
+  FormControl,
+  FormGroup,
+  InputGroup,
+  NavDropdown,
+} from "react-bootstrap";
 import { loginCall } from "../API-Adapter";
 import Register from "./Register";
 
 function LogIn() {
-
-  const { setToken, setUser, setIsLoggedIn, getUserNotes, getUserLabels } = useNoteAppContext();
+  const { setToken, setUser, setIsLoggedIn, getUserNotes, getUserLabels } =
+    useNoteAppContext();
   const [showLogin, setShowLogin] = useState(false);
   const handleShowLogin = () => setShowLogin(true);
   const handleCloseLogin = () => setShowLogin(false);
@@ -39,8 +45,8 @@ function LogIn() {
           setToken(result.token);
           setUser(result.user);
           setIsLoggedIn(true);
-          await getUserNotes(result.token, result.user.id)
-          await getUserLabels(result.token, result.user.id)
+          await getUserNotes(result.token, result.user.id);
+          await getUserLabels(result.token, result.user.id);
           handleCloseLogin();
         } else {
           alert(result.message);
@@ -60,32 +66,44 @@ function LogIn() {
           <Modal.Title>Log In</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <InputGroup className="mb-3">
-            <FormControl
-              type="email"
-              id="inputEmail"
-              aria-describedby="emailHelp"
-              placeholder="Email Address"
-              required
-              onChange={handleEmail}
-            />
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <FormControl
-              type="password"
-              id="inputPassword"
-              aria-describedby="passwordHelp"
-              placeholder="Password"
-              required
-              onChange={handlePassword}
-            />
-          </InputGroup>
+          <FormGroup className="mb-3">
+            <FloatingLabel
+              className="mb-3"
+              controlId="formLoginEmail"
+              label="Email Address"
+            >
+              <FormControl
+                type="email"
+                controlId="formLoginEmail"
+                aria-describedby="emailHelp"
+                placeholder="Email Address"
+                required
+                onChange={handleEmail}
+              />
+            </FloatingLabel>
+          </FormGroup>
+          <FormGroup className="mb-3">
+            <FloatingLabel
+              className="mb-3"
+              controlId="formLoginPassword"
+              label="Password"
+            >
+              <FormControl
+                type="password"
+                controlId="formLoginPassword"
+                aria-describedby="passwordHelp"
+                placeholder="Password"
+                required
+                onChange={handlePassword}
+              />
+            </FloatingLabel>
+          </FormGroup>
         </Modal.Body>
         <Modal.Footer>
           {/* <Button variant="primary" href="/register">
             Register Here
           </Button> */}
-          <Register handleCloseLogin={handleCloseLogin}/>
+          <Register handleCloseLogin={handleCloseLogin} />
           <Button variant="secondary" onClick={handleCloseLogin}>
             Close
           </Button>

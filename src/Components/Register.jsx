@@ -1,21 +1,25 @@
 import React from "react";
 import { useState } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
-import { Button, Form, InputGroup, Modal } from "react-bootstrap";
+import {
+  Button,
+  Form,
+  InputGroup,
+  Modal,
+  FormGroup,
+  Row,
+  Col,
+  FloatingLabel,
+} from "react-bootstrap";
 import { registerCall } from "../API-Adapter";
 
-function Register({handleCloseLogin}) {
+function Register({ handleCloseLogin }) {
   const [showRegister, setShowRegister] = useState(false);
   const handleRegisterShow = () => setShowRegister(true);
   const handleRegisterClose = () => setShowRegister(false);
 
-  const {
-    setIsLoggedIn,
-    setToken,
-    setUser,
-    getUserNotes,
-    getUserLabels,
-  } = useNoteAppContext();
+  const { setIsLoggedIn, setToken, setUser, getUserNotes, getUserLabels } =
+    useNoteAppContext();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -43,7 +47,6 @@ function Register({handleCloseLogin}) {
           await getUserLabels(result.token, result.user.id);
           handleRegisterClose();
           handleCloseLogin();
-        
         } else {
           alert(result.message);
         }
@@ -63,48 +66,78 @@ function Register({handleCloseLogin}) {
           <Modal.Title>Register</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <InputGroup className="mb-3">
-            <Form.Control
-              type="name"
-              id="registerName"
-              aria-describedby="nameHelp"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-            <Form.Control
-              type="email"
-              id="registerEmail"
-              aria-describedby="emailHelp"
-              placeholder="Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <Form.Control
-              type="password"
-              id="registerPassword"
-              placeholder="Password"
-              aria-label="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <Form.Control
-              type="password"
-              id="confirmPassword"
-              placeholder="Confirm Password"
-              aria-label="Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirm(e.target.value)}
-              required
-            />
-          </InputGroup>
+          <Form>
+            <Row>
+              <FormGroup as={Col} className="mb-3">
+                <FloatingLabel
+                  type="text"
+                  controlId="formRegisterName"
+                  label="Name"
+                >
+                  <Form.Control
+                    type="name"
+                    controlId="formRegisterName"
+                    aria-describedby="nameHelp"
+                    placeholder="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </FloatingLabel>
+              </FormGroup>
+              <FormGroup as={Col} className="mb-3">
+                <FloatingLabel
+                  type="text"
+                  controlId="formRegisterEmail"
+                  label="Email"
+                >
+                  <Form.Control
+                    type="email"
+                    controlId="formRegisterEmail"
+                    aria-describedby="emailHelp"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </FloatingLabel>
+              </FormGroup>
+            </Row>
+          </Form>
+          <FormGroup className="mb-3">
+            <FloatingLabel
+              type="text"
+              controlId="formRegisterPassword"
+              label="Password"
+            >
+              <Form.Control
+                type="password"
+                controlId="formRegisterPassword"
+                placeholder="Password"
+                aria-label="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </FloatingLabel>
+          </FormGroup>
+          <FormGroup className="mb-3">
+            <FloatingLabel
+              type="text"
+              controlId="formRegisterConfirmPassword"
+              label="Confirm Password"
+            >
+              <Form.Control
+                type="password"
+                id="formRegisterConfirmPassword"
+                placeholder="Confirm Password"
+                aria-label="Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirm(e.target.value)}
+                required
+              />
+            </FloatingLabel>
+          </FormGroup>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleRegisterClose}>

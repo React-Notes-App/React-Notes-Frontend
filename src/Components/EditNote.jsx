@@ -85,7 +85,7 @@ function EditNote({ id, title, color, items, date, labels }) {
             <div className="d-flex flex-row align-items-center">
               <AddCircleOutlineIcon />
               <Form.Control
-                style={{ border: "none", backgroundColor: "transparent" }}
+                style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
                 placeholder="List item"
                 value={newItem}
                 onChange={handleNewItem}

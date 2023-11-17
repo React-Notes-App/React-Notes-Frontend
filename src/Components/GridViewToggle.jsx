@@ -2,6 +2,7 @@ import React from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import GridViewIcon from "@mui/icons-material/GridView";
 
+
 function GridViewToggle() {
     const { setColumnView } = useNoteAppContext();
     const handleGridView = () => {
@@ -9,8 +10,9 @@ function GridViewToggle() {
         setColumnView(false);
     }
   return (
-    <div>
-      <GridViewIcon onClick={handleGridView}/>
+    <div onClick={handleGridView}>
+      <GridViewIcon />
+      <label style={{marginLeft: ".5em"}}>Grid View</label>
     </div>
   );
 }

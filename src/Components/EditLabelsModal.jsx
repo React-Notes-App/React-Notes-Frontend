@@ -21,6 +21,7 @@ function EditLabelsModal() {
   const createLabelStyles = {
     backgroundColor: "transparent",
     border: "none",
+    boxShadow: "none",
   };
 
   const handleCreateLabel = (e) => {

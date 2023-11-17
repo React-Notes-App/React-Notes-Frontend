@@ -8,8 +8,9 @@ function NoteTitle({ id, title }) {
   const styles = {
     border: "none",
     backgroundColor: "transparent",
-    fontSize: "1.5rem",
+    fontSize: "1rem",
     paddingLeft: "0",
+    boxShadow: "none",
   };
 
   const handleTitleSubmit = (e) => {

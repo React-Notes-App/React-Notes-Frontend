@@ -28,6 +28,7 @@ function AddLabelDropDown({ labels, id }) {
   const createLabelStyles = {
     backgroundColor: "transparent",
     border: "none",
+    boxShadow: "none",
   };
 
   const dropDownStyles = {
@@ -46,7 +47,7 @@ function AddLabelDropDown({ labels, id }) {
     <div>
       <Dropdown drop="end">
         <Dropdown.Toggle  style={style}>
-          <Dropdown.Item  >Change Label</Dropdown.Item>
+          <Dropdown.Item  >Change label</Dropdown.Item>
         </Dropdown.Toggle>
         <Dropdown.Menu style={dropDownStyles} >
           <InputGroup className="mb-2 align-items-center">

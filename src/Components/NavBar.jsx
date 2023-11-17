@@ -14,17 +14,36 @@ import {
   Form,
   NavDropdown,
   NavLink,
+  Image,
 } from "react-bootstrap";
 import FaceIcon from "@mui/icons-material/Face";
 
 function NavBar() {
-  const { searchText, setSearchText, setDarkMode, columnView, setIsLoggedIn, setToken, setUser } =
-    useNoteAppContext();
+  const {
+    searchText,
+    setSearchText,
+    setDarkMode,
+    columnView,
+    setIsLoggedIn,
+    setToken,
+    setUser,
+    isLoggedIn,
+  } = useNoteAppContext();
 
   function handleSearch(event) {
     setSearchText(event.target.value);
     console.log(event.target.value);
   }
+
+  let profilePic =
+    "https://pyxis.nymag.com/v1/imgs/692/8f5/2180fb8d862b6a57d7b3f406795e950360-26-atomic-blonde.rsquare.w400.jpg";
+  let style = {
+    width: "2.5rem",
+    height: "2.5rem",
+    borderRadius: "50%",
+    objectFit: "cover",
+  };
+
   return (
     <div>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -33,7 +52,7 @@ function NavBar() {
           <Navbar.Brand href="/">Notes</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto p-2">
+            <Nav className="ms-auto p-2 align-items-center">
               <Form.Control
                 className=" w-auto"
                 type="search"
@@ -42,38 +61,69 @@ function NavBar() {
                 aria-label="Search"
                 value={searchText}
                 onChange={handleSearch}
-                style={{marginRight: "0.5rem", marginLeft: "0.5rem"}}
+                style={{ marginRight: "0.5rem", marginLeft: "0.5rem" }}
               />
-              
-              <DarkModeToggle handleToggleDarkMode={setDarkMode} />
-
-              {columnView ? (
-                <NavLink>
-                  <GridViewToggle />
-                </NavLink>
-              ) : (
-                <NavLink>
-                  <ColumnViewToggle />
-                </NavLink>
-              )}
-              <NavDropdown
-                title={<FaceIcon />}
-                id="basic-nav-dropdown"
-                drop="down"
-                align={{ lg: "end" }}
-              >
-                <LogIn />
-                <NavDropdown.Item>Profile</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item
+              <Nav.Link id="profile1" className="me-2" href={"/profile"}>
+                Profile
+              </Nav.Link>
+              <Nav.Item
+                id="logout1"
+                className="me-2"
                 onClick={() => {
                   setIsLoggedIn(false);
                   localStorage.removeItem("token");
                   localStorage.removeItem("user");
                   setToken("");
-                  setUser(""); 
+                  setUser("");
                 }}
-                >Log Out</NavDropdown.Item>
+              >
+                Logout
+              </Nav.Item>
+              <NavLink id="dark-mode-toggle">
+                <DarkModeToggle handleToggleDarkMode={setDarkMode} />
+              </NavLink>
+
+              {columnView ? (
+                <NavLink id="grid-view-toggle">
+                  <GridViewToggle />
+                </NavLink>
+              ) : (
+                <NavLink id="column-view-toggle">
+                  <ColumnViewToggle />
+                </NavLink>
+              )}
+              <NavDropdown
+                title={
+                  profilePic ? (
+                    <Image
+                      src={profilePic}
+                      roundedCircle={true}
+                      fluid
+                      style={style}
+                    />
+                  ) : (
+                    <FaceIcon />
+                  )
+                }
+                id="basic-nav-dropdown"
+                drop="down"
+                align={{ lg: "end" }}
+              >
+                {" "}
+                {isLoggedIn ? null : <LogIn />}
+                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item
+                  onClick={() => {
+                    setIsLoggedIn(false);
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user");
+                    setToken("");
+                    setUser("");
+                  }}
+                >
+                  Log Out
+                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>

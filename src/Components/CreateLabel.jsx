@@ -7,6 +7,7 @@ function CreateLabel({ setLabel_Name}) {
   const createLabelStyles = {
     backgroundColor: "transparent",
     border: "none",
+    boxShadow: "none",
   };
   const handleCreateLabel = (e) => {
     if (e.keyCode === 13) {

@@ -11,9 +11,8 @@ function DarkModeToggle({ handleToggleDarkMode }) {
   return (
     <FormCheck
       className="d-flex align-items-center"
-      
       type="switch"
-      id="flexSwitchCheckDefault"
+      id="dark-mode-toggle2"
       label="Dark Mode"
       onClick={() =>
         handleToggleDarkMode((previousDarkMode) => !previousDarkMode)

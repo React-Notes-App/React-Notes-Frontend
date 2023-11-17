@@ -28,6 +28,7 @@ function AddLabelDropDown({ labels, id }) {
   const createLabelStyles = {
     backgroundColor: "transparent",
     border: "none",
+    boxShadow: "none",
   };
 
   const dropDownStyles = {

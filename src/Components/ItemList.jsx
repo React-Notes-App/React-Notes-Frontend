@@ -24,6 +24,8 @@ function ItemList({ item }) {
     textDecoration: item.completed ? "line-through" : "none",
     backgroundColor: "transparent",
     border: "none",
+    fontSize: ".8rem",
+    boxShadow: "none",
   };
 
   const handleCheck = () => {

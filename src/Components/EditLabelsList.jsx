@@ -9,6 +9,7 @@ function EditLabelsList({ label }) {
   const styles = {
     backgroundColor: "transparent",
     border: "none",
+    boxShadow: "none",
   };
 
   const handleEditLabel = (e) => {

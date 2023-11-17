@@ -126,7 +126,7 @@ const NoteAppProvider = ({ children }) => {
     const oldNote = notes.find((note) => note.id === id);
     console.log(oldNote);
 
-    const title = "Copy of\n " + oldNote.title 
+    const title = "Copy of" + oldNote.title 
     const color = oldNote.color;
     const noteItems = oldNote.items.map((item) => item.item_name);
     const itemsCompleted = oldNote.items.map((item) => item.completed);
@@ -150,6 +150,7 @@ const NoteAppProvider = ({ children }) => {
     await getUserLabels(token, user.id);
    
   };
+
 
   const editNoteTitle = async (id, title) => {
     const result = await editNoteTitleCall(token, id, title);

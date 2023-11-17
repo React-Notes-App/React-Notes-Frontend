@@ -5,6 +5,7 @@ import {
   NavBar,
   ArchivedNotes,
   LabelFilteredList,
+  Profile
 } from "./";
 import NoteAppProvider from "../Provider/NoteAppProvider";
 
@@ -18,6 +19,7 @@ function Main() {
           <Route path="/" element={<NoteApp />} />
           <Route path="/archived_notes" element={<ArchivedNotes />} />
           <Route path="/labels/:id" element={<LabelFilteredList />} />
+          <Route path="/profile" element={<Profile/>} />
         </Routes>
       </NoteAppProvider>
     </div>

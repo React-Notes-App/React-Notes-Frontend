@@ -7,12 +7,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 import Nav from "react-bootstrap/Nav";
 import EditLabelsModal from "./EditLabelsModal";
+import DarkModeToggle from "./DarkModeToggle";
+import GridViewToggle from "./GridViewToggle";
+import ColumnViewToggle from "./ColumnViewToggle";
 import DeleteForeverOutlined from "@mui/icons-material/DeleteForeverOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 
 function SideNav() {
-  const { isLoggedIn, notes, userLabels } = useNoteAppContext();
+  const { isLoggedIn, notes, userLabels, columnView, setDarkMode } = useNoteAppContext();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -23,22 +26,6 @@ function SideNav() {
     }
     return acc;
   }, 0);
-
-  //  const foo = getNotesByLabel(1)
-  //   console.log(foo, "foo")
-
-  // const notesLabels = notes.reduce((acc, note) => {
-  //   note.labels.forEach((label) => {
-  //     if (acc[label.label_name]) {
-  //       acc[label.label_name] += 1;
-  //     } else {
-  //       acc[label.label_name] = 1;
-  //     }
-  //   });
-  //   return acc;
-  // }, {});
-
-  // console.log(notesLabels, "notesLabels");
 
   return (
     <div>
@@ -65,7 +52,7 @@ function SideNav() {
                   </Nav.Link>
                 </div>
                 {label.note_count > 0 && (
-                  <Badge bg="primary" style={{ }}>
+                  <Badge bg="primary" style={{}}>
                     {label.note_count}
                   </Badge>
                 )}
@@ -81,12 +68,12 @@ function SideNav() {
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
               <ArchiveOutlinedIcon />
-              <Nav.Link href="/archived_notes" style={{ marginLeft: ".5rem"}}>
+              <Nav.Link href="/archived_notes" style={{ marginLeft: ".5rem" }}>
                 Archived
               </Nav.Link>
             </div>
-            {archivedNoteCount > 0 && (
-              <Badge bg="secondary" style={{  }}>
+            {archivedNoteCount >= 0 && (
+              <Badge bg="secondary" style={{}}>
                 {archivedNoteCount}
               </Badge>
             )}
@@ -99,6 +86,22 @@ function SideNav() {
           </div>
           <hr />
           <EditLabelsModal />
+          <hr />
+         
+
+          {columnView ? (
+            <Nav.Link id="grid-view-toggle2">
+              <GridViewToggle />
+            </Nav.Link>
+          ) : (
+            <Nav.Link id="column-view-toggle2">
+              <ColumnViewToggle />
+            </Nav.Link>
+          )}
+          <hr />
+           <Nav.Link id="dark-mode-toggle2">
+            <DarkModeToggle handleToggleDarkMode={setDarkMode} />
+          </Nav.Link>
         </Offcanvas.Body>
       </Offcanvas>
     </div>

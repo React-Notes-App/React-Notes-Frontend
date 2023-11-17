@@ -20,9 +20,9 @@ function EditNoteDropDown({ id, title, items, color, labels }) {
     let note = { title, items };
     let noteItems = note.items.map((item) => item.item_name);
 
-    noteItems = noteItems.join("%0D%0A");
+    noteItems = noteItems.join("%0D%0A- ");
 
-    const link = `mailto:?subject=${title}&body=${noteItems}`;
+    const link = `mailto:?subject=${title}&body=- ${noteItems}`;
     window.open(link);
   };
 
@@ -31,9 +31,10 @@ function EditNoteDropDown({ id, title, items, color, labels }) {
     let noteTitle = note.title;
     let noteItems = note.items.map((item) => item.item_name);
 
-    noteItems = noteItems.join(", ");
+    noteItems = noteItems.join("\n - ")
+    console.log(noteItems);
 
-    let copiedNote = `Title: ${noteTitle} Items: ${noteItems}`;
+    let copiedNote = `${noteTitle}\n - ${noteItems}`;
     console.log(copiedNote);
 
     navigator.clipboard.writeText(copiedNote);
