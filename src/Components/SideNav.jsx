@@ -18,19 +18,19 @@ function SideNav() {
   const { isLoggedIn, notes, userLabels, columnView, setDarkMode } = useNoteAppContext();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () =>  setShow(true)
 
-  const archivedNoteCount = notes.reduce((acc, note) => {
+  
+  const archivedNoteCount = isLoggedIn && notes ? notes.reduce((acc, note) => {
     if (note.is_archived) {
       acc += 1;
     }
     return acc;
-  }, 0);
+  }, 0) : 0;
 
   return (
     <div>
       <MenuIcon sx={{ fontSize: 40 }} onClick={handleShow} className="me-2" />
-
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Notes</Offcanvas.Title>

@@ -4,7 +4,6 @@ import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import {
   Button,
   Form,
-  InputGroup,
   Modal,
   FormGroup,
   Row,
@@ -12,6 +11,8 @@ import {
   FloatingLabel,
 } from "react-bootstrap";
 import { registerCall } from "../API-Adapter";
+import LogInModal from "./LogInModal";
+
 
 function Register({ handleCloseLogin }) {
   const [showRegister, setShowRegister] = useState(false);
@@ -58,14 +59,14 @@ function Register({ handleCloseLogin }) {
 
   return (
     <div>
-      <Button variant="primary" onClick={handleRegisterShow}>
+      <Button variant="link" onClick={handleRegisterShow}>
         Register Here
       </Button>
       <Modal show={showRegister} onHide={handleRegisterClose}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="border-0">
           <Modal.Title>Register</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="border-0">
           <Form>
             <Row>
               <FormGroup as={Col} className="mb-3">
@@ -138,14 +139,20 @@ function Register({ handleCloseLogin }) {
               />
             </FloatingLabel>
           </FormGroup>
+          <div className="d-flex justify-content-end gap-2">
+            <Button variant="secondary" onClick={handleRegisterClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleRegister}>
+              Register
+            </Button>
+          </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleRegisterClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleRegister}>
-            Register
-          </Button>
+        <Modal.Footer className="border-0 justify-content-start align-items-center">
+          <Form.Label className="text-muted">
+            Already have an account?
+          </Form.Label>
+          <LogInModal handleCloseLogin={handleCloseLogin} />
         </Modal.Footer>
       </Modal>
     </div>

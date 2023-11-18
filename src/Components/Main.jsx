@@ -5,9 +5,11 @@ import {
   NavBar,
   ArchivedNotes,
   LabelFilteredList,
-  Profile
+  Profile,
+  RegisterForm,
 } from "./";
 import NoteAppProvider from "../Provider/NoteAppProvider";
+import LogInForm from "./LogInForm";
 
 
 function Main() {
@@ -16,10 +18,12 @@ function Main() {
       <NoteAppProvider>
         <NavBar />
         <Routes>
-          <Route path="/" element={<NoteApp />} />
+          <Route path="/login" element={<LogInForm />} />
+          <Route path="/notes" element={<NoteApp />} />
           <Route path="/archived_notes" element={<ArchivedNotes />} />
           <Route path="/labels/:id" element={<LabelFilteredList />} />
           <Route path="/profile" element={<Profile/>} />
+          <Route path="/register" element={<RegisterForm />} />
         </Routes>
       </NoteAppProvider>
     </div>

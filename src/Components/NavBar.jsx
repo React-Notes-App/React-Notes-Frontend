@@ -3,7 +3,7 @@ import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import {
   ColumnViewToggle,
   GridViewToggle,
-  LogIn,
+  LogInModal,
   SideNav,
   DarkModeToggle,
 } from "./";
@@ -48,7 +48,9 @@ function NavBar() {
     <div>
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container fluid>
+          {isLoggedIn ? (
           <SideNav setDarkMode={setDarkMode} />
+          ) : null}
           <Navbar.Brand href="/">Notes</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -63,22 +65,30 @@ function NavBar() {
                 onChange={handleSearch}
                 style={{ marginRight: "0.5rem", marginLeft: "0.5rem" }}
               />
-              <Nav.Link id="profile1" className="me-2" href={"/profile"}>
-                Profile
-              </Nav.Link>
-              <Nav.Item
-                id="logout1"
-                className="me-2"
-                onClick={() => {
-                  setIsLoggedIn(false);
-                  localStorage.removeItem("token");
-                  localStorage.removeItem("user");
-                  setToken("");
-                  setUser("");
-                }}
-              >
-                Logout
+              {isLoggedIn ? (
+                <Nav.Link id="profile1" className="me-2" href={"/profile"}>
+                  Profile
+                </Nav.Link>
+              ) : null}
+              {isLoggedIn ? (
+                <Nav.Item
+                  id="logout1"
+                  className="me-2"
+                  onClick={() => {
+                    setIsLoggedIn(false);
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user");
+                    setToken("");
+                    setUser("");
+                  }}
+                >
+                  Logout
+                </Nav.Item>
+              ) : (
+              <Nav.Item id="login1" className="me-2">
+                <LogInModal />
               </Nav.Item>
+              )}
               <NavLink id="dark-mode-toggle">
                 <DarkModeToggle handleToggleDarkMode={setDarkMode} />
               </NavLink>
@@ -109,21 +119,29 @@ function NavBar() {
                 drop="down"
                 align={{ lg: "end" }}
               >
-                {" "}
-                {isLoggedIn ? null : <LogIn />}
-                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item
-                  onClick={() => {
-                    setIsLoggedIn(false);
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("user");
-                    setToken("");
-                    setUser("");
-                  }}
-                >
-                  Log Out
-                </NavDropdown.Item>
+                {isLoggedIn ? (
+                  <>
+                    <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+
+                    <NavDropdown.Divider />
+                  </>
+                ) : null}
+
+                {isLoggedIn ? (
+                  <NavDropdown.Item
+                    onClick={() => {
+                      setIsLoggedIn(false);
+                      localStorage.removeItem("token");
+                      localStorage.removeItem("user");
+                      setToken("");
+                      setUser("");
+                    }}
+                  >
+                    Log Out
+                  </NavDropdown.Item>
+                ) : (
+                  <LogInModal />
+                )}
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>

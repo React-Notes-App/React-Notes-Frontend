@@ -6,8 +6,6 @@ function ArchivedNotes() {
   const {  searchText, columnView, darkMode, archivedNotes } =
     useNoteAppContext();
 
-    // const archivedNotes = notes.filter((note) => note.is_archived === true);
-    console.log(archivedNotes);
   return (
     <div className={`${darkMode && "dark-mode"}`}>
       <div className="note-app-container">

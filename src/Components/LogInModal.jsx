@@ -7,11 +7,11 @@ import {
   FloatingLabel,
   FormControl,
   FormGroup,
-  InputGroup,
+  FormLabel,
   NavDropdown,
 } from "react-bootstrap";
 import { loginCall } from "../API-Adapter";
-import Register from "./Register";
+import RegisterModal from "./RegisterModal";
 
 function LogIn() {
   const { setToken, setUser, setIsLoggedIn, getUserNotes, getUserLabels } =
@@ -59,10 +59,10 @@ function LogIn() {
 
   return (
     <div>
-      {/* <FaceIcon onClick={handleShowLogin} /> */}
       <NavDropdown.Item onClick={handleShowLogin}>Login</NavDropdown.Item>
+
       <Modal show={showLogin} onHide={handleCloseLogin}>
-        <Modal.Header closeButton>
+        <Modal.Header className="border-0" closeButton>
           <Modal.Title>Log In</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -98,18 +98,18 @@ function LogIn() {
               />
             </FloatingLabel>
           </FormGroup>
-        </Modal.Body>
-        <Modal.Footer>
-          {/* <Button variant="primary" href="/register">
-            Register Here
-          </Button> */}
-          <Register handleCloseLogin={handleCloseLogin} />
+          <div className="d-flex justify-content-end gap-2">
           <Button variant="secondary" onClick={handleCloseLogin}>
             Close
           </Button>
           <Button variant="primary" onClick={handleLogin}>
             Login
           </Button>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="border-0 justify-content-start">
+          <FormLabel>Don't have an account?</FormLabel>
+          <RegisterModal handleCloseLogin={handleCloseLogin}/>
         </Modal.Footer>
       </Modal>
     </div>

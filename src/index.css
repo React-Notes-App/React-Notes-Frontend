@@ -13,12 +13,33 @@ body {
 } */
 
 /* Note-App Styling Below */
-
+#register-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#register-form {
+  width: 50%;
+}
+#login-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#login-form {
+  width: 50%;
+}
 .navbar-nav {
   gap: 1rem;
 }
 
 #profile1 {
+  display: none;
+}
+
+#login1 {
   display: none;
 }
 
@@ -224,7 +245,7 @@ form .form-control:focus {
 }
 
 #edit-profile-buttons {
-  gap: 1rem;
+  gap: 0.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -278,7 +299,6 @@ form .form-control:focus {
     display: block;
     grid-column: 1 / 1;
   }
-
   #logout1 {
     display: block;
     grid-column: 3/ 3;

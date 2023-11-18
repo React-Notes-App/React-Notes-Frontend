@@ -1,6 +1,7 @@
 import React from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import { NotesList, AddNote, AddNoteBar, PleaseLogin } from "./";
+import LogInForm from "./LogInForm";
 
 function NoteApp() {
   const { darkMode, isLoggedIn } = useNoteAppContext();
@@ -11,7 +12,10 @@ function NoteApp() {
         {isLoggedIn ? (
         <NotesList />
         ) : (
+          <>
           <PleaseLogin />
+          <LogInForm />
+          </>
         )}
         <div className="footer">
           <AddNote />
