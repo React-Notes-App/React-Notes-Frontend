@@ -21,6 +21,8 @@ import {
   removeLabelFromNoteCall,
   deleteLabelCall,
   getNotesByLabelCall,
+  hideCheckboxesCall,
+  showCheckboxesCall,
   // getNotesByLabelCall,
 } from "../API-Adapter";
 
@@ -70,9 +72,10 @@ const NoteAppProvider = ({ children }) => {
   const [userLabels, setUserLabels] = useState([]);
   const [notesLabels, setNotesLabels] = useState([]);
 
-  const [showCheckboxes, setShowCheckboxes] = useState(true);
-
   const archivedNotes = notes.filter((note) => note.is_archived === true);
+
+  // let checklist = notes.map((note) => note.has_checklist);
+  // console.log(checklist);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -128,7 +131,7 @@ const NoteAppProvider = ({ children }) => {
     const oldNote = notes.find((note) => note.id === id);
     console.log(oldNote);
 
-    const title = "Copy of" + oldNote.title 
+    const title = "Copy of" + oldNote.title;
     const color = oldNote.color;
     const noteItems = oldNote.items.map((item) => item.item_name);
     const itemsCompleted = oldNote.items.map((item) => item.completed);
@@ -150,9 +153,7 @@ const NoteAppProvider = ({ children }) => {
     const newNotes = [...notes, newNote];
     setNotes(newNotes);
     await getUserLabels(token, user.id);
-   
   };
-
 
   const editNoteTitle = async (id, title) => {
     const result = await editNoteTitleCall(token, id, title);
@@ -346,13 +347,34 @@ const NoteAppProvider = ({ children }) => {
   const getNotesByLabel = async (token, id) => {
     const result = await getNotesByLabelCall(token, id);
     const notes = result.notes;
-    console.log(notes);
     setNotesLabels(notes);
   };
 
-  const toggleCheckBox = () => {
-    setShowCheckboxes(!showCheckboxes);
+  const showCheckBoxes = async (id) => {
+    const result = await showCheckboxesCall(token, id);
+    const newNote = result.note;
+    const newNotes = notes.map((note) => {
+      if (note.id === id) {
+        return newNote;
+      }
+      return note;
+    }
+    );
+    setNotes(newNotes);
   }
+
+  const hideCheckBoxes = async (id) => {
+    const result = await hideCheckboxesCall(token, id);
+    const newNote = result.note;
+    const newNotes = notes.map((note) => {
+      if (note.id === id) {
+        return newNote;
+      }
+      return note;
+    }
+    );
+    setNotes(newNotes);
+  };
 
   return (
     <NoteAppProviderContext.Provider
@@ -376,8 +398,6 @@ const NoteAppProvider = ({ children }) => {
         setUserLabels,
         notesLabels,
         setNotesLabels,
-        showCheckboxes,
-        setShowCheckboxes,
 
         //actions
         getUserNotes,
@@ -399,7 +419,8 @@ const NoteAppProvider = ({ children }) => {
         deleteLabel,
         getNotesByLabel,
         createCopy,
-        toggleCheckBox,
+        hideCheckBoxes,
+        showCheckBoxes,
       }}
     >
       {children}

@@ -12,7 +12,7 @@ import LabelList from "./LabelList";
 import EditNoteDropDown from "./EditNoteDropDown";
 
 
-function Note({ id, title, items, date, color, labels, is_archived }) {
+function Note({ id, title, items, date, color, labels, is_archived, has_checklist }) {
   Note.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -35,6 +35,7 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
       })
     ).isRequired,
     is_archived: PropTypes.bool.isRequired,
+    has_checklist: PropTypes.bool.isRequired,
   };
 
   const { deleteNote, archiveNote, unarchiveNote } = useNoteAppContext();
@@ -74,7 +75,7 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
               return item.completed === false;
             })
             .map((item) => (
-              <ItemList item={item} key={item.id} />
+              <ItemList item={item} key={item.id} has_checklist={has_checklist} />
             ))}
         </div>
         <hr className="horizontal-rule" />
@@ -118,6 +119,7 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
                 items={items}
                 color={color}
                 labels={labels}
+                has_checklist={has_checklist}
               />
               </div>
             </div>

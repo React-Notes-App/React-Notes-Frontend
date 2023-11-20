@@ -6,14 +6,8 @@ import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import EditNote from "./EditNote";
 import NestedAddLabelDropDown from "./NestedAddLabelDropDown";
 
-function EditNoteDropDown({ id, title, items, color, labels }) {
-  const {
-    createCopy,
-    deleteNote,
-    showCheckboxes,
-    setShowCheckboxes,
-    toggleCheckBox,
-  } = useNoteAppContext();
+function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
+  const { createCopy, deleteNote, hideCheckBoxes, showCheckBoxes } = useNoteAppContext();
   const handleCreateCopy = () => {
     createCopy(id);
   };
@@ -22,10 +16,13 @@ function EditNoteDropDown({ id, title, items, color, labels }) {
     deleteNote(id);
   };
 
-  const handleShowCheckboxes = () => {
-    toggleCheckBox();
-    
+  const handleHideCheckboxes = () => {
+    hideCheckBoxes(id);
   };
+
+  const handleShowCheckboxes = () => {
+    showCheckBoxes(id)
+    }
 
   const handleSendNote = () => {
     let note = { title, items };
@@ -73,8 +70,8 @@ function EditNoteDropDown({ id, title, items, color, labels }) {
         />
 
         <NestedAddLabelDropDown id={id} labels={labels} />
-        {showCheckboxes ? (
-          <Dropdown.Item onClick={handleShowCheckboxes}>
+        {has_checklist === true ? (
+          <Dropdown.Item onClick={handleHideCheckboxes}>
             Hide checkboxes
           </Dropdown.Item>
         ) : (

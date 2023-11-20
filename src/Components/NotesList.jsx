@@ -28,6 +28,7 @@ function NotesList() {
               color={note.color}
               labels={note.labels}
               is_archived={note.is_archived}
+              has_checklist={note.has_checklist}
             />
           );
         })}

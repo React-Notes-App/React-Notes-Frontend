@@ -298,6 +298,44 @@ export const unarchiveNoteCall = async (token, id) => {
   }
 };
 
+export const hideCheckboxesCall = async (token, id) => {
+  try {
+    const response = await fetch(`${URL}/api/notes/user/hide_checkboxes`, {
+      method: "PATCH",
+      mode: "cors",
+      headers: makeHeaders(token),
+      body: JSON.stringify({
+        id: id,
+      }),
+    });
+    const result = await response.json();
+    console.log("Result from hideCheckboxesCall: ", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const showCheckboxesCall = async (token, id) => {
+  try {
+    const response = await fetch(`${URL}/api/notes/user/show_checkboxes`, {
+      method: "PATCH",
+      mode: "cors",
+      headers: makeHeaders(token),
+      body: JSON.stringify({
+        id: id,
+      }),
+    });
+    const result = await response.json();
+    console.log("Result from showCheckboxesCall: ", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const getActiveLabelsCall = async (token) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/active_labels`, {

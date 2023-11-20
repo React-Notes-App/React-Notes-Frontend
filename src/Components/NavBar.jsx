@@ -6,7 +6,6 @@ import {
   LogInModal,
   SideNav,
   DarkModeToggle,
-  Profile,
 } from "./";
 import {
   Container,
@@ -20,7 +19,6 @@ import FaceIcon from "@mui/icons-material/Face";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import NotesOutlinedIcon from "@mui/icons-material/NotesOutlined";
 import ListAltOutlined from "@mui/icons-material/ListAltOutlined";
 function NavBar() {
   const {

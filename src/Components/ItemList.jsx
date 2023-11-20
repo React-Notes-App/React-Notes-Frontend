@@ -6,7 +6,7 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-function ItemList({ item }) {
+function ItemList({ item, has_checklist} ) {
   ItemList.propTypes = {
     item: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -16,7 +16,7 @@ function ItemList({ item }) {
     }).isRequired,
   };
 
-  const { deleteItem, editItemName, checkItem, showCheckboxes } = useNoteAppContext();
+  const { deleteItem, editItemName, checkItem, } = useNoteAppContext();
   const [completed, setCompleted] = useState(item.completed);
   const noteId = item.notes_id;
 
@@ -53,7 +53,7 @@ function ItemList({ item }) {
   return (
     <div key={item.id}>
       <InputGroup className="mb-0 align-items-center">
-        {showCheckboxes ? (
+        {has_checklist === true ? (
         <Form.Check
           type="checkbox"
           id="itemCheckbox"
