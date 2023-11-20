@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { loginCall } from "../API-Adapter";
 import RegisterModal from "./RegisterModal";
+import { useNavigate } from "react-router-dom";
 
 function LogIn() {
   const { setToken, setUser, setIsLoggedIn, getUserNotes, getUserLabels } =
@@ -23,6 +24,8 @@ function LogIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -31,7 +34,6 @@ function LogIn() {
     setPassword(e.target.value);
   };
   const handleLogin = async (event) => {
-    console.log("login:", email, password);
     event.preventDefault();
     try {
       if (localStorage.getItem("token")) {
@@ -47,6 +49,7 @@ function LogIn() {
           setIsLoggedIn(true);
           await getUserNotes(result.token, result.user.id);
           await getUserLabels(result.token, result.user.id);
+          navigate("/notes");
           handleCloseLogin();
         } else {
           alert(result.message);
@@ -99,17 +102,17 @@ function LogIn() {
             </FloatingLabel>
           </FormGroup>
           <div className="d-flex justify-content-end gap-2">
-          <Button variant="secondary" onClick={handleCloseLogin}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleLogin}>
-            Login
-          </Button>
+            <Button variant="secondary" onClick={handleCloseLogin}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleLogin}>
+              Login
+            </Button>
           </div>
         </Modal.Body>
         <Modal.Footer className="border-0 justify-content-start">
           <FormLabel>Don't have an account?</FormLabel>
-          <RegisterModal handleCloseLogin={handleCloseLogin}/>
+          <RegisterModal handleCloseLogin={handleCloseLogin} />
         </Modal.Footer>
       </Modal>
     </div>

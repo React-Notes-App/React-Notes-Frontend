@@ -35,6 +35,13 @@ body {
   gap: 1rem;
 }
 
+#navbar-dropdown-icons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 1rem;
+}
+
 #profile1 {
   display: none;
 }
@@ -48,6 +55,22 @@ body {
 }
 .dark-mode {
   background-color: #282c34;
+}
+
+#column-view-toggle2 {
+  display: none;
+}
+
+#grid-view-toggle2 {
+  display: none;
+}
+
+#dark-mode-toggle2 {
+  display: none;
+}
+
+#side-nav-hr {
+  display: none;
 }
 
 .dark-mode .footer {
@@ -116,6 +139,7 @@ body {
 
 .note:hover {
   box-shadow: 0 0 15px rgba(33, 33, 33, 0.4);
+  transition: box-shadow 0.5s ease-in-out;
 }
 
 .note-footer {
@@ -214,8 +238,11 @@ form .form-control:focus {
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   padding: 1rem;
+  margin-top: 1rem;
 }
-
+#profile-container hr {
+  display: none;
+}
 #profile-container img {
   width: 15rem;
   height: 15rem;
@@ -230,18 +257,17 @@ form .form-control:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   gap: 1rem;
+  width: 100%;
 }
 #edit-profile-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   gap: 1rem;
-}
-#edit-profile-form {
-  width: 90%;
+  width: 100%;
 }
 
 #edit-profile-buttons {
@@ -269,6 +295,13 @@ form .form-control:focus {
     justify-items: center;
   }
 
+  #navbar-dropdown-icons a {
+    margin-left: 0.5rem;
+  }
+  #navbar-dropdown-icons .nav-item {
+    margin-left: 0.5rem;
+  }
+
   #searchBar1 {
     grid-column: 1 / 4;
     grid-row: 1/2;
@@ -280,14 +313,30 @@ form .form-control:focus {
     display: none;
   }
 
+  #dark-mode-toggle2 {
+    display: block;
+  }
+
   #grid-view-toggle {
     grid-column: 2 / 2;
     display: none;
   }
 
+  #grid-view-toggle2 {
+    display: block;
+  }
+
   #column-view-toggle {
     grid-column: 2 / 2;
     display: none;
+  }
+
+  #colum-view-toggle2 {
+    display: block;
+  }
+
+  #side-nav-hr {
+    display: block;
   }
 
   #basic-nav-dropdown {
@@ -329,5 +378,31 @@ form .form-control:focus {
 
   .note-footer {
     align-items: center;
+  }
+
+  #profile-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #profile-container hr {
+    display: block;
+  }
+
+  #profile-container img {
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  #edit-profile-form {
+    width: 100%;
+  }
+
+  #upload-photo-button {
+    display: flex;
+    justify-content: end;
+    width: 100%;
   }
 }

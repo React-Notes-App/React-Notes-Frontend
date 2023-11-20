@@ -6,6 +6,7 @@ import {
   LogInModal,
   SideNav,
   DarkModeToggle,
+  Profile,
 } from "./";
 import {
   Container,
@@ -13,11 +14,14 @@ import {
   Nav,
   Form,
   NavDropdown,
-  NavLink,
   Image,
 } from "react-bootstrap";
 import FaceIcon from "@mui/icons-material/Face";
-
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import NotesOutlinedIcon from "@mui/icons-material/NotesOutlined";
+import ListAltOutlined from "@mui/icons-material/ListAltOutlined";
 function NavBar() {
   const {
     searchText,
@@ -48,10 +52,8 @@ function NavBar() {
     <div>
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container fluid>
-          {isLoggedIn ? (
-          <SideNav setDarkMode={setDarkMode} />
-          ) : null}
-          <Navbar.Brand href="/">Notes</Navbar.Brand>
+          {isLoggedIn ? <SideNav setDarkMode={setDarkMode} /> : null}
+          <Navbar.Brand href="/notes">Notes</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto p-2 align-items-center">
@@ -66,41 +68,49 @@ function NavBar() {
                 style={{ marginRight: "0.5rem", marginLeft: "0.5rem" }}
               />
               {isLoggedIn ? (
-                <Nav.Link id="profile1" className="me-2" href={"/profile"}>
-                  Profile
-                </Nav.Link>
+                <div id="navbar-dropdown-icons">
+                  <AccountCircleOutlinedIcon id="profile1" />
+                  <Nav.Link id="profile1" href={"/profile"}>
+                    Profile
+                  </Nav.Link>
+                </div>
               ) : null}
               {isLoggedIn ? (
-                <Nav.Item
-                  id="logout1"
-                  className="me-2"
-                  onClick={() => {
-                    setIsLoggedIn(false);
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("user");
-                    setToken("");
-                    setUser("");
-                  }}
-                >
-                  Logout
-                </Nav.Item>
+                <div id="navbar-dropdown-icons">
+                  <LogoutOutlinedIcon id="logout1" />
+                  <Nav.Item
+                    id="logout1"
+                    onClick={() => {
+                      setIsLoggedIn(false);
+                      localStorage.removeItem("token");
+                      localStorage.removeItem("user");
+                      setToken("");
+                      setUser("");
+                    }}
+                  >
+                    Logout
+                  </Nav.Item>
+                </div>
               ) : (
-              <Nav.Item id="login1" className="me-2">
-                <LogInModal />
-              </Nav.Item>
+                <div>
+                  <LoginOutlinedIcon />
+                  <Nav.Item id="login1" className="me-2">
+                    <LogInModal />
+                  </Nav.Item>
+                </div>
               )}
-              <NavLink id="dark-mode-toggle">
+              <Nav.Item id="dark-mode-toggle">
                 <DarkModeToggle handleToggleDarkMode={setDarkMode} />
-              </NavLink>
+              </Nav.Item>
 
               {columnView ? (
-                <NavLink id="grid-view-toggle">
+                <Nav.Item id="grid-view-toggle">
                   <GridViewToggle />
-                </NavLink>
+                </Nav.Item>
               ) : (
-                <NavLink id="column-view-toggle">
+                <Nav.Item id="column-view-toggle">
                   <ColumnViewToggle />
-                </NavLink>
+                </Nav.Item>
               )}
               <NavDropdown
                 title={
@@ -120,27 +130,43 @@ function NavBar() {
                 align={{ lg: "end" }}
               >
                 {isLoggedIn ? (
+                  <div id="navbar-dropdown-icons">
+                    <ListAltOutlined />
+                    <NavDropdown.Item href="/notes">Notes</NavDropdown.Item>
+                  </div>
+                ) : null}
+                {isLoggedIn ? (
                   <>
-                    <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-
+                    <div id="navbar-dropdown-icons">
+                      <AccountCircleOutlinedIcon />
+                      <NavDropdown.Item href="/profile">
+                        Profile
+                      </NavDropdown.Item>
+                    </div>
                     <NavDropdown.Divider />
                   </>
                 ) : null}
 
                 {isLoggedIn ? (
-                  <NavDropdown.Item
-                    onClick={() => {
-                      setIsLoggedIn(false);
-                      localStorage.removeItem("token");
-                      localStorage.removeItem("user");
-                      setToken("");
-                      setUser("");
-                    }}
-                  >
-                    Log Out
-                  </NavDropdown.Item>
+                  <div id="navbar-dropdown-icons">
+                    <LogoutOutlinedIcon />
+                    <NavDropdown.Item
+                      onClick={() => {
+                        setIsLoggedIn(false);
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("user");
+                        setToken("");
+                        setUser("");
+                      }}
+                    >
+                      Log Out
+                    </NavDropdown.Item>
+                  </div>
                 ) : (
-                  <LogInModal />
+                  <div id="navbar-dropdown-icons">
+                    <LoginOutlinedIcon />
+                    <LogInModal />
+                  </div>
                 )}
               </NavDropdown>
             </Nav>

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import {
   Button,
@@ -27,6 +28,8 @@ function Register({ handleCloseLogin }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirm] = useState("");
 
+   const navigate = useNavigate(); 
+
   const handleRegister = async (event) => {
     console.log("register:", name, email, password, confirmPassword);
     event.preventDefault();
@@ -48,6 +51,7 @@ function Register({ handleCloseLogin }) {
           await getUserLabels(result.token, result.user.id);
           handleRegisterClose();
           handleCloseLogin();
+          navigate("/notes");
         } else {
           alert(result.message);
         }

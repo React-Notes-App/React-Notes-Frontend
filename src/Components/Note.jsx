@@ -95,7 +95,6 @@ function Note({ id, title, items, date, color, labels, is_archived }) {
         <div className="note-footer">
           {isShown && (
             <div className="d-flex justify-content-evenly align-items-center">
-              {/* <small>{createdAt}</small> */}
               <div className="icon">
                 <ColorPalette id={id} color={color} />
               </div>

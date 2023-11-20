@@ -70,6 +70,8 @@ const NoteAppProvider = ({ children }) => {
   const [userLabels, setUserLabels] = useState([]);
   const [notesLabels, setNotesLabels] = useState([]);
 
+  const [showCheckboxes, setShowCheckboxes] = useState(true);
+
   const archivedNotes = notes.filter((note) => note.is_archived === true);
 
   useEffect(() => {
@@ -348,6 +350,10 @@ const NoteAppProvider = ({ children }) => {
     setNotesLabels(notes);
   };
 
+  const toggleCheckBox = () => {
+    setShowCheckboxes(!showCheckboxes);
+  }
+
   return (
     <NoteAppProviderContext.Provider
       value={{
@@ -370,6 +376,8 @@ const NoteAppProvider = ({ children }) => {
         setUserLabels,
         notesLabels,
         setNotesLabels,
+        showCheckboxes,
+        setShowCheckboxes,
 
         //actions
         getUserNotes,
@@ -391,6 +399,7 @@ const NoteAppProvider = ({ children }) => {
         deleteLabel,
         getNotesByLabel,
         createCopy,
+        toggleCheckBox,
       }}
     >
       {children}

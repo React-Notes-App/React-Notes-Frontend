@@ -16,7 +16,7 @@ function ItemList({ item }) {
     }).isRequired,
   };
 
-  const { deleteItem, editItemName, checkItem } = useNoteAppContext();
+  const { deleteItem, editItemName, checkItem, showCheckboxes } = useNoteAppContext();
   const [completed, setCompleted] = useState(item.completed);
   const noteId = item.notes_id;
 
@@ -27,6 +27,8 @@ function ItemList({ item }) {
     fontSize: ".8rem",
     boxShadow: "none",
   };
+
+
 
   const handleCheck = () => {
     const id = item.id;
@@ -47,15 +49,18 @@ function ItemList({ item }) {
     const id = item.id;
     deleteItem(id, noteId);
   }
+  
   return (
     <div key={item.id}>
-      <InputGroup className="mb-2 align-items-center">
+      <InputGroup className="mb-0 align-items-center">
+        {showCheckboxes ? (
         <Form.Check
           type="checkbox"
-          id="customControlInline"
+          id="itemCheckbox"
           value={completed}
           onChange={handleCheck}
-        />
+          checked={completed}
+        /> ) : null}
         <Form.Control
         key={item.item_name}
           style={styles}

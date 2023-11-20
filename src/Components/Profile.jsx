@@ -1,32 +1,28 @@
 import React from "react";
-import {
-  Button,
-  FloatingLabel,
-  Form,
-  Image,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Button, FloatingLabel, Form, Image, Row, Col } from "react-bootstrap";
 
 function Profile() {
   return (
     <div id="profile-container">
       <div id="edit-profile-photo">
+        <Form.Label>Change Profile Picture</Form.Label>
         <Image
           id="profile-photo"
           src="https://pyxis.nymag.com/v1/imgs/692/8f5/2180fb8d862b6a57d7b3f406795e950360-26-atomic-blonde.rsquare.w400.jpg"
           roundedCircle
         />
         <Form.Group controlId="formFile" className="mb-3">
-          <Form.Label>Change Profile Picture</Form.Label>
           <Form.Control type="file" />
         </Form.Group>
-        <Button variant="primary">Upload Photo</Button>
+        <div id="upload-photo-button">
+          <Button variant="primary">Upload Photo</Button>
+        </div>
       </div>
-
+      <hr/>
       <div id="edit-profile-form">
         <Form>
           <Form.Group as={Col} className="mb-3" controlId="formBasicName">
+            <Form.Label>Edit User Info</Form.Label>
             <FloatingLabel type="text" controlId="formBasicName" label="Name">
               <Form.Control type="text" placeholder="Name" />
             </FloatingLabel>

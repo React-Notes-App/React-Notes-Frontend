@@ -86,7 +86,7 @@ function SideNav() {
           </div>
           <hr />
           <EditLabelsModal />
-          <hr />
+          <hr id="side-nav-hr" />
          
 
           {columnView ? (
@@ -98,7 +98,7 @@ function SideNav() {
               <ColumnViewToggle />
             </Nav.Link>
           )}
-          <hr />
+          <hr id="side-nav-hr"/>
            <Nav.Link id="dark-mode-toggle2">
             <DarkModeToggle handleToggleDarkMode={setDarkMode} />
           </Nav.Link>

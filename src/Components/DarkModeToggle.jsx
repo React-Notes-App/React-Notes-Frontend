@@ -12,7 +12,7 @@ function DarkModeToggle({ handleToggleDarkMode }) {
     <FormCheck
       className="d-flex align-items-center"
       type="switch"
-      id="dark-mode-toggle2"
+      // id="dark-mode-toggle"
       label="Dark Mode"
       onClick={() =>
         handleToggleDarkMode((previousDarkMode) => !previousDarkMode)

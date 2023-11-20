@@ -119,7 +119,7 @@ function EditNote({ id, title, color, items, date, labels }) {
           >
             <div className="d-flex flex-wrap">
               {labels?.length > 0
-                ? labels.map((label) => <LabelList label={label} />)
+                ? labels.map((label) => <LabelList label={label} key={label.id} />)
                 : null}
             </div>
             <div>

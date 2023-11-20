@@ -7,13 +7,24 @@ import EditNote from "./EditNote";
 import NestedAddLabelDropDown from "./NestedAddLabelDropDown";
 
 function EditNoteDropDown({ id, title, items, color, labels }) {
-  const { createCopy, deleteNote } = useNoteAppContext();
+  const {
+    createCopy,
+    deleteNote,
+    showCheckboxes,
+    setShowCheckboxes,
+    toggleCheckBox,
+  } = useNoteAppContext();
   const handleCreateCopy = () => {
     createCopy(id);
   };
 
   const handleDeleteNote = () => {
     deleteNote(id);
+  };
+
+  const handleShowCheckboxes = () => {
+    toggleCheckBox();
+    
   };
 
   const handleSendNote = () => {
@@ -31,11 +42,9 @@ function EditNoteDropDown({ id, title, items, color, labels }) {
     let noteTitle = note.title;
     let noteItems = note.items.map((item) => item.item_name);
 
-    noteItems = noteItems.join("\n - ")
-    console.log(noteItems);
+    noteItems = noteItems.join("\n - ");
 
     let copiedNote = `${noteTitle}\n - ${noteItems}`;
-    console.log(copiedNote);
 
     navigator.clipboard.writeText(copiedNote);
   };
@@ -64,6 +73,17 @@ function EditNoteDropDown({ id, title, items, color, labels }) {
         />
 
         <NestedAddLabelDropDown id={id} labels={labels} />
+        {showCheckboxes ? (
+          <Dropdown.Item onClick={handleShowCheckboxes}>
+            Hide checkboxes
+          </Dropdown.Item>
+        ) : (
+          <Dropdown.Item onClick={handleShowCheckboxes}>
+            {" "}
+            Show checkboxes
+          </Dropdown.Item>
+        )}
+        <Dropdown.Divider />
 
         <Dropdown.Item onClick={handleCreateCopy}>Make a copy</Dropdown.Item>
         <Dropdown.Item onClick={handleSendNote}>Send</Dropdown.Item>
