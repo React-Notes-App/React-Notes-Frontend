@@ -43,6 +43,25 @@ export const getUserNotesCall = async (token) => {
   }
 };
 
+export const updateUserCall = async (token, fields) => {
+  try {
+    const response = await fetch(`${URL}/api/users/me/edit-info`, {
+      method: "PATCH",
+      mode: "cors",
+      headers: makeHeaders(token),
+      body: JSON.stringify({
+        ...fields,
+      }),
+    });
+    const result = await response.json();
+    console.log("Result from updateUserCall: ", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const getArchivedNotesCall = async (token) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/archived`, {

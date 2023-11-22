@@ -29,6 +29,7 @@ function NavBar() {
     setIsLoggedIn,
     setToken,
     setUser,
+    user,
     isLoggedIn,
   } = useNoteAppContext();
 
@@ -37,8 +38,10 @@ function NavBar() {
     console.log(event.target.value);
   }
 
-  let profilePic =
-    "https://pyxis.nymag.com/v1/imgs/692/8f5/2180fb8d862b6a57d7b3f406795e950360-26-atomic-blonde.rsquare.w400.jpg";
+  // let profilePic =
+  //   user.picture
+  //   // "https://pyxis.nymag.com/v1/imgs/692/8f5/2180fb8d862b6a57d7b3f406795e950360-26-atomic-blonde.rsquare.w400.jpg";
+
   let style = {
     width: "2.5rem",
     height: "2.5rem",
@@ -110,11 +113,12 @@ function NavBar() {
                   <ColumnViewToggle />
                 </Nav.Item>
               )}
+              <Nav.Item>Hello, {user.name}</Nav.Item>
               <NavDropdown
                 title={
-                  profilePic ? (
+                  user.picture ? (
                     <Image
-                      src={profilePic}
+                      src={user.picture}
                       roundedCircle={true}
                       fluid
                       style={style}

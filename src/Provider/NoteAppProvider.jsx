@@ -23,6 +23,7 @@ import {
   getNotesByLabelCall,
   hideCheckboxesCall,
   showCheckboxesCall,
+  updateUserCall,
   // getNotesByLabelCall,
 } from "../API-Adapter";
 
@@ -73,10 +74,7 @@ const NoteAppProvider = ({ children }) => {
   const [notesLabels, setNotesLabels] = useState([]);
 
   const archivedNotes = notes.filter((note) => note.is_archived === true);
-
-  // let checklist = notes.map((note) => note.has_checklist);
-  // console.log(checklist);
-
+  
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
@@ -106,6 +104,26 @@ const NoteAppProvider = ({ children }) => {
       setNotes(notes);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const updateUser = async (newName, newEmail, newPassword, newPicture) => {
+    console.log(newName);
+    console.log(newEmail);
+    console.log(newPassword);
+    console.log(newPicture);
+
+    const result = await updateUserCall(token, {
+      name: newName,
+      email: newEmail,
+      password: newPassword,
+      picture: newPicture,
+    });
+    if (result.success) {
+      const newUser = result.user;
+      console.log(newUser);
+      localStorage.setItem("user", JSON.stringify(newUser));
+      setUser(newUser);
     }
   };
 
@@ -358,10 +376,9 @@ const NoteAppProvider = ({ children }) => {
         return newNote;
       }
       return note;
-    }
-    );
+    });
     setNotes(newNotes);
-  }
+  };
 
   const hideCheckBoxes = async (id) => {
     const result = await hideCheckboxesCall(token, id);
@@ -371,8 +388,7 @@ const NoteAppProvider = ({ children }) => {
         return newNote;
       }
       return note;
-    }
-    );
+    });
     setNotes(newNotes);
   };
 
@@ -421,6 +437,7 @@ const NoteAppProvider = ({ children }) => {
         createCopy,
         hideCheckBoxes,
         showCheckBoxes,
+        updateUser,
       }}
     >
       {children}

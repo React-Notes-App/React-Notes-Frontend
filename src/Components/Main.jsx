@@ -7,9 +7,9 @@ import {
   LabelFilteredList,
   Profile,
   RegisterForm,
+  LogInForm,
 } from "./";
 import NoteAppProvider from "../Provider/NoteAppProvider";
-import LogInForm from "./LogInForm";
 
 
 function Main() {

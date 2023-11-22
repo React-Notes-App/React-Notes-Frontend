@@ -30,3 +30,4 @@ export { default as NoArchivedNotes } from "./NoArchivedNotes";
 export { default as NestedAddLabelDropDown } from "./NestedAddLabelDropDown";
 export { default as Profile } from "./Profile";
 export { default as RegisterForm } from "./RegisterForm";
+export { default as LogInForm } from "./LogInForm";
