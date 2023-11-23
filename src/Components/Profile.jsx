@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import {
   Button,
@@ -13,7 +14,7 @@ import {
 import PortraitOutlinedIcon from "@mui/icons-material/PortraitOutlined";
 
 function Profile() {
-  const { user, updateUser } = useNoteAppContext();
+  const { user, updateUser, isLoggedIn } = useNoteAppContext();
 
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
@@ -69,18 +70,20 @@ function Profile() {
     borderRadius: "50%",
     objectFit: "cover",
   };
+// console.log(isLoggedIn);
+//   if (!isLoggedIn) {
+//     return <Navigate to="/" />;
+//   } else {
 
   return (
     <div id="profile-container">
       <h1 id="profile-title">Profile</h1>
       <div id="profile">
-        <Card style={{ width: "20rem" }}>
+        <Card id="profile-card">
           <Card.Img
             id="profile-photo"
             variant="top"
             src={user.picture}
-            roundedCircle
-        
           />
           <Card.Body>
             <Card.Title>Name: {user.name}</Card.Title>
@@ -88,7 +91,7 @@ function Profile() {
           </Card.Body>
         </Card>
       </div>
-
+      <hr />
       <div id="edit-profile-photo">
         <Form.Label>Change Profile Picture</Form.Label>
         {previewPicture ? (
@@ -169,5 +172,6 @@ function Profile() {
     </div>
   );
 }
+//}
 
 export default Profile;

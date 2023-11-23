@@ -17,6 +17,10 @@ function AddNote() {
 
   const [noteTitle, setNoteTitle] = useState("");
   const [noteItem, setNoteItem] = useState("");
+
+  const [labelId, setLabelId] = useState("");
+  const [label_name, setLabel_Name] = useState("");
+  
   const itemCharacterLimit = 200;
 
   const titleCharacterLimit = 20;
@@ -34,18 +38,21 @@ function AddNote() {
   };
   const handleSaveClick = () => {
     if (noteTitle.trim().length > 0) {
-      createNote(noteTitle);
-      setNoteTitle("");
+      createNote(noteTitle, noteItem);
     } else {
       alert("Please enter a title");
     }
+    setNoteTitle("");
   };
 
   return (
     <div>
       <AddBoxIcon sx={{ fontSize: 60 }} className="me-2" onClick={handleShow} />
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header className="border-0 justify-content-center" style={{ paddingBottom: "0px" }}>
+        <Modal.Header
+          className="border-0 justify-content-center"
+          style={{ paddingBottom: "0px" }}
+        >
           <InputGroup className="align-items-center">
             <FormControl
               style={{
@@ -53,7 +60,6 @@ function AddNote() {
                 backgroundColor: "transparent",
                 fontSize: "1rem",
                 paddingLeft: "0px",
-               
               }}
               aria-label="noteTitle"
               aria-describedby="basic-addon1"
@@ -63,8 +69,11 @@ function AddNote() {
             />
           </InputGroup>
         </Modal.Header>
-        <hr  style={{marginLeft: "1.5rem", marginRight: "1.5rem"}} />
-        <Modal.Body className="border-0" style={{ paddingBottom: "0px", paddingTop:"0px" }}>
+        <hr style={{ marginLeft: "1.5rem", marginRight: "1.5rem" }} />
+        <Modal.Body
+          className="border-0"
+          style={{ paddingBottom: "0px", paddingTop: "0px" }}
+        >
           <InputGroup className="mb-3 align-items-center">
             <FormCheck />
             <FormControl
@@ -82,7 +91,7 @@ function AddNote() {
           </InputGroup>
         </Modal.Body>
         <Modal.Footer className="border-0 d-flex justify-content-between">
-          <CreateLabelDropDown />
+          <CreateLabelDropDown label_name={label_name} setLabel_Name={setLabel_Name} labelId={labelId} setLabelId={setLabelId}/>
           <div>
             <Button
               variant="secondary"

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import {
   ColumnViewToggle,
@@ -38,6 +39,7 @@ function NavBar() {
     console.log(event.target.value);
   }
 
+  const navigate = useNavigate();
   // let profilePic =
   //   user.picture
   //   // "https://pyxis.nymag.com/v1/imgs/692/8f5/2180fb8d862b6a57d7b3f406795e950360-26-atomic-blonde.rsquare.w400.jpg";
@@ -94,8 +96,8 @@ function NavBar() {
                 </div>
               ) : (
                 <div>
-                  <LoginOutlinedIcon />
-                  <Nav.Item id="login1" className="me-2">
+                  <LoginOutlinedIcon id="login1" />
+                  <Nav.Item  id="login1" className="me-2">
                     <LogInModal />
                   </Nav.Item>
                 </div>
@@ -113,7 +115,9 @@ function NavBar() {
                   <ColumnViewToggle />
                 </Nav.Item>
               )}
+              {isLoggedIn ? (
               <Nav.Item>Hello, {user.name}</Nav.Item>
+              ) : null}
               <NavDropdown
                 title={
                   user.picture ? (
@@ -159,6 +163,7 @@ function NavBar() {
                         localStorage.removeItem("user");
                         setToken("");
                         setUser("");
+                        navigate("/");
                       }}
                     >
                       Log Out

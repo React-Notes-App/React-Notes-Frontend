@@ -74,7 +74,7 @@ const NoteAppProvider = ({ children }) => {
   const [notesLabels, setNotesLabels] = useState([]);
 
   const archivedNotes = notes.filter((note) => note.is_archived === true);
-  
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
@@ -119,22 +119,28 @@ const NoteAppProvider = ({ children }) => {
       password: newPassword,
       picture: newPicture,
     });
-    if (result.success) {
-      const newUser = result.user;
-      console.log(newUser);
-      localStorage.setItem("user", JSON.stringify(newUser));
-      setUser(newUser);
-    }
+    console.log(result);
+    const newUser = result.user;
+    console.log(newUser);
+    JSON.stringify(localStorage.setItem("user", JSON.stringify(newUser)));
+    setUser(newUser);
+    console.log(user);
   };
 
   const createNote = async (title, name, label_name, labelId) => {
     console.log(title, name, label_name, labelId);
     let color = DEFAULT_NOTE_COLOR;
+    let date = new Date();
+    let is_archived = false;
+    let has_checklist = true;
     const result = await createNoteCall(
       token,
       title,
       name,
       color,
+      date,
+      is_archived,
+      has_checklist,
       label_name,
       labelId
     );

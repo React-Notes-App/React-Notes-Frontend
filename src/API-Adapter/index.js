@@ -83,6 +83,9 @@ export const createNoteCall = async (
   title,
   name,
   color,
+  date,
+  is_archived,
+  has_checklist,
   label_name,
   labelId
 ) => {
@@ -95,6 +98,9 @@ export const createNoteCall = async (
         title: title,
         name: name,
         color: color,
+        date,
+        is_archived: is_archived,
+        has_checklist: has_checklist,
         label_name: label_name,
         labelId: labelId,
       }),

@@ -266,6 +266,8 @@ form .form-control:focus {
   width: 20rem;
   height: 20rem;
   object-fit: cover;
+  border-radius: 50%;
+  padding: 1.5rem;
 }
 #change-profile-photo {
   width: 15rem;
@@ -358,7 +360,7 @@ form .form-control:focus {
     display: none;
   }
 
-  #colum-view-toggle2 {
+  #column-view-toggle2 {
     display: block;
   }
 
@@ -374,6 +376,10 @@ form .form-control:focus {
   #profile1 {
     display: block;
     grid-column: 1 / 1;
+  }
+  #login1 {
+    display: block;
+    grid-column: 2 / 2;
   }
   #logout1 {
     display: block;
@@ -416,11 +422,28 @@ form .form-control:focus {
     display: block;
   }
 
-  #profile-container img {
+  #profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  #profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #profile-photo {
+    padding: 1rem;
+    display: flex;
     width: 10rem;
     height: 10rem;
-    object-fit: cover;
     border-radius: 50%;
+    justify-content: center;
   }
 
   #edit-profile-form {
@@ -430,6 +453,14 @@ form .form-control:focus {
   #upload-photo-button {
     display: flex;
     justify-content: end;
+    width: 100%;
+  }
+
+  #login-form {
+    width: 100%;
+  }
+
+  #register-form {
     width: 100%;
   }
 }
