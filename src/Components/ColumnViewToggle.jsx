@@ -11,7 +11,7 @@ function ColumnViewToggle() {
   return (
     <div onClick={handleColumnView}>
       <ViewAgendaOutlinedIcon  />
-      <label style={{marginLeft: ".5em" }}>Column View</label>
+      {/* <label style={{marginLeft: ".5em" }}>Column View</label> */}
    
     </div>
   );

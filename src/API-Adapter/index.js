@@ -81,7 +81,7 @@ export const getArchivedNotesCall = async (token) => {
 export const createNoteCall = async (
   token,
   title,
-  name,
+  itemName,
   color,
   date,
   is_archived,
@@ -96,7 +96,7 @@ export const createNoteCall = async (
       headers: makeHeaders(token),
       body: JSON.stringify({
         title: title,
-        name: name,
+        itemName: itemName,
         color: color,
         date,
         is_archived: is_archived,
@@ -117,8 +117,11 @@ export const createNoteCall = async (
 export const createCopyCall = async (
   token,
   title,
+  itemNames,
   color,
-  noteItems,
+  date,
+  is_archived,
+  has_checklist,
   itemsCompleted,
   labelIds
 ) => {
@@ -129,8 +132,11 @@ export const createCopyCall = async (
       headers: makeHeaders(token),
       body: JSON.stringify({
         title: title,
+        itemNames: itemNames,
         color: color,
-        noteItems: noteItems,
+        date: date,
+        is_archived: is_archived,
+        has_checklist: has_checklist,
         itemsCompleted: itemsCompleted,
         labelIds: labelIds,
       }),
@@ -184,7 +190,7 @@ export const editNoteColorCall = async (token, id, color) => {
   }
 };
 
-export const createItemCall = async (token, id, name) => {
+export const createItemCall = async (token, id, itemName) => {
   try {
     const response = await fetch(`${URL}/api/notes/user/add_item`, {
       method: "POST",
@@ -192,7 +198,7 @@ export const createItemCall = async (token, id, name) => {
       headers: makeHeaders(token),
       body: JSON.stringify({
         id: id,
-        name: name,
+        itemName: itemName,
       }),
     });
     const result = await response.json();

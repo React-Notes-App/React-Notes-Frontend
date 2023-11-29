@@ -13,7 +13,7 @@ import LabelList from "./LabelList";
 import Dropdown from "react-bootstrap/Dropdown";
 import moment from "moment";
 
-function EditNote({ id, title, color, items, date, labels }) {
+function EditNote({ id, title, color, items, date, labels, has_checklist }) {
   EditNote.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -32,6 +32,7 @@ function EditNote({ id, title, color, items, date, labels }) {
         label_name: PropTypes.string.isRequired,
       })
     ).isRequired,
+    has_checklist: PropTypes.bool.isRequired,
   };
 
   const { createItem } = useNoteAppContext();
@@ -78,7 +79,7 @@ function EditNote({ id, title, color, items, date, labels }) {
                 return item.completed === false;
               })
               .map((item) => (
-                <ItemList item={item} key={item.id} />
+                <ItemList item={item} key={item.id} has_checklist={has_checklist} />
               ))}
 
             <hr className="horizontal-rule" />
@@ -108,7 +109,7 @@ function EditNote({ id, title, color, items, date, labels }) {
                 return item.completed === true;
               })
               .map((item) => (
-                <ItemList item={item} key={item.id} />
+                <ItemList item={item} key={item.id} has_checklist={has_checklist} />
               ))}
           </ModalBody>
           <ModalBody

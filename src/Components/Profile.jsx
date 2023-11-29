@@ -1,43 +1,37 @@
 import React from "react";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import {
   Button,
   FloatingLabel,
   Form,
-  Image,
   Row,
   Col,
   Card,
+  InputGroup,
+  Toast,
 } from "react-bootstrap";
-import PortraitOutlinedIcon from "@mui/icons-material/PortraitOutlined";
 
 function Profile() {
-  const { user, updateUser, isLoggedIn } = useNoteAppContext();
+  const { user, updateUser } = useNoteAppContext();
 
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [pictureURL, setPictureURL] = useState("");
 
-  const [previewPicture, setPreviewPicture] = useState(user.picture);
-  const [newPicture, setNewPicture] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const toggleShowToast = () => setShowToast(!showToast);
 
-  const handlePhotoUpload = (e) => {
-    const file = e.target.files[0];
-    setPreviewPicture(URL.createObjectURL(file));
-    setNewPicture(URL.createObjectURL(file));
-
-    console.log(file);
-    console.log(newPicture);
-  };
+  const profilePic = pictureURL ? pictureURL : user.picture;
 
   const handleInfoSubmit = (e) => {
     e.preventDefault();
-    if (newName !== "") {
-      console.log(newName);
+    if (newName === "" || newEmail === "" || newPassword === "" || pictureURL === "") {
+      alert("Please enter new information");
+      return;
     }
 
     if (newEmail !== confirmEmail) {
@@ -56,35 +50,39 @@ function Profile() {
       return;
     }
 
-    if (newPicture !== "") {
-      console.log(newPicture);
+    updateUser(newName, newEmail, newPassword, pictureURL);
+    setNewName("");
+    setNewEmail("");
+    setConfirmEmail("");
+    setNewPassword("");
+    setConfirmPassword("");
+    setPictureURL("");
+
+    if (
+      newName !== "" ||
+      newEmail !== "" ||
+      newPassword !== "" ||
+      pictureURL !== ""
+    ) {
+      setShowToast(true);
     }
-
-    console.log(newEmail);
-    updateUser(newName, newEmail, newPassword, newPicture);
   };
 
-  let style = {
-    width: "5rem",
-    height: "5rem",
-    borderRadius: "50%",
-    objectFit: "cover",
+  const handleCancel = () => {
+    setNewName("");
+    setNewEmail("");
+    setConfirmEmail("");
+    setNewPassword("");
+    setConfirmPassword("");
+    setPictureURL("");
   };
-// console.log(isLoggedIn);
-//   if (!isLoggedIn) {
-//     return <Navigate to="/" />;
-//   } else {
 
   return (
     <div id="profile-container">
       <h1 id="profile-title">Profile</h1>
       <div id="profile">
         <Card id="profile-card">
-          <Card.Img
-            id="profile-photo"
-            variant="top"
-            src={user.picture}
-          />
+          <Card.Img id="profile-photo" variant="top" src={profilePic} />
           <Card.Body>
             <Card.Title>Name: {user.name}</Card.Title>
             <Card.Text>Email: {user.email}</Card.Text>
@@ -92,86 +90,100 @@ function Profile() {
         </Card>
       </div>
       <hr />
-      <div id="edit-profile-photo">
-        <Form.Label>Change Profile Picture</Form.Label>
-        {previewPicture ? (
-          <Image id="change-profile-photo" src={previewPicture} />
-        ) : (
-          <PortraitOutlinedIcon id="profile-photo" style={style} />
-        )}
-        <Form.Group controlId="formFile" className="mb-3">
-          <Form.Control type="file" onChange={handlePhotoUpload} />
+
+      <Form>
+        <Form.Group className="mb-3">
+          <Form.Label>Change Profile Picture:</Form.Label>
         </Form.Group>
-      </div>
-      <hr />
-      <div id="edit-profile-form">
-        <Form>
-          <Form.Group as={Col} className="mb-3" controlId="formBasicName">
-            <Form.Label>Edit User Info</Form.Label>
-            <FloatingLabel type="text" controlId="formBasicName" label="Name">
+        <InputGroup className="mb-3">
+          <InputGroup.Text id="inputGroupFileAddon01">URL:</InputGroup.Text>
+          <Form.Control
+            onChange={(e) => setPictureURL(e.target.value)}
+            type="url"
+            placeholder="Enter URL"
+            aria-label="Upload"
+            aria-describedby="inputGroupFileAddon01"
+            value={pictureURL}
+          />
+        </InputGroup>
+        <hr />
+        <Form.Group as={Col} className="mb-3" controlId="formBasicName">
+          <Form.Label>Edit User Info:</Form.Label>
+          <FloatingLabel type="text" controlId="formBasicName" label="Name">
+            <Form.Control
+              type="text"
+              placeholder="Name"
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+            />
+          </FloatingLabel>
+        </Form.Group>
+
+        <Row>
+          <Form.Group as={Col} className="mb-3" controlId="formBasicEmail">
+            <FloatingLabel id="formBasicEmail" label="New Email">
               <Form.Control
-                type="text"
-                placeholder="Name"
-                onChange={(e) => setNewName(e.target.value)}
+                type="email"
+                placeholder="New Email"
+                value={newEmail}
+                onChange={(e) => setNewEmail(e.target.value)}
               />
             </FloatingLabel>
           </Form.Group>
+          <Form.Group as={Col} className="mb-3" id="formConfirmEmail">
+            <FloatingLabel id="formConfirmEmail" label="Confirm Email">
+              <Form.Control
+                type="email"
+                placeholder="Confirm Email"
+                value={confirmEmail}
+                onChange={(e) => setConfirmEmail(e.target.value)}
+              />
+            </FloatingLabel>
+          </Form.Group>
+        </Row>
 
-          <Row>
-            <Form.Group as={Col} className="mb-3" controlId="formBasicEmail">
-              <FloatingLabel id="formBasicEmail" label="New Email">
-                <Form.Control
-                  type="email"
-                  placeholder="New Email"
-                  onChange={(e) => setNewEmail(e.target.value)}
-                />
-              </FloatingLabel>
-            </Form.Group>
-            <Form.Group as={Col} className="mb-3" id="formBasicEmail">
-              <FloatingLabel id="formBasicEmail" label="Confirm Email">
-                <Form.Control
-                  type="email"
-                  placeholder="Confirm Email"
-                  onChange={(e) => setConfirmEmail(e.target.value)}
-                />
-              </FloatingLabel>
-            </Form.Group>
-          </Row>
-
-          <Row>
-            <Form.Group as={Col} className="mb-3" id="formBasicPassword">
-              <FloatingLabel controlId="formBasicPassword" label="New Password">
-                <Form.Control
-                  type="password"
-                  placeholder="New Password"
-                  onChange={(e) => setNewPassword(e.target.value)}
-                />
-              </FloatingLabel>
-            </Form.Group>
-            <Form.Group as={Col} className="mb-3" id="formBasicPassword">
-              <FloatingLabel
-                controlId="formBasicPassword"
-                label="Confirm Password"
-              >
-                <Form.Control
-                  type="password"
-                  placeholder="Confirm Password"
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-              </FloatingLabel>
-            </Form.Group>
-          </Row>
-          <div id="edit-profile-buttons">
-            <Button variant="secondary">Cancel</Button>
-            <Button variant="primary" onClick={handleInfoSubmit}>
-              Save Changes
-            </Button>
-          </div>
-        </Form>
-      </div>
+        <Row>
+          <Form.Group as={Col} className="mb-3" id="formBasicPassword">
+            <FloatingLabel controlId="formBasicPassword" label="New Password">
+              <Form.Control
+                type="password"
+                placeholder="New Password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group as={Col} className="mb-3" id="formConfirmPassword">
+            <FloatingLabel
+              controlId="formConfirmPassword"
+              label="Confirm Password"
+            >
+              <Form.Control
+                type="password"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </FloatingLabel>
+          </Form.Group>
+        </Row>
+        <div id="edit-profile-buttons">
+          <Button variant="secondary" onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleInfoSubmit}>
+            Save Changes
+          </Button>
+        </div>
+      </Form>
+      <Toast show={showToast} onClose={toggleShowToast}>
+        <Toast.Header>
+          <strong className="me-auto">Profile Updated</strong>
+        </Toast.Header>
+        <Toast.Body>Your profile has been updated</Toast.Body>
+      </Toast>
     </div>
   );
 }
-//}
 
 export default Profile;

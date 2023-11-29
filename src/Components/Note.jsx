@@ -85,11 +85,11 @@ function Note({ id, title, items, date, color, labels, is_archived, has_checklis
               return item.completed === true;
             })
             .map((item) => (
-              <ItemList item={item} key={item.id} />
+              <ItemList item={item} key={item.id} has_checklist={has_checklist} />
             ))}
         </div>
         <div className="d-flex justify-content-start flex-wrap" style={{}}>
-          {labels?.length > 0
+          {labels
             ? labels.map((label) => <LabelList label={label} key={label.id} />)
             : null}
         </div>

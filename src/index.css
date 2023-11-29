@@ -147,6 +147,7 @@ body {
   display: block;
   align-items: center;
   margin-bottom: 0.5rem;
+  transition: 0.5s ease-in-out;
 }
 
 .form-check-input {
@@ -200,12 +201,12 @@ form .form-control:focus {
   cursor: pointer;
   display: flex;
   align-items: center;
-  transition: background-color 200ms ease-in-out;
+  transition: 200ms ease-in-out;
   border-radius: 25px;
   padding: 0.5rem;
 }
 .icon:hover {
-  background-color: #b0b8b8;
+  background-color: #b9bcbc80;
 }
 
 .horizontal-rule {
@@ -284,19 +285,8 @@ form .form-control:focus {
   align-items: center;
   justify-content: start;
   gap: 1rem;
-  width: 100%;
   grid-column: 2;
-  grid-row: 2;
-}
-#edit-profile-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-  gap: 1rem;
-  width: 100%;
-  grid-column: 2;
-  grid-row: 3;
+  grid-row: 2/3;
 }
 
 #edit-profile-buttons {
@@ -305,6 +295,11 @@ form .form-control:focus {
   flex-direction: row;
   align-items: center;
   justify-content: end;
+}
+
+#dropdown-menu {
+  box-shadow: 0 0 15px rgba(33, 33, 33, 0.4);
+  transition: box-shadow 0.5s ease-in-out;
 }
 @media screen and (max-width: 450px) {
   .navbar-toggler-icon {
@@ -319,7 +314,10 @@ form .form-control:focus {
   }
   .navbar-nav {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto auto;
+    grid-gap: 1rem;
+
     align-items: center;
     justify-items: center;
   }
@@ -332,8 +330,8 @@ form .form-control:focus {
   }
 
   #searchBar1 {
-    grid-column: 1 / 4;
-    grid-row: 1/2;
+    grid-column: 1 / 5;
+    grid-row: 1;
     width: 100% !important;
   }
 
@@ -347,21 +345,23 @@ form .form-control:focus {
   }
 
   #grid-view-toggle {
-    grid-column: 2 / 2;
-    display: none;
+    display: block;
+    grid-column: 3;
+    grid-row: 2;
   }
 
   #grid-view-toggle2 {
-    display: block;
-  }
-
-  #column-view-toggle {
-    grid-column: 2 / 2;
     display: none;
   }
 
   #column-view-toggle2 {
+    display: none;
+  }
+
+  #column-view-toggle {
     display: block;
+    grid-column: 3;
+    grid-row: 2;
   }
 
   #side-nav-hr {
@@ -372,18 +372,25 @@ form .form-control:focus {
     grid-column: 3 / 3;
     display: none;
   }
-
-  #profile1 {
+  #hello-user {
     display: block;
-    grid-column: 1 / 1;
+    grid-column: 1;
+    grid-row: 2;
+  }
+  #profile1 {
+    display: grid;
+    grid-column: 2;
+    grid-row: 2;
   }
   #login1 {
     display: block;
-    grid-column: 2 / 2;
+    grid-column: 4;
+    grid-row: 2;
   }
   #logout1 {
     display: block;
-    grid-column: 3/ 3;
+    grid-column: 4;
+    grid-row: 2;
   }
   .note {
     width: 100%;

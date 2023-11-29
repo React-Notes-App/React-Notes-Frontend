@@ -59,7 +59,7 @@ function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
       <Dropdown.Toggle style={style}>
         <MoreVertOutlined />
       </Dropdown.Toggle>
-      <DropdownMenu>
+      <DropdownMenu id="dropdown-menu">
         <Dropdown.Item onClick={handleDeleteNote}>Delete note</Dropdown.Item>
         <EditNote
           id={id}
@@ -67,6 +67,7 @@ function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
           items={items}
           color={color}
           labels={labels}
+          has_checklist={has_checklist}
         />
 
         <NestedAddLabelDropDown id={id} labels={labels} />

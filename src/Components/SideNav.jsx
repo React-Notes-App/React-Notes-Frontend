@@ -15,18 +15,21 @@ import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 
 function SideNav() {
-  const { isLoggedIn, notes, userLabels, columnView, setDarkMode } = useNoteAppContext();
+  const { isLoggedIn, notes, userLabels, columnView, setDarkMode } =
+    useNoteAppContext();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () =>  setShow(true)
+  const handleShow = () => setShow(true);
 
-  
-  const archivedNoteCount = isLoggedIn && notes ? notes.reduce((acc, note) => {
-    if (note.is_archived) {
-      acc += 1;
-    }
-    return acc;
-  }, 0) : 0;
+  const archivedNoteCount =
+    isLoggedIn && notes
+      ? notes.reduce((acc, note) => {
+          if (note.is_archived) {
+            acc += 1;
+          }
+          return acc;
+        }, 0)
+      : 0;
 
   return (
     <div>
@@ -61,8 +64,8 @@ function SideNav() {
           <hr />
           <div className="d-flex">
             <ListAltOutlinedIcon />
-            <Nav.Link href="/" style={{ marginLeft: ".5rem" }}>
-              Notes
+            <Nav.Link href="/notes" style={{ marginLeft: ".5rem" }}>
+              All Notes
             </Nav.Link>
           </div>
           <div className="d-flex align-items-center justify-content-between">
@@ -86,9 +89,6 @@ function SideNav() {
           </div>
           <hr />
           <EditLabelsModal />
-          <hr id="side-nav-hr" />
-         
-
           {columnView ? (
             <Nav.Link id="grid-view-toggle2">
               <GridViewToggle />
@@ -98,8 +98,8 @@ function SideNav() {
               <ColumnViewToggle />
             </Nav.Link>
           )}
-          <hr id="side-nav-hr"/>
-           <Nav.Link id="dark-mode-toggle2">
+          <hr id="side-nav-hr" />
+          <Nav.Link id="dark-mode-toggle2">
             <DarkModeToggle handleToggleDarkMode={setDarkMode} />
           </Nav.Link>
         </Offcanvas.Body>

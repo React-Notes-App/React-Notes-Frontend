@@ -3,9 +3,10 @@ import { useState } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import AddBoxIcon from "@mui/icons-material/AddBox";
 import { FormCheck, FormControl, InputGroup } from "react-bootstrap";
 import CreateLabelDropDown from "./CreateLabelDropDown";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 function AddNote() {
   const { createNote } = useNoteAppContext();
@@ -20,7 +21,8 @@ function AddNote() {
 
   const [labelId, setLabelId] = useState("");
   const [label_name, setLabel_Name] = useState("");
-  
+  const [labelPreview, setLabelPreview] = useState("");
+
   const itemCharacterLimit = 200;
 
   const titleCharacterLimit = 20;
@@ -38,12 +40,24 @@ function AddNote() {
   };
   const handleSaveClick = () => {
     if (noteTitle.trim().length > 0) {
-      createNote(noteTitle, noteItem);
+      createNote(noteTitle, noteItem, label_name, labelId);
+      setNoteTitle("");
+      setNoteItem("");
+      setLabel_Name("");
+      setLabelId("");
+      setLabelPreview("");
+      handleClose();
     } else {
       alert("Please enter a title");
     }
     setNoteTitle("");
   };
+
+  const clearLabelPreview = () => {
+    setLabelPreview("");
+    setLabelId("");
+    setLabel_Name("");
+  }
 
   return (
     <div>
@@ -69,7 +83,6 @@ function AddNote() {
             />
           </InputGroup>
         </Modal.Header>
-        <hr style={{ marginLeft: "1.5rem", marginRight: "1.5rem" }} />
         <Modal.Body
           className="border-0"
           style={{ paddingBottom: "0px", paddingTop: "0px" }}
@@ -89,9 +102,30 @@ function AddNote() {
               value={noteItem}
             />
           </InputGroup>
+          <hr style={{ marginLeft: ".5rem", marginRight: ".5rem" }} />
+          {labelPreview ? (
+            <div
+              className="d-flex align-items-center"
+              style={{ marginBottom: ".5rem" }}
+            >
+              <small className="note-label">{labelPreview}</small>
+              <HighlightOffIcon
+                className="label-delete-icon"
+                style={{ marginLeft: ".5rem", marginRight: ".5rem" }}
+                label={labelPreview}
+                onClick={clearLabelPreview}
+              />
+            </div>
+          ) : null}
         </Modal.Body>
         <Modal.Footer className="border-0 d-flex justify-content-between">
-          <CreateLabelDropDown label_name={label_name} setLabel_Name={setLabel_Name} labelId={labelId} setLabelId={setLabelId}/>
+          <CreateLabelDropDown
+            label_name={label_name}
+            setLabel_Name={setLabel_Name}
+            setLabelPreview={setLabelPreview}
+            labelId={labelId}
+            setLabelId={setLabelId}
+          />
           <div>
             <Button
               variant="secondary"

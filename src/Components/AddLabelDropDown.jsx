@@ -42,7 +42,7 @@ function AddLabelDropDown({ labels, id }) {
         <Dropdown.Toggle variant="success" id="dropdown-basic">
           Add Label
         </Dropdown.Toggle>
-        <Dropdown.Menu style={dropDownStyles} >
+        <Dropdown.Menu id="dropdown-menu" style={dropDownStyles} >
           <InputGroup className="mb-2 align-items-center">
             <EditOutlinedIcon />
             <Form.Control

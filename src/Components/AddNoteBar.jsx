@@ -2,8 +2,9 @@ import React from "react";
 import { useState } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import { FormControl, InputGroup, FormCheck, Button } from "react-bootstrap";
-
 import CreateLabelDropDown from "./CreateLabelDropDown";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+
 
 function AddNoteBar() {
   const [open, setOpen] = useState(false);
@@ -13,6 +14,7 @@ function AddNoteBar() {
   const [noteItem, setNoteItem] = useState("");
   const [labelId, setLabelId] = useState("");
   const [label_name, setLabel_Name] = useState("");
+  const [labelPreview, setLabelPreview] = useState("");
 
   const { createNote } = useNoteAppContext();
 
@@ -39,11 +41,20 @@ function AddNoteBar() {
       createNote(noteTitle, noteItem, label_name, labelId);
       setNoteTitle("");
       setNoteItem("");
+      setLabel_Name("");
+      setLabelId("");
+      setLabelPreview("");
       setOpen(false);
     } else {
       alert("Please enter a title");
     }
   };
+
+  const clearLabelPreview = () => {
+    setLabelPreview("");
+    setLabelId("");
+    setLabel_Name("");
+  }
 
   return (
     <div className="add-note-bar-container">
@@ -73,7 +84,6 @@ function AddNoteBar() {
         <div>
           {open ? (
             <div>
-              <hr className="horizontal-rule" />
               <InputGroup className="mb-3 align-items-center">
                 <FormCheck />
                 <FormControl
@@ -89,8 +99,29 @@ function AddNoteBar() {
                   value={noteItem}
                 />
               </InputGroup>
+              <hr className="horizontal-rule" />
+              {labelPreview ? (
+                <div
+                  className="d-flex align-items-center"
+                  style={{ marginBottom: "1rem", marginTop: "1rem" }}
+                >
+                  <small className="note-label">{labelPreview}</small>
+                  <HighlightOffIcon
+                    className="label-delete-icon"
+                    style={{ marginLeft: ".5rem", marginRight: ".5rem" }}
+                    label={labelPreview}
+                    onClick={clearLabelPreview}
+                  />
+                </div>
+              ) : null}
               <div className="d-flex justify-content-between">
-                <CreateLabelDropDown label_name={label_name} setLabel_Name={setLabel_Name} labelId={labelId} setLabelId={setLabelId}/>
+                <CreateLabelDropDown
+                  label_name={label_name}
+                  setLabel_Name={setLabel_Name}
+                  labelId={labelId}
+                  setLabelId={setLabelId}
+                  setLabelPreview={setLabelPreview}
+                />
                 <div>
                   <Button
                     variant="secondary"

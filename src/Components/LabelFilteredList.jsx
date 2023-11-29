@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Note from "./Note";
 
@@ -12,10 +12,7 @@ function LabelFilteredList() {
     return note.labels.some((label) => label.id === parseInt(id));
   });
 
-  if (!isLoggedIn) {
-    console.log("not logged in");
-    return <Navigate to="/" />;
-  } else {
+ 
     return (
       <div className={`${darkMode && "dark-mode"}`}>
         <div className="note-app-container">
@@ -42,6 +39,7 @@ function LabelFilteredList() {
                       color={note.color}
                       labels={note.labels}
                       is_archived={note.is_archived}
+                      has_checklist={note.has_checklist}
                     />
                   );
                 })
@@ -55,6 +53,6 @@ function LabelFilteredList() {
       </div>
     );
   }
-}
+
 
 export default LabelFilteredList;

@@ -12,7 +12,7 @@ function GridViewToggle() {
   return (
     <div onClick={handleGridView}>
       <GridViewIcon />
-      <label style={{marginLeft: ".5em"}}>Grid View</label>
+      {/* <label style={{marginLeft: ".5em"}}>Grid View</label> */}
     </div>
   );
 }

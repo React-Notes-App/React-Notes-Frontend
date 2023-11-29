@@ -116,7 +116,7 @@ function NavBar() {
                 </Nav.Item>
               )}
               {isLoggedIn ? (
-              <Nav.Item>Hello, {user.name}</Nav.Item>
+              <Nav.Item id="hello-user">Hello, {user.name}</Nav.Item>
               ) : null}
               <NavDropdown
                 title={

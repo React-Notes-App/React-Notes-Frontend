@@ -127,8 +127,8 @@ const NoteAppProvider = ({ children }) => {
     console.log(user);
   };
 
-  const createNote = async (title, name, label_name, labelId) => {
-    console.log(title, name, label_name, labelId);
+  const createNote = async (title, itemName, label_name, labelId) => {
+    console.log(title, itemName, label_name, labelId);
     let color = DEFAULT_NOTE_COLOR;
     let date = new Date();
     let is_archived = false;
@@ -136,7 +136,7 @@ const NoteAppProvider = ({ children }) => {
     const result = await createNoteCall(
       token,
       title,
-      name,
+      itemName,
       color,
       date,
       is_archived,
@@ -155,20 +155,26 @@ const NoteAppProvider = ({ children }) => {
     const oldNote = notes.find((note) => note.id === id);
     console.log(oldNote);
 
-    const title = "Copy of" + oldNote.title;
+    const title = "Copy of " + oldNote.title;
     const color = oldNote.color;
-    const noteItems = oldNote.items.map((item) => item.item_name);
+    const date = new Date();
+    const is_archived = oldNote.is_archived;
+    const has_checklist = oldNote.has_checklist;
+    const itemNames = oldNote.items.map((item) => item.item_name);
     const itemsCompleted = oldNote.items.map((item) => item.completed);
-    console.log(noteItems);
+    console.log(itemNames);
     const labelIds = oldNote.labels.map((label) => label.id);
 
-    console.log(title, color, noteItems, labelIds);
+    console.log(title, color, itemNames, labelIds);
 
     const result = await createCopyCall(
       token,
       title,
+      itemNames,
       color,
-      noteItems,
+      date, 
+      is_archived,
+      has_checklist,
       itemsCompleted,
       labelIds
     );
@@ -242,8 +248,8 @@ const NoteAppProvider = ({ children }) => {
     setNotes(newNotes);
   };
 
-  const createItem = async (id, name) => {
-    const result = await createItemCall(token, id, name);
+  const createItem = async (id, itemName) => {
+    const result = await createItemCall(token, id, itemName);
     console.log(result);
     const newNote = result.note;
     const newNotes = notes.map((note) => {
@@ -321,6 +327,11 @@ const NoteAppProvider = ({ children }) => {
   };
 
   const createLabel = async (labelName) => {
+    let oldLabels = userLabels.map((label) => label.label_name);
+    if (oldLabels.includes(labelName)) {
+      alert("Label already exists!");
+      return;
+    }
     const result = await createLabelCall(token, labelName);
     const newLabel = result.label;
     console.log(newLabel);
@@ -338,6 +349,7 @@ const NoteAppProvider = ({ children }) => {
       return label.id !== deletedLabel.id;
     });
     setUserLabels(newLabels);
+    // await getUserLabels(token, user.id);
 
     console.log(newLabels);
   };

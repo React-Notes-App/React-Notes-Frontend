@@ -1,9 +1,13 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
+import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import InputGroup from "react-bootstrap/InputGroup";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
-function CreateLabel({ setLabel_Name}) {
+function CreateLabel({ setLabel_Name, setLabelPreview}) {
+
+  const { createLabel } = useNoteAppContext();
+
   const createLabelStyles = {
     backgroundColor: "transparent",
     border: "none",
@@ -12,6 +16,8 @@ function CreateLabel({ setLabel_Name}) {
   const handleCreateLabel = (e) => {
     if (e.keyCode === 13) {
       setLabel_Name(e.target.value);
+      createLabel(e.target.value);
+      setLabelPreview(e.target.value);
     };
     console.log(e.target.value, "e.target.value");
     
