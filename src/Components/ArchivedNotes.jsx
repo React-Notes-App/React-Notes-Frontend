@@ -1,18 +1,16 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import Note from "./Note";
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 
 function ArchivedNotes() {
-  const { searchText, columnView, darkMode, archivedNotes, isLoggedIn } =
+  const { searchText, columnView, darkMode, archivedNotes} =
     useNoteAppContext();
 
-  // if (!isLoggedIn) {
-  //   console.log("not logged in");
-  //   return <Navigate to="/" />;
-  // } else {
+
     return (
       <div className={`${darkMode && "dark-mode"}`}>
+        {archivedNotes.length > 0 ? (
         <div className="note-app-container">
           <div className={columnView ? "notes-list-column" : "notes-list-grid"}>
             {archivedNotes
@@ -41,8 +39,13 @@ function ArchivedNotes() {
               })}
           </div>
         </div>
+      ) : (
+        <div className="d-flex justify-content-center align-items-center flex-column p-5 gap-5">
+          <ArchiveOutlinedIcon sx={{fontSize: 80}}/>
+          <h2 className="text-center">No Archived Notes yet.</h2>
+        </div>
+      )}
       </div>
     );
   }
-//}
 export default ArchivedNotes;

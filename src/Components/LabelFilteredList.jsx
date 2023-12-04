@@ -6,7 +6,7 @@ import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 
 function LabelFilteredList() {
   const { id } = useParams();
-  const { notes, isLoggedIn, columnView, searchText, darkMode } =
+  const { notes, columnView, searchText, darkMode } =
     useNoteAppContext();
 
   const filteredNotes = notes.filter((note) => {
@@ -15,7 +15,7 @@ function LabelFilteredList() {
 
   return (
     <div className={`${darkMode && "dark-mode"}`}>
-      {isLoggedIn && filteredNotes.length > 0 ? (
+      {filteredNotes.length > 0 ? (
         filteredNotes
           .filter((note) => {
             return (
