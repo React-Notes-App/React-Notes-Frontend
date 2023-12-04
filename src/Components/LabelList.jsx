@@ -9,19 +9,19 @@ function LabelList({ label }) {
     const noteId = label.notes_id;
     removeLabelFromNote(labelId, noteId);
   };
-const foo = userLabels.map((label) => {
-if (label.id === labelId) {
-  return label.label_name
-}
-return null
-})
+  // const foo = userLabels.map((label) => {
+  //   if (label.id === labelId) {
+  //     return label.label_name;
+  //   }
+  //   return null;
+  // });
   return (
     <div
       className="d-flex align-items-center"
       style={{ marginBottom: ".5rem" }}
-      key={label.id}
+      key={label.label_name}
     >
-      <small className="note-label">{foo}</small>
+      <small className="note-label">{label.label_name}</small>
       <HighlightOffIcon
         className="label-delete-icon"
         style={{ marginLeft: ".5rem", marginRight: ".5rem" }}

@@ -24,7 +24,9 @@ function LogInForm() {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      if (localStorage.getItem("token")) {
+      if (email === "" || password === "") {
+        alert("Please fill out all fields!");
+      } else if (localStorage.getItem("token")) {
         alert("You are already logged in!");
       } else {
         const result = await loginCall(email, password);
@@ -35,10 +37,10 @@ function LogInForm() {
           setToken(result.token);
           setUser(result.user);
           setIsLoggedIn(true);
-
+          console.log(setToken, setUser, setIsLoggedIn);
           await getUserNotes(result.token, result.user.id);
           await getUserLabels(result.token, result.user.id);
-          navigate("/notes");
+          navigate("/");
         } else {
           alert(result.message);
         }

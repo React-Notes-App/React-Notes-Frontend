@@ -11,8 +11,7 @@ import {
   LogInForm,
 } from "./";
 import NoteAppProvider from "../Provider/NoteAppProvider";
-
-
+import { ProtectedRoute } from "./ProtectedRoute";
 
 function Main() {
   return (
@@ -20,14 +19,41 @@ function Main() {
       <NoteAppProvider>
         <NavBar />
         <Routes>
-          <Route path="/notes" element={<NoteApp />} />
-          <Route path="/archived_notes" element={<ArchivedNotes />} />
-          <Route path="/labels/:id" element={<LabelFilteredList />} />
-          <Route path="/profile" element={<Profile/>} />
-
-          <Route path="/" element={<LogInForm />} />
-
+          <Route path="/login" element={<LogInForm />} />
           <Route path="/register" element={<RegisterForm />} />
+
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <NoteApp />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/archived_notes"
+            element={
+              <ProtectedRoute>
+              <ArchivedNotes />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/labels/:id"
+            element={
+              <ProtectedRoute>
+              <LabelFilteredList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+              <Profile />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </NoteAppProvider>
     </div>

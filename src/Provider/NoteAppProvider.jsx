@@ -1,5 +1,6 @@
 import React, { useState, useContext, createContext, useEffect } from "react";
 import PropTypes from "prop-types";
+import { Spinner } from "react-bootstrap";
 import {
   getUserNotesCall,
   // getArchivedNotesCall,
@@ -65,6 +66,8 @@ const NoteAppProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const [hasLoaded, setHasLoaded] = useState(false);
+
   const [searchText, setSearchText] = useState("");
   const [darkMode, setDarkMode] = useState(false);
   const [columnView, setColumnView] = useState(false);
@@ -80,6 +83,8 @@ const NoteAppProvider = ({ children }) => {
       setToken(localStorage.getItem("token"));
       setUser(JSON.parse(localStorage.getItem("user")));
       setIsLoggedIn(true);
+      console.log(user);
+      console.log(isLoggedIn);
       getUserNotes(
         localStorage.getItem("token"),
         JSON.parse(localStorage.getItem("user")).id
@@ -94,6 +99,7 @@ const NoteAppProvider = ({ children }) => {
         JSON.parse(localStorage.getItem("user")).id
       );
     }
+    setHasLoaded(true);
   }, []);
 
   const getUserNotes = async (token, id) => {
@@ -172,7 +178,7 @@ const NoteAppProvider = ({ children }) => {
       title,
       itemNames,
       color,
-      date, 
+      date,
       is_archived,
       has_checklist,
       itemsCompleted,
@@ -349,9 +355,16 @@ const NoteAppProvider = ({ children }) => {
       return label.id !== deletedLabel.id;
     });
     setUserLabels(newLabels);
-    // await getUserLabels(token, user.id);
+    const newNotes = notes.map((note) => {
+      const newLabels = note.labels.filter((label) => {
+        return label.id !== deletedLabel.id;
+      });
+      note.labels = newLabels;
+      return note;
+    }
+    );
+    setNotes(newNotes);
 
-    console.log(newLabels);
   };
 
   const editLabel = async (labelId, label_name) => {
@@ -409,7 +422,11 @@ const NoteAppProvider = ({ children }) => {
     });
     setNotes(newNotes);
   };
-
+  if (!hasLoaded) {
+    return  <div className="d-flex justify-content-center align-items-center">
+    <Spinner animation="border" role="status"></Spinner>
+    </div>;
+  }
   return (
     <NoteAppProviderContext.Provider
       value={{

@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import React  from "react";
+
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import { NotesList, AddNote, AddNoteBar } from "./";
 
+
 function NoteApp() {
-  const { darkMode, isLoggedIn, } = useNoteAppContext();
-console.log(isLoggedIn);
-
-
+  const { darkMode } = useNoteAppContext();
 
     return (
       <div className={`${darkMode && "dark-mode"}`}>

@@ -6,7 +6,7 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-function ItemList({ item, has_checklist} ) {
+function ItemList({ item, has_checklist }) {
   ItemList.propTypes = {
     item: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -16,7 +16,8 @@ function ItemList({ item, has_checklist} ) {
     }).isRequired,
   };
 
-  const { deleteItem, editItemName, checkItem, } = useNoteAppContext();
+  const { deleteItem, editItemName, checkItem, createItem } =
+    useNoteAppContext();
   const [completed, setCompleted] = useState(item.completed);
   const noteId = item.notes_id;
 
@@ -28,41 +29,46 @@ function ItemList({ item, has_checklist} ) {
     boxShadow: "none",
   };
 
-
-
   const handleCheck = () => {
     const id = item.id;
     setCompleted(!completed);
     checkItem(id, !completed, noteId);
   };
 
-
-
   const handleEditItemSubmit = (e) => {
+    const itemName = "";
     const id = item.id;
     const editedItem = e.target.value;
     if (e.keyCode === 13 && editedItem.trim().length > 0) {
       editItemName(id, editedItem, noteId);
+      console.log("edit item", e.target.value);
+    }
+    
+    if (e.keyCode === 13 && e.target.value === item.item_name) {
+      createItem(noteId, itemName);
+      console.log("blank item", e.target.value);
     }
   };
+
   function handleDeleteItemClick() {
     const id = item.id;
     deleteItem(id, noteId);
   }
-  
+
   return (
     <div key={item.id}>
       <InputGroup className="mb-0 align-items-center">
         {has_checklist === true ? (
-        <Form.Check
-          type="checkbox"
-          id="itemCheckbox"
-          value={completed}
-          onChange={handleCheck}
-          checked={completed}
-        /> ) : null}
+          <Form.Check
+            type="checkbox"
+            id="itemCheckbox"
+            value={completed}
+            onChange={handleCheck}
+            checked={completed}
+          />
+        ) : null}
         <Form.Control
-        key={item.item_name}
+          key={item.item_name}
           style={styles}
           placeholder={item.item_name}
           onKeyDown={handleEditItemSubmit}

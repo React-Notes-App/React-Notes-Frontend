@@ -36,7 +36,7 @@ const handleRegister = async (event) => {
         setIsLoggedIn(true);
         await getUserNotes(result.token, result.user.id);
         await getUserLabels(result.token, result.user.id);
-        navigate("/notes");
+        navigate("/");
       } else {
         alert(result.message);
       }

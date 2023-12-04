@@ -36,13 +36,9 @@ function NavBar() {
 
   function handleSearch(event) {
     setSearchText(event.target.value);
-    console.log(event.target.value);
   }
 
   const navigate = useNavigate();
-  // let profilePic =
-  //   user.picture
-  //   // "https://pyxis.nymag.com/v1/imgs/692/8f5/2180fb8d862b6a57d7b3f406795e950360-26-atomic-blonde.rsquare.w400.jpg";
 
   let style = {
     width: "2.5rem",
@@ -56,7 +52,7 @@ function NavBar() {
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container fluid>
           {isLoggedIn ? <SideNav setDarkMode={setDarkMode} /> : null}
-          <Navbar.Brand href="/notes">Notes</Navbar.Brand>
+          <Navbar.Brand href="/">Notes</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto p-2 align-items-center">
@@ -138,7 +134,7 @@ function NavBar() {
                 {isLoggedIn ? (
                   <div id="navbar-dropdown-icons">
                     <ListAltOutlined />
-                    <NavDropdown.Item href="/notes">Notes</NavDropdown.Item>
+                    <NavDropdown.Item href="/">Notes</NavDropdown.Item>
                   </div>
                 ) : null}
                 {isLoggedIn ? (

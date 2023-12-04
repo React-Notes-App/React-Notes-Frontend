@@ -7,11 +7,10 @@ import {
   FloatingLabel,
   FormControl,
   FormGroup,
-  FormLabel,
   NavDropdown,
+  Form,
 } from "react-bootstrap";
 import { loginCall } from "../API-Adapter";
-import RegisterModal from "./RegisterModal";
 import { useNavigate } from "react-router-dom";
 
 function LogIn() {
@@ -36,7 +35,9 @@ function LogIn() {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      if (localStorage.getItem("token")) {
+      if (email === "" || password === "") {
+        alert("Please fill out all fields!");
+      } else if (localStorage.getItem("token")) {
         alert("You are already logged in!");
       } else {
         const result = await loginCall(email, password);
@@ -47,9 +48,10 @@ function LogIn() {
           setToken(result.token);
           setUser(result.user);
           setIsLoggedIn(true);
+          console.log(setToken, setUser, setIsLoggedIn);
           await getUserNotes(result.token, result.user.id);
           await getUserLabels(result.token, result.user.id);
-          navigate("/notes");
+          navigate("/");
           handleCloseLogin();
         } else {
           alert(result.message);
@@ -69,6 +71,7 @@ function LogIn() {
           <Modal.Title>Log In</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <Form>
           <FormGroup className="mb-3">
             <FloatingLabel
               className="mb-3"
@@ -105,14 +108,18 @@ function LogIn() {
             <Button variant="secondary" onClick={handleCloseLogin}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleLogin}>
+            <Button variant="primary" type="submit" onClick={handleLogin}>
               Login
             </Button>
           </div>
+          </Form>
         </Modal.Body>
         <Modal.Footer className="border-0 justify-content-start">
-          <FormLabel>Don't have an account?</FormLabel>
-          <RegisterModal handleCloseLogin={handleCloseLogin} />
+          <Form.Group className="mb-3" controlId="formBasicRegister">
+          <Form.Text className="text-muted">
+            Don't have an account? <a href="/register">Register</a>
+          </Form.Text>
+        </Form.Group>
         </Modal.Footer>
       </Modal>
     </div>

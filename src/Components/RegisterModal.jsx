@@ -14,7 +14,6 @@ import {
 import { registerCall } from "../API-Adapter";
 import LogInModal from "./LogInModal";
 
-
 function Register({ handleCloseLogin }) {
   const [showRegister, setShowRegister] = useState(false);
   const handleRegisterShow = () => setShowRegister(true);
@@ -28,7 +27,7 @@ function Register({ handleCloseLogin }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirm] = useState("");
 
-   const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleRegister = async (event) => {
     console.log("register:", name, email, password, confirmPassword);
@@ -108,49 +107,50 @@ function Register({ handleCloseLogin }) {
                 </FloatingLabel>
               </FormGroup>
             </Row>
-          </Form>
-          <FormGroup className="mb-3">
-            <FloatingLabel
-              type="text"
-              controlId="formRegisterPassword"
-              label="Password"
-            >
-              <Form.Control
-                type="password"
+
+            <FormGroup className="mb-3">
+              <FloatingLabel
+                type="text"
                 controlId="formRegisterPassword"
-                placeholder="Password"
-                aria-label="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </FloatingLabel>
-          </FormGroup>
-          <FormGroup className="mb-3">
-            <FloatingLabel
-              type="text"
-              controlId="formRegisterConfirmPassword"
-              label="Confirm Password"
-            >
-              <Form.Control
-                type="password"
-                id="formRegisterConfirmPassword"
-                placeholder="Confirm Password"
-                aria-label="Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirm(e.target.value)}
-                required
-              />
-            </FloatingLabel>
-          </FormGroup>
-          <div className="d-flex justify-content-end gap-2">
-            <Button variant="secondary" onClick={handleRegisterClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleRegister}>
-              Register
-            </Button>
-          </div>
+                label="Password"
+              >
+                <Form.Control
+                  type="password"
+                  controlId="formRegisterPassword"
+                  placeholder="Password"
+                  aria-label="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </FloatingLabel>
+            </FormGroup>
+            <FormGroup className="mb-3">
+              <FloatingLabel
+                type="text"
+                controlId="formRegisterConfirmPassword"
+                label="Confirm Password"
+              >
+                <Form.Control
+                  type="password"
+                  id="formRegisterConfirmPassword"
+                  placeholder="Confirm Password"
+                  aria-label="Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirm(e.target.value)}
+                  required
+                />
+              </FloatingLabel>
+            </FormGroup>
+            <div className="d-flex justify-content-end gap-2">
+              <Button variant="secondary" onClick={handleRegisterClose}>
+                Close
+              </Button>
+              <Button variant="primary" type="submit" onClick={handleRegister}>
+                Register
+              </Button>
+            </div>
+          </Form>
         </Modal.Body>
         <Modal.Footer className="border-0 justify-content-start align-items-center">
           <Form.Label className="text-muted">

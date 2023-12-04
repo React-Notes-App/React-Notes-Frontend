@@ -76,6 +76,10 @@ body {
 .dark-mode .footer {
   color: white;
 }
+
+.dark-mode .no-note {
+  color: white;
+}
 .notes-list-column {
   display: grid;
   grid-template-columns: 0.5fr;
@@ -238,7 +242,7 @@ form .form-control:focus {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
-  padding: 1rem;
+  padding: 2rem;
   margin-top: 1rem;
 }
 #profile-container hr {
@@ -469,5 +473,106 @@ form .form-control:focus {
 
   #register-form {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .navbar-toggler-icon {
+    /* background-image: url("https://img.icons8.com/ios-filled/50/000000/menu--v1.png"); */
+    background-size: cover;
+    border-radius: 50%;
+  }
+
+  .navbar-toggler {
+    background-color: transparent;
+    border: none;
+  }
+  .navbar-nav {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto auto;
+    grid-gap: 1rem;
+
+    align-items: center;
+    justify-items: center;
+  }
+
+  #navbar-dropdown-icons a {
+    margin-left: 0.5rem;
+  }
+  #navbar-dropdown-icons .nav-item {
+    margin-left: 0.5rem;
+  }
+
+  #searchBar1 {
+    grid-column: 1 / 5;
+    grid-row: 1;
+    width: 100% !important;
+  }
+
+  #dark-mode-toggle {
+    grid-column: 1 / 1;
+    display: none;
+  }
+
+  #dark-mode-toggle2 {
+    display: block;
+  }
+
+  #grid-view-toggle {
+    display: block;
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  #grid-view-toggle2 {
+    display: none;
+  }
+
+  #column-view-toggle2 {
+    display: none;
+  }
+
+  #column-view-toggle {
+    display: block;
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  #side-nav-hr {
+    display: block;
+  }
+
+  #basic-nav-dropdown {
+    grid-column: 3 / 3;
+    display: none;
+  }
+  #hello-user {
+    display: block;
+    grid-column: 1;
+    grid-row: 2;
+  }
+  #profile1 {
+    display: grid;
+    grid-column: 2;
+    grid-row: 2;
+  }
+  #login1 {
+    display: block;
+    grid-column: 4;
+    grid-row: 2;
+  }
+  #logout1 {
+    display: block;
+    grid-column: 4;
+    grid-row: 2;
+  }
+  .note {
+    width: 100%;
+  }
+
+  .note-app-container {
+    padding-top: 1rem;
+    padding-left: 0.5rem;
   }
 }

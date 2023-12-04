@@ -26,22 +26,32 @@ function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
 
   const handleSendNote = () => {
     let note = { title, items };
-    let noteItems = note.items.map((item) => item.item_name);
+    let completedNoteItems = note.items.filter((item) => item.completed === true);
+    let unCompletedNoteItems = note.items.filter((item) => item.completed === false);
 
-    noteItems = noteItems.join("%0D%0A- ");
+    let openNoteItems = unCompletedNoteItems.map((item) => item.item_name);
+    let finishedNoteItems = completedNoteItems.map((item) => item.item_name);
 
-    const link = `mailto:?subject=${title}&body=- ${noteItems}`;
+    let noteItems = openNoteItems.join("%0D%0A- ");
+    let finishedItems = finishedNoteItems.join("%0D%0A- (\u2713)");
+
+    let link = `mailto:?subject=${note.title}&body=- ${noteItems} %0D%0A%0D%0A- (\u2713)${finishedItems}`;
     window.open(link);
   };
 
   const handleShareNote = () => {
     let note = { title, items };
     let noteTitle = note.title;
-    let noteItems = note.items.map((item) => item.item_name);
+    let completedNoteItems = note.items.filter((item) => item.completed === true);
+    let unCompletedNoteItems = note.items.filter((item) => item.completed === false);
 
-    noteItems = noteItems.join("\n - ");
+    let openNoteItems = unCompletedNoteItems.map((item) => item.item_name);
+    let finishedNoteItems = completedNoteItems.map((item) => item.item_name);
 
-    let copiedNote = `${noteTitle}\n - ${noteItems}`;
+    let noteItems = openNoteItems.join("\n - ");
+    let finishedItems = finishedNoteItems.join("\n - (\u2713)");
+
+    let copiedNote = `${noteTitle}\n - ${noteItems}\n\n - (\u2713)${finishedItems}\n`;
 
     navigator.clipboard.writeText(copiedNote);
   };

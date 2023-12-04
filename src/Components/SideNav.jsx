@@ -64,8 +64,8 @@ function SideNav() {
           <hr />
           <div className="d-flex">
             <ListAltOutlinedIcon />
-            <Nav.Link href="/notes" style={{ marginLeft: ".5rem" }}>
-              All Notes
+            <Nav.Link href="/" style={{ marginLeft: ".5rem" }}>
+              Notes
             </Nav.Link>
           </div>
           <div className="d-flex align-items-center justify-content-between">

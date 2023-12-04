@@ -29,10 +29,6 @@ function Profile() {
 
   const handleInfoSubmit = (e) => {
     e.preventDefault();
-    if (newName === "" || newEmail === "" || newPassword === "" || pictureURL === "") {
-      alert("Please enter new information");
-      return;
-    }
 
     if (newEmail !== confirmEmail) {
       alert("Emails do not match");
@@ -90,7 +86,6 @@ function Profile() {
         </Card>
       </div>
       <hr />
-
       <Form>
         <Form.Group className="mb-3">
           <Form.Label>Change Profile Picture:</Form.Label>
@@ -108,7 +103,7 @@ function Profile() {
         </InputGroup>
         <hr />
         <Form.Group as={Col} className="mb-3" controlId="formBasicName">
-          <Form.Label>Edit User Info:</Form.Label>
+          <Form.Label>Edit User Info</Form.Label>
           <FloatingLabel type="text" controlId="formBasicName" label="Name">
             <Form.Control
               type="text"
