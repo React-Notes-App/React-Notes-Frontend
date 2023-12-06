@@ -91,9 +91,9 @@ function NavBar() {
                   </Nav.Item>
                 </div>
               ) : (
-                <div>
-                  <LoginOutlinedIcon id="login1" />
-                  <Nav.Item  id="login1" className="me-2">
+                <div id="login1">
+                  <LoginOutlinedIcon />
+                  <Nav.Item className="me-2">
                     <LogInModal />
                   </Nav.Item>
                 </div>
