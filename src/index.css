@@ -170,6 +170,11 @@ form .form-control:focus {
   box-shadow: none;
 }
 
+.form-control:focus {
+  border-color: #282c34;
+  box-shadow: none;
+}
+
 .itemListBackground {
   margin-top: 0.5rem;
   border: none;

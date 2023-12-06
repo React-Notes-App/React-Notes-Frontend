@@ -18,7 +18,6 @@ const [confirmPassword, setConfirm] = useState("");
  const navigate = useNavigate(); 
 
 const handleRegister = async (event) => {
-  console.log("register:", name, email, password, confirmPassword);
   event.preventDefault();
   if (password !== confirmPassword) {
     alert("Passwords do not match!");
@@ -68,6 +67,7 @@ const handleRegister = async (event) => {
             label="Enter email"
           >
             <Form.Control type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} />
+            <Form.Text className="text-muted">We will never share your email with anyone else.</Form.Text>
           </FloatingLabel>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -77,6 +77,7 @@ const handleRegister = async (event) => {
             label="Password"
           >
             <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+            <Form.Text className="text-muted">Password must be at least 8 characters long.</Form.Text>
           </FloatingLabel>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -86,6 +87,7 @@ const handleRegister = async (event) => {
             label="Confirm Password"
           >
             <Form.Control type="password" placeholder="Confirm Password" onChange={(e) => setConfirm(e.target.value)} />
+            <Form.Text className="text-muted">Please re-enter your password.</Form.Text>
           </FloatingLabel>
         </Form.Group>
         <div className="d-flex justify-content-end">

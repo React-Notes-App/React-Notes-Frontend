@@ -34,10 +34,6 @@ function AddNoteBar() {
   };
   const handleSaveClick = () => {
     if (noteTitle.trim().length > 0) {
-      console.log(label_name, "labelValue");
-      console.log(labelId, "labelId");
-      console.log(noteTitle, "noteTitle");
-      console.log(noteItem, "noteItem");
       createNote(noteTitle, noteItem, label_name, labelId);
       setNoteTitle("");
       setNoteItem("");
@@ -70,6 +66,7 @@ function AddNoteBar() {
                 backgroundColor: "transparent",
                 fontSize: "1rem",
                 paddingLeft: "0px",
+                focus: "none",
               }}
               aria-label="noteTitle"
               aria-describedby="basic-addon1"

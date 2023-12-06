@@ -3,9 +3,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
-function CreateLabel({ setLabel_Name, setLabelPreview}) {
-
-
+function CreateLabel({ setLabel_Name, setLabelPreview }) {
   const createLabelStyles = {
     backgroundColor: "transparent",
     border: "none",
@@ -15,9 +13,7 @@ function CreateLabel({ setLabel_Name, setLabelPreview}) {
     if (e.keyCode === 13) {
       setLabel_Name(e.target.value);
       setLabelPreview(e.target.value);
-    };
-    console.log(e.target.value, "e.target.value");
-    
+    }
   };
   return (
     <InputGroup className="mb-2 align-items-center">

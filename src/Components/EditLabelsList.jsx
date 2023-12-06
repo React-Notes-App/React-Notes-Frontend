@@ -22,7 +22,6 @@ function EditLabelsList({ label }) {
 
   const handleDeleteLabel = (e) => {
     const labelId = label.id;
-    console.log(labelId, "labelId");
     deleteLabel(labelId);
   };
   return (

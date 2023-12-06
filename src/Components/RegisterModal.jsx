@@ -30,7 +30,6 @@ function Register({ handleCloseLogin }) {
   const navigate = useNavigate();
 
   const handleRegister = async (event) => {
-    console.log("register:", name, email, password, confirmPassword);
     event.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords do not match!");

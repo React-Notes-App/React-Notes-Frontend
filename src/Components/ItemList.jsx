@@ -41,12 +41,10 @@ function ItemList({ item, has_checklist }) {
     const editedItem = e.target.value;
     if (e.keyCode === 13 && editedItem.trim().length > 0) {
       editItemName(id, editedItem, noteId);
-      console.log("edit item", e.target.value);
     }
     
     if (e.keyCode === 13 && e.target.value === item.item_name) {
       createItem(noteId, itemName);
-      console.log("blank item", e.target.value);
     }
   };
 

@@ -11,7 +11,6 @@ import EditLabelsList from "./EditLabelsList";
 
 function EditLabelsModal() {
   const { userLabels, createLabel } = useNoteAppContext();
-  console.log(userLabels, "userLabels");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
