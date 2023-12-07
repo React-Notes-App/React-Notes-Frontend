@@ -9,6 +9,8 @@ import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 function AddLabelDropDown({ labels, id }) {
 
   const { userLabels, addLabelToNote, createLabel } = useNoteAppContext();
+
+  console.log(userLabels);
   
   const noteId = id;
   const handleAddLabel = (e) => {

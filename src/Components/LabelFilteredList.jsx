@@ -6,34 +6,30 @@ import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 
 function LabelFilteredList() {
   const { id } = useParams();
-  const { notes, columnView, searchText, darkMode } =
-    useNoteAppContext();
+  const { notes, columnView, searchText, darkMode } = useNoteAppContext();
 
   const filteredNotes = notes.filter((note) => {
     return note.labels.some((label) => label.id === parseInt(id));
   });
+  console.log(filteredNotes);
 
   return (
-    <div className={`${darkMode && "dark-mode"}`}>
-      {filteredNotes.length > 0 ? (
-        filteredNotes
-          .filter((note) => {
-            return (
-              searchText.toLowerCase() === "" ||
-              note.title.toLowerCase().includes(searchText) ||
-              note.items.some((item) =>
-                item.item_name.toLowerCase().includes(searchText)
-              )
-            );
-          })
-          .map((note) => {
-            return (
-              <div className="note-app-container">
-                <div
-                  className={
-                    columnView ? "notes-list-column" : "notes-list-grid"
-                  }
-                >
+    <div className="note-app-container">
+      <div className={`${darkMode && "dark-mode"}`}>
+        <div className={columnView ? "notes-list-column" : "notes-list-grid"}>
+          {filteredNotes.length > 0 ? (
+            filteredNotes
+              .filter((note) => {
+                return (
+                  searchText.toLowerCase() === "" ||
+                  note.title.toLowerCase().includes(searchText) ||
+                  note.items.some((item) =>
+                    item.item_name.toLowerCase().includes(searchText)
+                  )
+                );
+              })
+              .map((note) => {
+                return (
                   <Note
                     key={note.id}
                     id={note.id}
@@ -45,16 +41,16 @@ function LabelFilteredList() {
                     is_archived={note.is_archived}
                     has_checklist={note.has_checklist}
                   />
-                </div>
-              </div>
-            );
-          })
-      ) : (
-        <div className="d-flex justify-content-center align-items-center flex-column p-5 gap-5">
-          <LabelOutlinedIcon sx={{fontSize: 80}}/>
-          <h2 className="text-center">No Notes with that label yet.</h2>
+                );
+              })
+          ) : (
+            <div className="d-flex justify-content-center align-items-center flex-column p-5 gap-5">
+              <LabelOutlinedIcon sx={{ fontSize: 80 }} />
+              <h2 className="text-center">No Notes with that label yet.</h2>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

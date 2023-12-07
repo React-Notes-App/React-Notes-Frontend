@@ -2,17 +2,27 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { useNoteAppContext } from "../Provider/NoteAppProvider";
 
 function CreateLabel({ setLabel_Name, setLabelPreview }) {
+
+  const {userLabels} = useNoteAppContext();
+
   const createLabelStyles = {
     backgroundColor: "transparent",
     border: "none",
     boxShadow: "none",
   };
+  const existingLabels = userLabels.map((label) => label.label_name);
+
   const handleCreateLabel = (e) => {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && !existingLabels.includes(e.target.value)) {
       setLabel_Name(e.target.value);
       setLabelPreview(e.target.value);
+    }
+
+    if (e.keyCode === 13 && existingLabels.includes(e.target.value)) {
+      alert("Label already exists");
     }
   };
   return (
