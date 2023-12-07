@@ -39,7 +39,7 @@ function Main() {
             }
           />
           <Route
-            path="/labels/:id"
+            path="/labels/:param_name/:param_id"
             element={
               <ProtectedRoute>
               <LabelFilteredList />

@@ -26,6 +26,7 @@ function NoteTitle({ id, title }) {
       placeholder={title}
       onKeyDown={handleTitleSubmit}
       defaultValue={title}
+      id={`noteTitle-${id}`}
     />
   );
 }

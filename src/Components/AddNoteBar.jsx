@@ -6,7 +6,7 @@ import CreateLabelDropDown from "./CreateLabelDropDown";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 
-function AddNoteBar() {
+function AddNoteBar({param_id, param_name}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -32,7 +32,9 @@ function AddNoteBar() {
       setNoteItem(event.target.value);
     }
   };
+
   const handleSaveClick = () => {
+   
     if (noteTitle.trim().length > 0) {
       createNote(noteTitle, noteItem, label_name, labelId);
       setNoteTitle("");
@@ -44,7 +46,7 @@ function AddNoteBar() {
     } else {
       alert("Please enter a title");
     }
-  };
+  }
 
   const clearLabelPreview = () => {
     setLabelPreview("");
@@ -116,6 +118,8 @@ function AddNoteBar() {
                   label_name={label_name}
                   setLabel_Name={setLabel_Name}
                   labelId={labelId}
+                  param_id={param_id}
+                  param_name={param_name}
                   setLabelId={setLabelId}
                   setLabelPreview={setLabelPreview}
                 />

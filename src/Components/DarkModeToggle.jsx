@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import Form from "react-bootstrap/Form";
 import FormCheck from "react-bootstrap/FormCheck";
 
 function DarkModeToggle({ handleToggleDarkMode }) {
@@ -9,15 +9,17 @@ function DarkModeToggle({ handleToggleDarkMode }) {
   };
 
   return (
+   <Form>
     <FormCheck
-      className="d-flex align-items-center"
       type="switch"
-      // id="dark-mode-toggle"
+      id="dark-mode-toggle-switch"
       label="Dark Mode"
       onClick={() =>
         handleToggleDarkMode((previousDarkMode) => !previousDarkMode)
       }
     />
+  </Form>
+
   );
 }
 

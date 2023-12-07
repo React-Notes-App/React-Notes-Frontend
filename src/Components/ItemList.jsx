@@ -59,7 +59,7 @@ function ItemList({ item, has_checklist }) {
         {has_checklist === true ? (
           <Form.Check
             type="checkbox"
-            id="itemCheckbox"
+            id={`itemCheckbox-${item.id}`}
             value={completed}
             onChange={handleCheck}
             checked={completed}
@@ -71,6 +71,7 @@ function ItemList({ item, has_checklist }) {
           placeholder={item.item_name}
           onKeyDown={handleEditItemSubmit}
           defaultValue={item.item_name}
+          id={`item-${item.id}`}
         ></Form.Control>
 
         <HighlightOffIcon

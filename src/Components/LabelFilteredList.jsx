@@ -1,21 +1,22 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
-import Note from "./Note";
+import { Note, AddNoteBar, AddNote } from "./";
 import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 
 function LabelFilteredList() {
-  const { id } = useParams();
+  const { param_id } = useParams();
+const { param_name } = useParams();
   const { notes, columnView, searchText, darkMode } = useNoteAppContext();
 
   const filteredNotes = notes.filter((note) => {
-    return note.labels.some((label) => label.id === parseInt(id));
+    return note.labels.some((label) => label.id === parseInt(param_id));
   });
-  console.log(filteredNotes);
 
   return (
-    <div className="note-app-container">
-      <div className={`${darkMode && "dark-mode"}`}>
+    <div className={`${darkMode && "dark-mode"}`}>
+      <div className="note-app-container">
+        <AddNoteBar param_id={param_id} param_name={param_name}/>
         <div className={columnView ? "notes-list-column" : "notes-list-grid"}>
           {filteredNotes.length > 0 ? (
             filteredNotes
@@ -49,6 +50,9 @@ function LabelFilteredList() {
               <h2 className="text-center">No Notes with that label yet.</h2>
             </div>
           )}
+        </div>
+        <div className="footer">
+          <AddNote />
         </div>
       </div>
     </div>

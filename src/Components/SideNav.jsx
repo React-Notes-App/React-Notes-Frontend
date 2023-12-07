@@ -48,7 +48,7 @@ function SideNav() {
                 <div className="d-flex align-items-center">
                   <LabelOutlinedIcon />
                   <Nav.Link
-                    href={`/labels/${label.id}`}
+                    href={`/labels/${label.label_name}/${label.id}`}
                     style={{ marginLeft: ".5rem" }}
                   >
                     {label.label_name}
