@@ -31,7 +31,7 @@ function Main() {
             }
           />
           <Route
-            path="/archived_notes"
+            path="/notes/archived/:param_is_archived"
             element={
               <ProtectedRoute>
               <ArchivedNotes />
@@ -39,7 +39,7 @@ function Main() {
             }
           />
           <Route
-            path="/labels/:param_name/:param_id"
+            path="/notes/by_label/:param_name/:param_id"
             element={
               <ProtectedRoute>
               <LabelFilteredList />

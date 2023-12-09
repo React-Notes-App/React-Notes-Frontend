@@ -14,6 +14,9 @@ function CreateLabel({ setLabel_Name, setLabelPreview }) {
     boxShadow: "none",
   };
   const existingLabels = userLabels.map((label) => label.label_name);
+  console.log(userLabels);
+ 
+  
 
   const handleCreateLabel = (e) => {
     if (e.keyCode === 13 && !existingLabels.includes(e.target.value)) {
@@ -24,6 +27,7 @@ function CreateLabel({ setLabel_Name, setLabelPreview }) {
     if (e.keyCode === 13 && existingLabels.includes(e.target.value)) {
       alert("Label already exists");
     }
+
   };
   return (
     <InputGroup className="mb-2 align-items-center">

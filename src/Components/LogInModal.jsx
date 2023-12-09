@@ -48,7 +48,6 @@ function LogIn() {
           setToken(result.token);
           setUser(result.user);
           setIsLoggedIn(true);
-          console.log(setToken, setUser, setIsLoggedIn);
           await getUserNotes(result.token, result.user.id);
           await getUserLabels(result.token, result.user.id);
           navigate("/");

@@ -5,8 +5,8 @@ import { FormControl, InputGroup, FormCheck, Button } from "react-bootstrap";
 import CreateLabelDropDown from "./CreateLabelDropDown";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
-
-function AddNoteBar({param_id, param_name}) {
+function AddNoteBar({ param_id, param_name, param_is_archived }) {
+ 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -34,25 +34,24 @@ function AddNoteBar({param_id, param_name}) {
   };
 
   const handleSaveClick = () => {
-   
+
     if (noteTitle.trim().length > 0) {
-      createNote(noteTitle, noteItem, label_name, labelId);
+      createNote(noteTitle, noteItem, label_name, labelId, param_is_archived);
       setNoteTitle("");
       setNoteItem("");
-      setLabel_Name("");
       setLabelId("");
       setLabelPreview("");
       setOpen(false);
     } else {
       alert("Please enter a title");
     }
-  }
+  };
 
   const clearLabelPreview = () => {
     setLabelPreview("");
     setLabelId("");
     setLabel_Name("");
-  }
+  };
 
   return (
     <div className="add-note-bar-container">

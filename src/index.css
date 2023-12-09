@@ -248,6 +248,18 @@ form .form-control:focus {
   color: red;
 }
 
+.deleteIcon {
+  cursor: pointer;
+}
+
+.deleteIcon:hover {
+  color: red;
+}
+
+#editModalIcon {
+  cursor: pointer;
+}
+
 #profile-container {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -33,8 +33,8 @@ function EditLabelsModal() {
   return (
     <div>
       <div className="d-flex" onClick={handleShow}>
-        <EditOutlinedIcon />
-        <Nav.Item style={{ marginLeft: ".5rem" }}>Edit Labels</Nav.Item>
+        <EditOutlinedIcon id="editModalIcon"/>
+        <Nav.Item style={{ marginLeft: ".5rem", cursor: "pointer" }}>Edit Labels</Nav.Item>
       </div>
       <Modal show={show}>
         <Modal.Header>

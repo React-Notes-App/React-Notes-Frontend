@@ -6,7 +6,7 @@ import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 
 function LabelFilteredList() {
   const { param_id } = useParams();
-const { param_name } = useParams();
+  const { param_name } = useParams();
   const { notes, columnView, searchText, darkMode } = useNoteAppContext();
 
   const filteredNotes = notes.filter((note) => {
@@ -16,10 +16,15 @@ const { param_name } = useParams();
   return (
     <div className={`${darkMode && "dark-mode"}`}>
       <div className="note-app-container">
-        <AddNoteBar param_id={param_id} param_name={param_name}/>
-        <div className={columnView ? "notes-list-column" : "notes-list-grid"}>
-          {filteredNotes.length > 0 ? (
-            filteredNotes
+        <AddNoteBar param_id={param_id} param_name={param_name} />
+        {!filteredNotes.length ? (
+          <div className="d-flex justify-content-center align-items-center flex-column p-5 gap-5">
+            <LabelOutlinedIcon sx={{ fontSize: 80 }} />
+            <h2 className="text-center">No Notes with that label yet.</h2>
+          </div>
+        ) : (
+          <div className={columnView ? "notes-list-column" : "notes-list-grid"}>
+            {filteredNotes
               .filter((note) => {
                 return (
                   searchText.toLowerCase() === "" ||
@@ -43,14 +48,9 @@ const { param_name } = useParams();
                     has_checklist={note.has_checklist}
                   />
                 );
-              })
-          ) : (
-            <div className="d-flex justify-content-center align-items-center flex-column p-5 gap-5">
-              <LabelOutlinedIcon sx={{ fontSize: 80 }} />
-              <h2 className="text-center">No Notes with that label yet.</h2>
-            </div>
-          )}
-        </div>
+              })}
+          </div>
+        )}
         <div className="footer">
           <AddNote />
         </div>

@@ -123,11 +123,25 @@ const NoteAppProvider = ({ children }) => {
     setUser(newUser);
   };
 
-  const createNote = async (title, itemName, label_name, labelId) => {
+  const createNote = async (title, itemName, label_name, labelId, is_) => {
     let color = DEFAULT_NOTE_COLOR;
     let date = new Date();
-    let is_archived = false;
+    let is_archived;
+    if (is_) {
+      is_archived = true;
+    } else {
+      is_archived = false;
+    }
     let has_checklist = true;
+    let labelNameCheck = userLabels.map((label) => label.label_name);
+    let noLabel = labelNameCheck.includes("No Label");
+    if (noLabel) {
+      labelId = userLabels.find((label) => label.label_name === "No Label").id;
+    }
+
+    console.log("label name", label_name);
+    console.log("labelId", labelId);
+   
     const result = await createNoteCall(
       token,
       title,

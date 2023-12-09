@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import { InputGroup, Form } from "react-bootstrap";
 import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
@@ -6,6 +7,8 @@ import DeleteForeverOutlined from "@mui/icons-material/DeleteForeverOutlined";
 
 function EditLabelsList({ label }) {
   const { editLabel, deleteLabel } = useNoteAppContext();
+
+  const navigate = useNavigate();
   const styles = {
     backgroundColor: "transparent",
     border: "none",
@@ -23,6 +26,7 @@ function EditLabelsList({ label }) {
   const handleDeleteLabel = (e) => {
     const labelId = label.id;
     deleteLabel(labelId);
+    navigate("/");
   };
   return (
     <div key={label.id}>

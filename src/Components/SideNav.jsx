@@ -31,6 +31,7 @@ function SideNav() {
         }, 0)
       : 0;
 
+      const is_archived = true;
   return (
     <div>
       <MenuIcon sx={{ fontSize: 40 }} onClick={handleShow} className="me-2" />
@@ -48,7 +49,7 @@ function SideNav() {
                 <div className="d-flex align-items-center">
                   <LabelOutlinedIcon />
                   <Nav.Link
-                    href={`/labels/${label.label_name}/${label.id}`}
+                    href={`/notes/by_label/${label.label_name}/${label.id}`}
                     style={{ marginLeft: ".5rem" }}
                   >
                     {label.label_name}
@@ -71,12 +72,15 @@ function SideNav() {
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
               <ArchiveOutlinedIcon />
-              <Nav.Link href="/archived_notes" style={{ marginLeft: ".5rem" }}>
+              <Nav.Link
+                href={`/notes/archived/${is_archived}`}
+                style={{ marginLeft: ".5rem" }}
+              >
                 Archived
               </Nav.Link>
             </div>
             {archivedNoteCount >= 0 && (
-              <Badge bg="secondary" style={{}}>
+              <Badge bg="secondary">
                 {archivedNoteCount}
               </Badge>
             )}

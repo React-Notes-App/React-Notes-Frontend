@@ -1,17 +1,25 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
-import Note from "./Note";
+import { Note, AddNoteBar, AddNote } from "./";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 
 function ArchivedNotes() {
-  const { searchText, columnView, darkMode, archivedNotes} =
+  const { searchText, columnView, darkMode, archivedNotes } =
     useNoteAppContext();
 
+    const {param_is_archived} = useParams();
 
-    return (
-      <div className={`${darkMode && "dark-mode"}`}>
-        {archivedNotes.length > 0 ? (
-        <div className="note-app-container">
+  return (
+    <div className={`${darkMode && "dark-mode"}`}>
+      <div className="note-app-container">
+        <AddNoteBar param_is_archived={param_is_archived}/>
+        {!archivedNotes ? (
+          <div className="d-flex justify-content-center align-items-center flex-column p-5 gap-5">
+            <ArchiveOutlinedIcon sx={{ fontSize: 80 }} />
+            <h2 className="text-center">No Archived Notes yet.</h2>
+          </div>
+        ) : (
           <div className={columnView ? "notes-list-column" : "notes-list-grid"}>
             {archivedNotes
               .filter((note) => {
@@ -34,18 +42,17 @@ function ArchivedNotes() {
                     color={note.color}
                     labels={note.labels}
                     is_archived={note.is_archived}
+                    has_checklist={note.has_checklist}
                   />
                 );
               })}
           </div>
+        )}
+        <div className="footer">
+          <AddNote />
         </div>
-      ) : (
-        <div className="d-flex justify-content-center align-items-center flex-column p-5 gap-5">
-          <ArchiveOutlinedIcon sx={{fontSize: 80}}/>
-          <h2 className="text-center">No Archived Notes yet.</h2>
-        </div>
-      )}
       </div>
-    );
-  }
+    </div>
+  );
+}
 export default ArchivedNotes;

@@ -13,7 +13,7 @@ function CreateLabelDropDown({
   param_name,
 }) {
   const { userLabels } = useNoteAppContext();
-
+  
   const dropDownStyles = {
     paddingLeft: ".5rem",
   };
@@ -29,6 +29,7 @@ function CreateLabelDropDown({
     } else {
       setLabelPreview("");
     }
+
   }, [param_id, param_name, setLabelId, setLabelPreview]);
 
   const handleLabelSet = (e) => {
