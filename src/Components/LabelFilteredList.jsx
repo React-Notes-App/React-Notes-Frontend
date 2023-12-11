@@ -52,7 +52,7 @@ function LabelFilteredList() {
           </div>
         )}
         <div className="footer">
-          <AddNote />
+          <AddNote param_id={param_id} param_name={param_name} />
         </div>
       </div>
     </div>

@@ -31,7 +31,18 @@ function SideNav() {
         }, 0)
       : 0;
 
-      const is_archived = true;
+  const deletedNoteCount =
+    isLoggedIn && notes
+      ? notes.reduce((acc, note) => {
+          if (note.is_deleted) {
+            acc += 1;
+          }
+          return acc;
+        }, 0)
+      : 0;
+
+  const is_archived = true;
+  const is_deleted = true;
   return (
     <div>
       <MenuIcon sx={{ fontSize: 40 }} onClick={handleShow} className="me-2" />
@@ -80,16 +91,22 @@ function SideNav() {
               </Nav.Link>
             </div>
             {archivedNoteCount >= 0 && (
-              <Badge bg="secondary">
-                {archivedNoteCount}
-              </Badge>
+              <Badge bg="secondary">{archivedNoteCount}</Badge>
             )}
           </div>
-          <div className="d-flex">
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center">
             <DeleteForeverOutlined />
-            <Nav.Link href="/deleted_notes" style={{ marginLeft: ".5rem" }}>
-              Trash
-            </Nav.Link>
+              <Nav.Link
+                href={`/notes/deleted/${is_deleted}`}
+                style={{ marginLeft: ".5rem" }}
+              >
+                Trash
+              </Nav.Link>
+            </div>
+            {deletedNoteCount >= 0 && (
+              <Badge bg="danger">{deletedNoteCount}</Badge>
+            )}
           </div>
           <hr />
           <EditLabelsModal />

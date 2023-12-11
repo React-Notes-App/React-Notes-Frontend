@@ -8,7 +8,7 @@ import CreateLabelDropDown from "./CreateLabelDropDown";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
-function AddNote() {
+function AddNote({param_id, param_name, param_is_archived}) {
   const { createNote } = useNoteAppContext();
 
   const [show, setShow] = useState(false);
@@ -40,7 +40,7 @@ function AddNote() {
   };
   const handleSaveClick = () => {
     if (noteTitle.trim().length > 0) {
-      createNote(noteTitle, noteItem, label_name, labelId);
+      createNote(noteTitle, noteItem, label_name, labelId, param_is_archived);
       setNoteTitle("");
       setNoteItem("");
       setLabel_Name("");
@@ -125,6 +125,8 @@ function AddNote() {
             setLabelPreview={setLabelPreview}
             labelId={labelId}
             setLabelId={setLabelId}
+            param_id={param_id}
+            param_name={param_name}
           />
           <div>
             <Button

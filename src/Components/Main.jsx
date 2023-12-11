@@ -9,6 +9,7 @@ import {
   Profile,
   RegisterForm,
   LogInForm,
+  DeletedNotes,
 } from "./";
 import NoteAppProvider from "../Provider/NoteAppProvider";
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -45,6 +46,14 @@ function Main() {
               <LabelFilteredList />
               </ProtectedRoute>
             }
+          />
+          <Route 
+          path = "/notes/deleted/:param_is_deleted"
+          element = {
+            <ProtectedRoute>
+              <DeletedNotes />
+            </ProtectedRoute>
+          }
           />
           <Route
             path="/profile"

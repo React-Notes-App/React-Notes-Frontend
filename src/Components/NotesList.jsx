@@ -18,7 +18,7 @@ function NotesList() {
         {notes
           .filter((note) => {
             return (
-              note.is_archived === false &&
+              (note.is_archived === false) && (note.is_deleted === false)  &&
               (searchText.toLowerCase() === "" ||
                 note.title.toLowerCase().includes(searchText) ||
                 note.items.some((item) =>
@@ -38,6 +38,7 @@ function NotesList() {
                 labels={note.labels}
                 is_archived={note.is_archived}
                 has_checklist={note.has_checklist}
+                is_deleted={note.is_deleted}
               />
             );
           })}

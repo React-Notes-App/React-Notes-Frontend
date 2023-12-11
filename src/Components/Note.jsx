@@ -6,13 +6,14 @@ import ColorPalette from "./ColorPalette";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import UnarchiveOutlinedIcon from "@mui/icons-material/UnarchiveOutlined";
+import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashOutlined';
 import ItemList from "./ItemList";
 import NoteTitle from "./NoteTitle";
 import LabelList from "./LabelList";
 import EditNoteDropDown from "./EditNoteDropDown";
 
 
-function Note({ id, title, items, date, color, labels, is_archived, has_checklist }) {
+function Note({ id, title, items, date, color, labels, is_archived, has_checklist, is_deleted }) {
   Note.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -36,12 +37,17 @@ function Note({ id, title, items, date, color, labels, is_archived, has_checklis
     ).isRequired,
     is_archived: PropTypes.bool.isRequired,
     has_checklist: PropTypes.bool.isRequired,
+    is_deleted: PropTypes.bool.isRequired,
   };
 
-  const { deleteNote, archiveNote, unarchiveNote } = useNoteAppContext();
+  const { trashNote, removeFromTrash, archiveNote, unarchiveNote } = useNoteAppContext();
   const noteId = id;
-  const handleDeleteNoteClick = () => {
-    deleteNote(noteId);
+  const handleTrashNoteClick = () => {
+    trashNote(noteId);
+  };
+
+  const handleRemoveFromTrashClick = () => {
+    removeFromTrash(noteId);
   };
 
   const handleArchiveNoteClick = () => {
@@ -99,7 +105,6 @@ function Note({ id, title, items, date, color, labels, is_archived, has_checklis
               <div className="icon">
                 <ColorPalette id={id} color={color} />
               </div>
-
               {is_archived === false ? (
                 <div className="icon">
                   <ArchiveOutlinedIcon onClick={handleArchiveNoteClick} />
@@ -109,10 +114,16 @@ function Note({ id, title, items, date, color, labels, is_archived, has_checklis
                   <UnarchiveOutlinedIcon onClick={handleUnarchiveNoteClick} />
                 </div>
               )}
+
+              {is_deleted === false ? (
               <div className="icon">
-                <DeleteForeverOutlinedIcon onClick={handleDeleteNoteClick} />
+                <DeleteForeverOutlinedIcon onClick={handleTrashNoteClick} />
               </div>
+              ) : (
               <div className="icon">
+                <RestoreFromTrashOutlinedIcon onClick={handleRemoveFromTrashClick} />
+              </div>
+              )}
               <EditNoteDropDown
                 id={id}
                 title={title}
@@ -121,7 +132,6 @@ function Note({ id, title, items, date, color, labels, is_archived, has_checklis
                 labels={labels}
                 has_checklist={has_checklist}
               />
-              </div>
             </div>
           )}
         </div>

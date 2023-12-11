@@ -7,13 +7,14 @@ import EditNote from "./EditNote";
 import NestedAddLabelDropDown from "./NestedAddLabelDropDown";
 
 function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
-  const { createCopy, deleteNote, hideCheckBoxes, showCheckBoxes } = useNoteAppContext();
+  const { createCopy, deleteNotePerm, hideCheckBoxes, showCheckBoxes } =
+    useNoteAppContext();
   const handleCreateCopy = () => {
     createCopy(id);
   };
 
   const handleDeleteNote = () => {
-    deleteNote(id);
+    deleteNotePerm(id);
   };
 
   const handleHideCheckboxes = () => {
@@ -21,13 +22,17 @@ function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
   };
 
   const handleShowCheckboxes = () => {
-    showCheckBoxes(id)
-    }
+    showCheckBoxes(id);
+  };
 
   const handleSendNote = () => {
     let note = { title, items };
-    let completedNoteItems = note.items.filter((item) => item.completed === true);
-    let unCompletedNoteItems = note.items.filter((item) => item.completed === false);
+    let completedNoteItems = note.items.filter(
+      (item) => item.completed === true
+    );
+    let unCompletedNoteItems = note.items.filter(
+      (item) => item.completed === false
+    );
 
     let openNoteItems = unCompletedNoteItems.map((item) => item.item_name);
     let finishedNoteItems = completedNoteItems.map((item) => item.item_name);
@@ -42,8 +47,12 @@ function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
   const handleShareNote = () => {
     let note = { title, items };
     let noteTitle = note.title;
-    let completedNoteItems = note.items.filter((item) => item.completed === true);
-    let unCompletedNoteItems = note.items.filter((item) => item.completed === false);
+    let completedNoteItems = note.items.filter(
+      (item) => item.completed === true
+    );
+    let unCompletedNoteItems = note.items.filter(
+      (item) => item.completed === false
+    );
 
     let openNoteItems = unCompletedNoteItems.map((item) => item.item_name);
     let finishedNoteItems = completedNoteItems.map((item) => item.item_name);
@@ -70,7 +79,6 @@ function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
         <MoreVertOutlined />
       </Dropdown.Toggle>
       <DropdownMenu id="dropdown-menu">
-        <Dropdown.Item onClick={handleDeleteNote}>Delete note</Dropdown.Item>
         <EditNote
           id={id}
           title={title}
@@ -98,6 +106,8 @@ function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
         <Dropdown.Item onClick={handleShareNote}>
           Save to clipboard
         </Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item style={{color: "red"}}onClick={handleDeleteNote}>Delete Forever</Dropdown.Item>
       </DropdownMenu>
     </Dropdown>
   );

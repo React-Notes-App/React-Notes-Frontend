@@ -86,6 +86,7 @@ export const createNoteCall = async (
   date,
   is_archived,
   has_checklist,
+  is_deleted,
   label_name,
   labelId
 ) => {
@@ -101,6 +102,7 @@ export const createNoteCall = async (
         date,
         is_archived: is_archived,
         has_checklist: has_checklist,
+        is_deleted: is_deleted,
         label_name: label_name,
         labelId: labelId,
       }),
@@ -122,6 +124,7 @@ export const createCopyCall = async (
   date,
   is_archived,
   has_checklist,
+  is_deleted,
   itemsCompleted,
   labelIds
 ) => {
@@ -137,6 +140,7 @@ export const createCopyCall = async (
         date: date,
         is_archived: is_archived,
         has_checklist: has_checklist,
+        is_deleted: is_deleted,
         itemsCompleted: itemsCompleted,
         labelIds: labelIds,
       }),
@@ -272,9 +276,47 @@ export const deleteItemCall = async (token, itemId, noteId) => {
   }
 };
 
-export const deleteNoteCall = async (token, id) => {
+export const trashNoteCall = async (token, id) => {
   try {
-    const response = await fetch(`${URL}/api/notes/user/delete_note`, {
+    const response = await fetch(`${URL}/api/notes/user/trash_note`, {
+      method: "PATCH",
+      mode: "cors",
+      headers: makeHeaders(token),
+      body: JSON.stringify({
+        id: id,
+      }),
+    });
+    const result = await response.json();
+    console.log("Result from trashNoteCall: ", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const removeFromTrashCall = async (token, id) => {
+  try {
+    const response = await fetch(`${URL}/api/notes/user/remove_from_trash`, {
+      method: "PATCH",
+      mode: "cors",
+      headers: makeHeaders(token),
+      body: JSON.stringify({
+        id: id,
+      }),
+    });
+    const result = await response.json();
+    console.log("Result from removeFromTrashCall: ", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const deleteNotePermCall = async (token, id) => {
+  try {
+    const response = await fetch(`${URL}/api/notes/user/delete_note_perm`, {
       method: "DELETE",
       mode: "cors",
       headers: makeHeaders(token),

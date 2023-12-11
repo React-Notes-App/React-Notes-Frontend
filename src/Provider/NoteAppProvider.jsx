@@ -5,7 +5,9 @@ import {
   getUserNotesCall,
   createNoteCall,
   createCopyCall,
-  deleteNoteCall,
+  trashNoteCall,
+  removeFromTrashCall,  
+  deleteNotePermCall,
   archiveNoteCall,
   unarchiveNoteCall,
   createItemCall,
@@ -76,6 +78,8 @@ const NoteAppProvider = ({ children }) => {
 
   const archivedNotes = notes.filter((note) => note.is_archived === true);
 
+  const trashedNotes = notes.filter((note) => note.is_deleted === true);
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
@@ -102,6 +106,7 @@ const NoteAppProvider = ({ children }) => {
     try {
       const result = await getUserNotesCall(token, id);
       const notes = result.notes;
+      console.log(notes);
 
       setNotes(notes);
     } catch (error) {
@@ -123,16 +128,17 @@ const NoteAppProvider = ({ children }) => {
     setUser(newUser);
   };
 
-  const createNote = async (title, itemName, label_name, labelId, is_) => {
+  const createNote = async (title, itemName, label_name, labelId, param_is_archived) => {
     let color = DEFAULT_NOTE_COLOR;
     let date = new Date();
     let is_archived;
-    if (is_) {
+    if (param_is_archived) {
       is_archived = true;
     } else {
       is_archived = false;
     }
     let has_checklist = true;
+    let is_deleted = false;
     let labelNameCheck = userLabels.map((label) => label.label_name);
     let noLabel = labelNameCheck.includes("No Label");
     if (noLabel) {
@@ -150,6 +156,7 @@ const NoteAppProvider = ({ children }) => {
       date,
       is_archived,
       has_checklist,
+      is_deleted,
       label_name,
       labelId
     );
@@ -167,6 +174,7 @@ const NoteAppProvider = ({ children }) => {
     const date = new Date();
     const is_archived = oldNote.is_archived;
     const has_checklist = oldNote.has_checklist;
+    const is_deleted = oldNote.is_deleted;
     const itemNames = oldNote.items.map((item) => item.item_name);
     const itemsCompleted = oldNote.items.map((item) => item.completed);
     const labelIds = oldNote.labels.map((label) => label.id);
@@ -179,6 +187,7 @@ const NoteAppProvider = ({ children }) => {
       date,
       is_archived,
       has_checklist,
+      is_deleted,
       itemsCompleted,
       labelIds
     );
@@ -213,8 +222,34 @@ const NoteAppProvider = ({ children }) => {
     setNotes(newNotes);
   };
 
-  const deleteNote = async (id) => {
-    const result = await deleteNoteCall(token, id);
+  const trashNote = async (id) => {
+    const result = await trashNoteCall(token, id);
+    console.log(result);
+    const trashedNote = result.note;
+    const newNotes = notes.map((note) => {
+      if (note.id === trashedNote.id) { 
+        return trashedNote;
+      }
+      return note;
+    });
+    setNotes(newNotes);
+  };
+
+  const removeFromTrash = async (id) => {
+    const result = await removeFromTrashCall(token, id);
+    console.log(result);
+    const restoredNote = result.note;
+    const newNotes = notes.map((note) => {
+      if (note.id === restoredNote.id) {
+        return restoredNote;
+      }
+      return note;
+    });
+    setNotes(newNotes);
+  };
+
+  const deleteNotePerm = async (id) => {
+    const result = await deleteNotePermCall(token, id);
     console.log(result);
     const deletedNote = result.note;
     const newNotes = notes.filter((note) => {
@@ -431,6 +466,7 @@ const NoteAppProvider = ({ children }) => {
         setDarkMode,
         columnView,
         setColumnView,
+        trashedNotes,
         archivedNotes,
         userLabels,
         setUserLabels,
@@ -444,7 +480,9 @@ const NoteAppProvider = ({ children }) => {
         createItem,
         editItemName,
         editNoteColor,
-        deleteNote,
+        trashNote,
+        removeFromTrash,
+        deleteNotePerm,
         archiveNote,
         unarchiveNote,
         deleteItem,
