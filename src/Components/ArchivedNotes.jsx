@@ -24,12 +24,12 @@ function ArchivedNotes() {
             {archivedNotes
               .filter((note) => {
                 return (
-                  searchText.toLowerCase() === "" ||
+                  (note.is_deleted === false) &&  (searchText.toLowerCase() === "" ||
                   note.title.toLowerCase().includes(searchText) ||
                   note.items.some((item) =>
                     item.item_name.toLowerCase().includes(searchText)
                   )
-                );
+                ));
               })
               .map((note) => {
                 return (
@@ -43,6 +43,7 @@ function ArchivedNotes() {
                     labels={note.labels}
                     is_archived={note.is_archived}
                     has_checklist={note.has_checklist}
+                    is_deleted={note.is_deleted}
                   />
                 );
               })}

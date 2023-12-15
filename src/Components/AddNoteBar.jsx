@@ -4,6 +4,7 @@ import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import { FormControl, InputGroup, FormCheck, Button } from "react-bootstrap";
 import CreateLabelDropDown from "./CreateLabelDropDown";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import NewItem from "./NewItem";
 
 function AddNoteBar({ param_id, param_name, param_is_archived }) {
  
@@ -16,9 +17,11 @@ function AddNoteBar({ param_id, param_name, param_is_archived }) {
   const [label_name, setLabel_Name] = useState("");
   const [labelPreview, setLabelPreview] = useState("");
 
+  let is_archived = false;
+
   const { createNote } = useNoteAppContext();
 
-  const itemCharacterLimit = 200;
+  // const itemCharacterLimit = 200;
 
   const titleCharacterLimit = 20;
   const handleTitleChange = (event) => {
@@ -27,16 +30,20 @@ function AddNoteBar({ param_id, param_name, param_is_archived }) {
     }
   };
 
-  const handleItemChange = (event) => {
-    if (itemCharacterLimit - event.target.value.length >= 0) {
-      setNoteItem(event.target.value);
-    }
-  };
-
+  // const handleItemChange = (event) => {
+  //   if (itemCharacterLimit - event.target.value.length >= 0) {
+  //     setNoteItem(event.target.value);
+  //   }
+  // };
+if (param_is_archived) {
+  is_archived = true;
+} else {
+  is_archived = false;
+}
   const handleSaveClick = () => {
 
     if (noteTitle.trim().length > 0) {
-      createNote(noteTitle, noteItem, label_name, labelId, param_is_archived);
+      createNote(noteTitle, noteItem, label_name, labelId, is_archived);
       setNoteTitle("");
       setNoteItem("");
       setLabelId("");
@@ -82,8 +89,9 @@ function AddNoteBar({ param_id, param_name, param_is_archived }) {
         <div>
           {open ? (
             <div>
-              <InputGroup className="mb-3 align-items-center">
-                <FormCheck />
+                <NewItem  noteItem={noteItem} setNoteItem={setNoteItem}/>
+              {/* <InputGroup className="mb-3 align-items-center"> */}
+                {/* <FormCheck />
                 <FormControl
                   style={{
                     border: "none",
@@ -95,8 +103,8 @@ function AddNoteBar({ param_id, param_name, param_is_archived }) {
                   placeholder="Item"
                   onChange={handleItemChange}
                   value={noteItem}
-                />
-              </InputGroup>
+                /> */}
+              {/* </InputGroup> */}
               <hr className="horizontal-rule" />
               {labelPreview ? (
                 <div
@@ -112,7 +120,7 @@ function AddNoteBar({ param_id, param_name, param_is_archived }) {
                   />
                 </div>
               ) : null}
-              <div className="d-flex justify-content-between">
+              <div className="mt-3 d-flex justify-content-between">
                 <CreateLabelDropDown
                   label_name={label_name}
                   setLabel_Name={setLabel_Name}

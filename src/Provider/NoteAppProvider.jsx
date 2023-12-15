@@ -6,7 +6,7 @@ import {
   createNoteCall,
   createCopyCall,
   trashNoteCall,
-  removeFromTrashCall,  
+  removeFromTrashCall,
   deleteNotePermCall,
   archiveNoteCall,
   unarchiveNoteCall,
@@ -115,7 +115,6 @@ const NoteAppProvider = ({ children }) => {
   };
 
   const updateUser = async (newName, newEmail, newPassword, newPicture) => {
-    
     const result = await updateUserCall(token, {
       name: newName,
       email: newEmail,
@@ -128,26 +127,21 @@ const NoteAppProvider = ({ children }) => {
     setUser(newUser);
   };
 
-  const createNote = async (title, itemName, label_name, labelId, param_is_archived) => {
+  const createNote = async (
+    title,
+    itemName,
+    label_name,
+    labelId,
+    is_archived
+  ) => {
     let color = DEFAULT_NOTE_COLOR;
     let date = new Date();
-    let is_archived;
-    if (param_is_archived) {
-      is_archived = true;
-    } else {
-      is_archived = false;
-    }
     let has_checklist = true;
     let is_deleted = false;
-    let labelNameCheck = userLabels.map((label) => label.label_name);
-    let noLabel = labelNameCheck.includes("No Label");
-    if (noLabel) {
-      labelId = userLabels.find((label) => label.label_name === "No Label").id;
-    }
 
-    console.log("label name", label_name);
-    console.log("labelId", labelId);
-   
+    
+
+
     const result = await createNoteCall(
       token,
       title,
@@ -227,7 +221,7 @@ const NoteAppProvider = ({ children }) => {
     console.log(result);
     const trashedNote = result.note;
     const newNotes = notes.map((note) => {
-      if (note.id === trashedNote.id) { 
+      if (note.id === trashedNote.id) {
         return trashedNote;
       }
       return note;
@@ -384,10 +378,8 @@ const NoteAppProvider = ({ children }) => {
       });
       note.labels = newLabels;
       return note;
-    }
-    );
+    });
     setNotes(newNotes);
-
   };
 
   const editLabel = async (labelId, label_name) => {
@@ -445,9 +437,11 @@ const NoteAppProvider = ({ children }) => {
     setNotes(newNotes);
   };
   if (!hasLoaded) {
-    return  <div className="d-flex justify-content-center align-items-center">
-    <Spinner animation="border" role="status"></Spinner>
-    </div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center">
+        <Spinner animation="border" role="status"></Spinner>
+      </div>
+    );
   }
   return (
     <NoteAppProviderContext.Provider

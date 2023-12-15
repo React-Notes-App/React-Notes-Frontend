@@ -32,3 +32,4 @@ export { default as Profile } from "./Profile";
 export { default as RegisterForm } from "./RegisterForm";
 export { default as LogInForm } from "./LogInForm";
 export { default as DeletedNotes } from "./DeletedNotes";
+export { default as NewItem } from "./NewItem";
