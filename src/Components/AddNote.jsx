@@ -38,6 +38,13 @@ function AddNote({param_id, param_name, param_is_archived}) {
       setNoteItem(event.target.value);
     }
   };
+
+  if (param_is_archived) {
+    param_is_archived = true;
+  } else {
+    param_is_archived = false;
+  }
+
   const handleSaveClick = () => {
     if (noteTitle.trim().length > 0) {
       createNote(noteTitle, noteItem, label_name, labelId, param_is_archived);
