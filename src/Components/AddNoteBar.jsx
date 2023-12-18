@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
-import { FormControl, InputGroup, FormCheck, Button } from "react-bootstrap";
+import { FormControl, Button } from "react-bootstrap";
 import CreateLabelDropDown from "./CreateLabelDropDown";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import NewItem from "./NewItem";
@@ -46,6 +46,7 @@ if (param_is_archived) {
       createNote(noteTitle, noteItem, label_name, labelId, is_archived);
       setNoteTitle("");
       setNoteItem("");
+      setLabel_Name(null);
       setLabelId("");
       setLabelPreview("");
       setOpen(false);

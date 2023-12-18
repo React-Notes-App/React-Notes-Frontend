@@ -22,7 +22,6 @@ function CreateLabel({ setLabel_Name, setLabelPreview }) {
     if (e.keyCode === 13 && !existingLabels.includes(e.target.value)) {
       setLabel_Name(e.target.value);
       setLabelPreview(e.target.value);
-      setLabel_Name("");
     }
 
     if (e.keyCode === 13 && existingLabels.includes(e.target.value)) {
