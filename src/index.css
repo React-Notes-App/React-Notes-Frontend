@@ -309,7 +309,7 @@ form .form-control:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 1rem;
   grid-column: 2;
   grid-row: 2/3;
@@ -320,7 +320,7 @@ form .form-control:focus {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 #dropdown-menu {
@@ -490,7 +490,7 @@ form .form-control:focus {
 
   #upload-photo-button {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     width: 100%;
   }
 
