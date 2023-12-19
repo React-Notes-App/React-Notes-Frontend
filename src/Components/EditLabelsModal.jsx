@@ -23,7 +23,7 @@ function EditLabelsModal() {
   };
 
   const handleCreateLabel = (e) => {
-    const label_name = e.target.value;
+    setLabel_Name(e.target.value);
     if (e.keyCode === 13 && userLabels.map((label) => label.label_name).includes(e.target.value)) {
       alert("Label already exists");
     } else if (e.keyCode ===13 && label_name.trim().length === 0) {
@@ -54,7 +54,6 @@ function EditLabelsModal() {
             <Form.Control
               style={createLabelStyles}
               placeholder="Create Label"
-              // onChange={(e) => setLabel_Name(e.target.value)}
               onKeyDown={handleCreateLabel}
             />
           </InputGroup>
