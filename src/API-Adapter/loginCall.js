@@ -1,4 +1,5 @@
-const URL = "https://todo-app-7yv2.onrender.com" || "http://localhost:4000";
+const URL = "https://todo-app-7yv2.onrender.com";
+// const URL = "http://localhost:4000";
 export const loginCall = async (email, password) => {
   try {
     const response = await fetch(`${URL}/api/users/login`, {
