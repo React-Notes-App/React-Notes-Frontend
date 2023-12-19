@@ -1,5 +1,4 @@
-// const URL = "https://todo-app-7yv2.onrender.com";
-const URL = "http://localhost:4000";
+const URL = "https://todo-app-7yv2.onrender.com" || "http://localhost:4000";
 
 export { registerCall } from "./registerCall";
 export { loginCall } from "./loginCall";
