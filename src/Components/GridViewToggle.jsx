@@ -1,6 +1,7 @@
 import React from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 import GridViewIcon from "@mui/icons-material/GridView";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 
 function GridViewToggle() {
@@ -10,7 +11,9 @@ function GridViewToggle() {
     }
   return (
     <div onClick={handleGridView}>
+      <OverlayTrigger placement="bottom" overlay={<Tooltip>Grid View</Tooltip>}>
       <GridViewIcon />
+      </OverlayTrigger>
     </div>
   );
 }

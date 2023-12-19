@@ -1,20 +1,34 @@
 import React from "react";
 import { useState } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
-import { Form, InputGroup } from "react-bootstrap";
+import {
+  Form,
+  InputGroup,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import PropTypes from "prop-types";
 import ColorPalette from "./ColorPalette";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import UnarchiveOutlinedIcon from "@mui/icons-material/UnarchiveOutlined";
-import RestoreFromTrashOutlinedIcon from '@mui/icons-material/RestoreFromTrashOutlined';
+import RestoreFromTrashOutlinedIcon from "@mui/icons-material/RestoreFromTrashOutlined";
 import ItemList from "./ItemList";
 import NoteTitle from "./NoteTitle";
 import LabelList from "./LabelList";
 import EditNoteDropDown from "./EditNoteDropDown";
 
-
-function Note({ id, title, items, date, color, labels, is_archived, has_checklist, is_deleted }) {
+function Note({
+  id,
+  title,
+  items,
+  date,
+  color,
+  labels,
+  is_archived,
+  has_checklist,
+  is_deleted,
+}) {
   Note.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -41,7 +55,8 @@ function Note({ id, title, items, date, color, labels, is_archived, has_checklis
     is_deleted: PropTypes.bool.isRequired,
   };
 
-  const { trashNote, removeFromTrash, archiveNote, unarchiveNote, createItem } = useNoteAppContext();
+  const { trashNote, removeFromTrash, archiveNote, unarchiveNote, createItem } =
+    useNoteAppContext();
   const noteId = id;
 
   const handleCreateItem = (e) => {
@@ -76,8 +91,6 @@ function Note({ id, title, items, date, color, labels, is_archived, has_checklis
     boxShadow: "none",
   };
 
-
-
   return (
     <div>
       <div
@@ -91,31 +104,27 @@ function Note({ id, title, items, date, color, labels, is_archived, has_checklis
         </div>
         <div className="itemListBackground" style={{ paddingLeft: "0px" }}>
           {items.length === 0 && (
-          <div>
-            <InputGroup className="mb-0 align-items-center">
-              {has_checklist === true ? (
-                <Form.Check
-                  type="checkbox"
-                  // id={`itemCheckbox-${item.id}`}
-                  // value={completed}
-                  // onChange={handleCheck}
-                  // checked={completed}
+            <div>
+              <InputGroup className="mb-0 align-items-center">
+                {has_checklist === true ? <Form.Check type="checkbox" /> : null}
+                <Form.Control
+                  style={styles}
+                  placeholder="Create Item"
+                  onKeyDown={handleCreateItem}
                 />
-              ) : null}
-              <Form.Control
-                style={styles}
-                placeholder="Create Item"
-                onKeyDown={handleCreateItem}
-              />
-            </InputGroup>
-          </div>
+              </InputGroup>
+            </div>
           )}
           {items
             ?.filter((item) => {
               return item.completed === false;
             })
             .map((item) => (
-              <ItemList item={item} key={item.id} has_checklist={has_checklist} />
+              <ItemList
+                item={item}
+                key={item.id}
+                has_checklist={has_checklist}
+              />
             ))}
         </div>
         <hr className="horizontal-rule" />
@@ -125,7 +134,11 @@ function Note({ id, title, items, date, color, labels, is_archived, has_checklis
               return item.completed === true;
             })
             .map((item) => (
-              <ItemList item={item} key={item.id} has_checklist={has_checklist} />
+              <ItemList
+                item={item}
+                key={item.id}
+                has_checklist={has_checklist}
+              />
             ))}
         </div>
         <div className="d-flex justify-content-start flex-wrap" style={{}}>
@@ -141,22 +154,32 @@ function Note({ id, title, items, date, color, labels, is_archived, has_checklis
               </div>
               {is_archived === false ? (
                 <div className="icon">
+                  <OverlayTrigger placement="bottom" overlay={<Tooltip>Archive Note</Tooltip>}>
                   <ArchiveOutlinedIcon onClick={handleArchiveNoteClick} />
+                  </OverlayTrigger>
                 </div>
               ) : (
                 <div className="icon">
+                  <OverlayTrigger placement="bottom" overlay={<Tooltip>Unarchive Note</Tooltip>}>
                   <UnarchiveOutlinedIcon onClick={handleUnarchiveNoteClick} />
+                  </OverlayTrigger>
                 </div>
               )}
 
               {is_deleted === false ? (
-              <div className="icon">
-                <DeleteForeverOutlinedIcon onClick={handleTrashNoteClick} />
-              </div>
+                <div className="icon">
+                  <OverlayTrigger placement="bottom" overlay={<Tooltip>Delete Note</Tooltip>}>
+                  <DeleteForeverOutlinedIcon onClick={handleTrashNoteClick} />
+                  </OverlayTrigger>
+                </div>
               ) : (
-              <div className="icon">
-                <RestoreFromTrashOutlinedIcon onClick={handleRemoveFromTrashClick} />
-              </div>
+                <div className="icon">
+                  <OverlayTrigger placement="bottom" overlay={<Tooltip>Restore Note</Tooltip>}>
+                  <RestoreFromTrashOutlinedIcon
+                    onClick={handleRemoveFromTrashClick}
+                  />
+                  </OverlayTrigger>
+                </div>
               )}
               <EditNoteDropDown
                 id={id}

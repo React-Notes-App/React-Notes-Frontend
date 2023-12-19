@@ -5,6 +5,7 @@ import Dropdown from "react-bootstrap/esm/Dropdown";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import EditNote from "./EditNote";
 import NestedAddLabelDropDown from "./NestedAddLabelDropDown";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
   const { createCopy, deleteNotePerm, hideCheckBoxes, showCheckBoxes } =
@@ -76,7 +77,9 @@ function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
   return (
     <Dropdown autoClose="outside">
       <Dropdown.Toggle style={style}>
+        <OverlayTrigger placement="bottom" overlay={<Tooltip>More Options</Tooltip>}>
         <MoreVertOutlined />
+        </OverlayTrigger>
       </Dropdown.Toggle>
       <DropdownMenu id="dropdown-menu">
         <EditNote

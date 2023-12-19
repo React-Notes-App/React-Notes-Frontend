@@ -8,6 +8,7 @@ import { CirclePicker } from "react-color";
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 function ColorPalette({id, color}) {
   ColorPalette.propTypes = {
@@ -28,7 +29,9 @@ function ColorPalette({id, color}) {
 
   return (
     <div>
+      <OverlayTrigger placement="bottom" overlay={<Tooltip>Change Color</Tooltip>}>
       <PaletteOutlinedIcon onClick={handleShow}/>
+      </OverlayTrigger>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header className="border-0">
