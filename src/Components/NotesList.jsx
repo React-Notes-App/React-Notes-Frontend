@@ -1,19 +1,32 @@
 import React from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
+import { Spinner } from "react-bootstrap";
 import Note from "./Note";
 
 function NotesList() {
-  const { notes, searchText, columnView } = useNoteAppContext();
+  const { notes, searchText, columnView, isLoading } = useNoteAppContext();
+ 
+
+
+
+  console.log(isLoading)
+  if (isLoading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center">
+        <Spinner animation="border" role="status"></Spinner>
+      </div>
+    );
+  } else {
   return (
     <div>
-      {!notes.length && (
+      {!notes.length ?  (
         <div className="d-flex flex-column align-items-center justify-content-center m-5 no-note">
           <h2>No Notes Found</h2>
           <p>
             Create a new note by clicking on the bar above or the <b>+</b> button below
           </p>
         </div>
-      )}
+      ) : (
       <div className={columnView ? "notes-list-column" : "notes-list-grid"}>
         {notes
           .filter((note) => {
@@ -43,7 +56,9 @@ function NotesList() {
             );
           })}
       </div>
+      )}
     </div>
   );
+}
 }
 export default NotesList;

@@ -34,7 +34,7 @@ function ItemList({ item, has_checklist }) {
     setCompleted(!completed);
     checkItem(id, !completed, noteId);
   };
-
+  
   const handleEditItemSubmit = (e) => {
     const itemName = "";
     const id = item.id;
@@ -42,9 +42,13 @@ function ItemList({ item, has_checklist }) {
     if (e.keyCode === 13 && editedItem.trim().length > 0) {
       editItemName(id, editedItem, noteId);
     }
-    
+
     if (e.keyCode === 13 && e.target.value === item.item_name) {
       createItem(noteId, itemName);
+    }
+
+    if (e.keyCode === 13 && e.target.value.trim().length === 0) {
+      createItem(noteId, editedItem);
     }
   };
 
@@ -54,31 +58,33 @@ function ItemList({ item, has_checklist }) {
   }
 
   return (
-    <div key={item.id}>
-      <InputGroup className="mb-0 align-items-center">
-        {has_checklist === true ? (
-          <Form.Check
-            type="checkbox"
-            id={`itemCheckbox-${item.id}`}
-            value={completed}
-            onChange={handleCheck}
-            checked={completed}
-          />
-        ) : null}
-        <Form.Control
-          key={item.item_name}
-          style={styles}
-          placeholder={item.item_name}
-          onKeyDown={handleEditItemSubmit}
-          defaultValue={item.item_name}
-          id={`item-${item.id}`}
-        ></Form.Control>
+    <div>
+      <div key={item.id}>
+        <InputGroup className="mb-0 align-items-center">
+          {has_checklist === true ? (
+            <Form.Check
+              type="checkbox"
+              id={`itemCheckbox-${item.id}`}
+              value={completed}
+              onChange={handleCheck}
+              checked={completed}
+            />
+          ) : null}
+          <Form.Control
+            key={item.item_name}
+            style={styles}
+            placeholder={item.item_name}
+            onKeyDown={handleEditItemSubmit}
+            defaultValue={item.item_name}
+            id={`item-${item.id}`}
+          ></Form.Control>
 
-        <HighlightOffIcon
-          className="deleteIcon"
-          onClick={handleDeleteItemClick}
-        />
-      </InputGroup>
+          <HighlightOffIcon
+            className="deleteIcon"
+            onClick={handleDeleteItemClick}
+          />
+        </InputGroup>
+      </div>
     </div>
   );
 }

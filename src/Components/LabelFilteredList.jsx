@@ -45,6 +45,7 @@ function LabelFilteredList() {
                     color={note.color}
                     labels={note.labels}
                     is_archived={note.is_archived}
+                    is_deleted={note.is_deleted}
                     has_checklist={note.has_checklist}
                   />
                 );

@@ -11,11 +11,10 @@ import EditLabelsList from "./EditLabelsList";
 
 function EditLabelsModal() {
   const { userLabels, createLabel } = useNoteAppContext();
+  const [label_name, setLabel_Name] = useState("");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
- 
 
   const createLabelStyles = {
     backgroundColor: "transparent",
@@ -25,16 +24,25 @@ function EditLabelsModal() {
 
   const handleCreateLabel = (e) => {
     const label_name = e.target.value;
-    if (e.keyCode === 13) {
-      createLabel(label_name);
+    if (e.keyCode === 13 && userLabels.map((label) => label.label_name).includes(e.target.value)) {
+      alert("Label already exists");
+    } else if (e.keyCode ===13 && label_name.trim().length === 0) {
+      alert("Please enter a label");
+    } else {
+      if (e.keyCode === 13) {
+        createLabel(label_name);
+        setLabel_Name("");
+      }
     }
   };
- 
+
   return (
     <div>
       <div className="d-flex" onClick={handleShow}>
-        <EditOutlinedIcon id="editModalIcon"/>
-        <Nav.Item style={{ marginLeft: ".5rem", cursor: "pointer" }}>Edit Labels</Nav.Item>
+        <EditOutlinedIcon id="editModalIcon" />
+        <Nav.Item style={{ marginLeft: ".5rem", cursor: "pointer" }}>
+          Edit Labels
+        </Nav.Item>
       </div>
       <Modal show={show}>
         <Modal.Header>
@@ -46,12 +54,13 @@ function EditLabelsModal() {
             <Form.Control
               style={createLabelStyles}
               placeholder="Create Label"
+              // onChange={(e) => setLabel_Name(e.target.value)}
               onKeyDown={handleCreateLabel}
             />
           </InputGroup>
-          <hr className="horizontal-rule"/>
+          <hr className="horizontal-rule" />
           {userLabels.map((label) => (
-           <EditLabelsList label={label} key={label.id} />
+            <EditLabelsList label={label} key={label.id} />
           ))}
         </Modal.Body>
         <Modal.Footer>

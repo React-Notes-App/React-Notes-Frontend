@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
+import { Form, InputGroup } from "react-bootstrap";
 import PropTypes from "prop-types";
 import ColorPalette from "./ColorPalette";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
@@ -40,8 +41,16 @@ function Note({ id, title, items, date, color, labels, is_archived, has_checklis
     is_deleted: PropTypes.bool.isRequired,
   };
 
-  const { trashNote, removeFromTrash, archiveNote, unarchiveNote } = useNoteAppContext();
+  const { trashNote, removeFromTrash, archiveNote, unarchiveNote, createItem } = useNoteAppContext();
   const noteId = id;
+
+  const handleCreateItem = (e) => {
+    const itemName = e.target.value;
+    if (e.keyCode === 13 && itemName.trim().length > 0) {
+      createItem(noteId, itemName);
+    }
+  };
+
   const handleTrashNoteClick = () => {
     trashNote(noteId);
   };
@@ -60,7 +69,12 @@ function Note({ id, title, items, date, color, labels, is_archived, has_checklis
 
   const [isShown, setIsShown] = useState(false);
 
-  
+  const styles = {
+    backgroundColor: "transparent",
+    border: "none",
+    fontSize: ".8rem",
+    boxShadow: "none",
+  };
 
 
 
@@ -76,6 +90,26 @@ function Note({ id, title, items, date, color, labels, is_archived, has_checklis
           <NoteTitle id={id} title={title} />
         </div>
         <div className="itemListBackground" style={{ paddingLeft: "0px" }}>
+          {items.length === 0 && (
+          <div>
+            <InputGroup className="mb-0 align-items-center">
+              {has_checklist === true ? (
+                <Form.Check
+                  type="checkbox"
+                  // id={`itemCheckbox-${item.id}`}
+                  // value={completed}
+                  // onChange={handleCheck}
+                  // checked={completed}
+                />
+              ) : null}
+              <Form.Control
+                style={styles}
+                placeholder="Create Item"
+                onKeyDown={handleCreateItem}
+              />
+            </InputGroup>
+          </div>
+          )}
           {items
             ?.filter((item) => {
               return item.completed === false;

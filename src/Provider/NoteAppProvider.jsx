@@ -67,6 +67,7 @@ const NoteAppProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [searchText, setSearchText] = useState("");
   const [darkMode, setDarkMode] = useState(false);
@@ -98,8 +99,22 @@ const NoteAppProvider = ({ children }) => {
         localStorage.getItem("token"),
         JSON.parse(localStorage.getItem("user")).id
       );
+      setTimeout(() => {
+        getUserNotes(
+          localStorage.getItem("token"),
+          JSON.parse(localStorage.getItem("user")).id
+          );
+  
+          getUserLabels(
+            localStorage.getItem("token"),
+            JSON.parse(localStorage.getItem("user")).id
+            );
+          
+          setIsLoading(false);
+        }, 2000);
     }
-    setHasLoaded(true);
+
+      setHasLoaded(true);
   }, []);
 
   const getUserNotes = async (token, id) => {
@@ -126,7 +141,8 @@ const NoteAppProvider = ({ children }) => {
     JSON.stringify(localStorage.setItem("user", JSON.stringify(newUser)));
     setUser(newUser);
   };
-
+  
+  console.log(userLabels)
   const createNote = async (
     title,
     itemName,
@@ -139,8 +155,16 @@ const NoteAppProvider = ({ children }) => {
     let has_checklist = true;
     let is_deleted = false;
 
-    
-
+    let labelCheck = userLabels.find((label) => label.label_name === "Not Labeled");
+    if (!label_name && userLabels.length === 0) {
+      label_name = "Not Labeled";
+    }
+    if (!label_name && !labelId && labelCheck) {
+      labelId = labelCheck.id;
+    }
+    if (!label_name && !labelId && !labelCheck) {
+      label_name = "Not Labeled";
+    }
 
     const result = await createNoteCall(
       token,
@@ -466,6 +490,8 @@ const NoteAppProvider = ({ children }) => {
         setUserLabels,
         notesLabels,
         setNotesLabels,
+        isLoading,
+        setIsLoading,
 
         //actions
         getUserNotes,
