@@ -1,5 +1,5 @@
-const URL = "https://todo-app-7yv2.onrender.com";
-// const URL = "http://localhost:4000";
+// const URL = "https://todo-app-7yv2.onrender.com";
+const URL = "http://localhost:4000";
 
 export { registerCall } from "./registerCall";
 export { loginCall } from "./loginCall";
@@ -552,6 +552,45 @@ export const getNotesByLabelCall = async (token) => {
     const result = await response.json();
     console.log("Result from getNotesByLabelCall: ", result);
     return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const testEmailCall = async () => {
+  try {
+    const response = await fetch(`${URL}/api/email/test`, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log("Result from testEmailCall: ", response);
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+export const sendOTPCall = async (email, OTP) => {
+  try {
+    const response = await fetch(`${URL}/api/email/sendOTP`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        OTP: OTP,
+      }),
+    });
+
+    console.log("Result from sendEmailCall: ", response);
+    return response;
   } catch (error) {
     console.error(error);
     throw error;

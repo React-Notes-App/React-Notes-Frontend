@@ -91,6 +91,11 @@ function LogInForm() {
             Don't have an account? <a href="/register">Register</a>
           </Form.Text>
         </Form.Group>
+        <Form.Group className="mb-3" controlId="formForgotPassword">
+          <Form.Text className="text-muted">
+            Forgot your password? <a href="/forgot-password">Reset Password</a>
+          </Form.Text>
+        </Form.Group>
       </Form>
     </div>
   );

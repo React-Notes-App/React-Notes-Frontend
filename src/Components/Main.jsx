@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { ForgotPassword, OTP, ResetPassword } from "./";
 
 import {
   NoteApp,
@@ -22,6 +23,9 @@ function Main() {
         <Routes>
           <Route path="/login" element={<LogInForm />} />
           <Route path="/register" element={<RegisterForm />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/otp" element={<OTP />} />  
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           <Route
             path="/"

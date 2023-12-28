@@ -26,6 +26,8 @@ import {
   hideCheckboxesCall,
   showCheckboxesCall,
   updateUserCall,
+  testEmailCall,
+  sendOTPCall,
 } from "../API-Adapter";
 
 const DEFAULT_NOTE_COLOR = "#eeeee4";
@@ -76,6 +78,8 @@ const NoteAppProvider = ({ children }) => {
   const [notes, setNotes] = useState([]);
   const [userLabels, setUserLabels] = useState([]);
   const [notesLabels, setNotesLabels] = useState([]);
+
+  const [OTP, setOTP] = useState([0, 0, 0, 0]);
 
   const archivedNotes = notes.filter((note) => note.is_archived === true);
 
@@ -467,6 +471,17 @@ const NoteAppProvider = ({ children }) => {
       </div>
     );
   }
+
+  const testEmail = async () => {
+    const result = await testEmailCall(token);
+    console.log(result);
+  }
+
+  const sendOTP = async (email) => {
+    const result = await sendOTPCall(email, OTP);
+    console.log(result);
+  }
+
   return (
     <NoteAppProviderContext.Provider
       value={{
@@ -492,6 +507,8 @@ const NoteAppProvider = ({ children }) => {
         setNotesLabels,
         isLoading,
         setIsLoading,
+        OTP,
+        setOTP,
 
         //actions
         getUserNotes,
@@ -518,6 +535,8 @@ const NoteAppProvider = ({ children }) => {
         hideCheckBoxes,
         showCheckBoxes,
         updateUser,
+        testEmail,
+        sendOTP,
       }}
     >
       {children}

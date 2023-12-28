@@ -33,3 +33,6 @@ export { default as RegisterForm } from "./RegisterForm";
 export { default as LogInForm } from "./LogInForm";
 export { default as DeletedNotes } from "./DeletedNotes";
 export { default as NewItem } from "./NewItem";
+export { default as ForgotPassword } from "./ForgotPassword";
+export { default as ResetPassword } from "./ResetPassword";
+export { default as OTP } from "./OTP";
