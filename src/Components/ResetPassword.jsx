@@ -26,7 +26,7 @@ function ResetPassword() {
     <Form.Group className="mb-3" controlId="formNewPassword">
       <FloatingLabel
         className="mb-3"
-        controlId="formBasicEmail"
+        controlId="formNewPassword"
         label="New password"
       >
         <Form.Control
@@ -39,7 +39,7 @@ function ResetPassword() {
     <Form.Group className="mb-3" controlId="formConfirmPassword">
       <FloatingLabel
         className="mb-3"
-        controlId="formBasicEmail"
+        controlId="formConfirmPassword"
         label="Confirm new password"
       >
         <Form.Control
@@ -59,4 +59,4 @@ function ResetPassword() {
   )
 }
 
-export default ResetPassword
+export default ResetPassword;

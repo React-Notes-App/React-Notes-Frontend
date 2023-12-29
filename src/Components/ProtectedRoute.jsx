@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 
-export const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children }) => {
     const {isLoggedIn} = useNoteAppContext();
 
     if (!isLoggedIn) {
@@ -10,3 +10,5 @@ export const ProtectedRoute = ({ children }) => {
         return children;
     }
 }
+
+export default ProtectedRoute;

@@ -1,34 +1,64 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 
 function OTP() {
-  const { OTP } = useNoteAppContext();
+  const { OTP, sendOTP, email, setOTPVerified } = useNoteAppContext();
   const [OTPinput, setOTPinput] = useState([0, 0, 0, 0]);
+  const [disabled, setDisabled] = useState(true);
+  const [timer, setTimer] = useState(60);
+//   console.log(OTPinput);
+//   console.log(OTP);
 
   const navigate = useNavigate();
 
-  const handleOTPSubmit = (e) => {
+  const handleVerifyOTP = (e) => {
     e.preventDefault();
     console.log(OTP);
     console.log(OTPinput.join(""));
     if (OTPinput.join("") === "0000") {
       alert("Please enter OTP");
     }
-    if (OTP === OTPinput.join("")) {
+    if (OTP === parseInt(OTPinput.join(""))) {
+        setOTPVerified(true);
       navigate("/reset-password");
     } else {
       alert("Incorrect OTP");
     }
   };
 
+  const handleResendOTP = (e) => {
+    if (disabled) return;
+    console.log(email, OTP);
+    sendOTP(email, OTP);
+    setDisabled(true);
+    setTimer(60);
+  };
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+        setTimer((lastTimer) => {
+            lastTimer <= 1 && clearInterval(interval);
+            if (lastTimer <= 1) 
+                setDisabled(false);
+            if (lastTimer <= 0) 
+                return lastTimer;
+            return lastTimer - 1;
+        })
+  }, 1000);
+    return () => 
+        clearInterval(interval);
+    }, [disabled]);
+
+
   return (
     <div id="OTP-Container">
       <Form id="OTP-Form" className="p-5">
         <Form.Label className="mb-3">
-          <h4>Please enter OTP below</h4>
+          <h4>Email Verification</h4>
+          <p>We have sent a code to your email: {email}</p>
         </Form.Label>
 
         <Form.Group id="OTP-Input" controlId="formOTP">
@@ -94,12 +124,16 @@ function OTP() {
           />
         </Form.Group>
         <div className="d-flex justify-content-end">
-          <Button variant="primary" type="submit" onClick={handleOTPSubmit}>
+          <Button variant="primary" type="submit" onClick={handleVerifyOTP}>
             Submit
           </Button>
         </div>
         <Form.Text className="text-muted">
-          Didn't receive OTP? <a href="/resend-otp">Resend OTP</a>
+          Didn't receive OTP?{" "}
+          {disabled ? 
+          < Button variant="link" disabled> {disabled ? `Resend OTP in ${timer}s` : "Resend OTP"} 
+          </Button> :
+            <Button variant="link" onClick={handleResendOTP}>Resend OTP</Button>}
         </Form.Text>
       </Form>
     </div>

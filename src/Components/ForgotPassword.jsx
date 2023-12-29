@@ -1,27 +1,28 @@
 import React from "react";
-import { useState } from "react";
+// import { useState } from "react";
 import { Form, FloatingLabel, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 
 function ForgotPassword() {
-  const { OTP, setOTP, sendOTP, testEmail } = useNoteAppContext();
-  const [email, setEmail] = useState("");
+  const { OTP, setOTP, sendOTP, testEmail, email, setEmail } = useNoteAppContext();
+  
 
   const navigate = useNavigate();
 
   const handleSendOTP = (e) => {
     e.preventDefault();
-    if (email === "") {
+    if (!email) {
       alert("Please enter email");
       return;
     } else if (email) {
       console.log(email);
-      let newOTP = Math.floor(Math.random() * 9000 + 1000);
+      const newOTP = Math.floor(Math.random() * 9000 + 1000);
       console.log(newOTP);
       setOTP(newOTP);
-    }
-    sendOTP(email, OTP);
+      sendOTP(email, newOTP);
+    } 
+
     navigate("/otp");
   };
   return (

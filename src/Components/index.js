@@ -36,3 +36,5 @@ export { default as NewItem } from "./NewItem";
 export { default as ForgotPassword } from "./ForgotPassword";
 export { default as ResetPassword } from "./ResetPassword";
 export { default as OTP } from "./OTP";
+export { default as OTPProtectedRoute } from "./OTPProtectedRoute";
+export { default as ProtectedRoute } from "./ProtectedRoute";

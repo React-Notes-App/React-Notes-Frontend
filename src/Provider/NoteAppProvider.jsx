@@ -79,7 +79,10 @@ const NoteAppProvider = ({ children }) => {
   const [userLabels, setUserLabels] = useState([]);
   const [notesLabels, setNotesLabels] = useState([]);
 
-  const [OTP, setOTP] = useState([0, 0, 0, 0]);
+  const [OTP, setOTP] = useState();
+  const [email, setEmail] = useState("");
+  const [OTPVerified, setOTPVerified] = useState(false);
+
 
   const archivedNotes = notes.filter((note) => note.is_archived === true);
 
@@ -107,18 +110,18 @@ const NoteAppProvider = ({ children }) => {
         getUserNotes(
           localStorage.getItem("token"),
           JSON.parse(localStorage.getItem("user")).id
-          );
-  
-          getUserLabels(
-            localStorage.getItem("token"),
-            JSON.parse(localStorage.getItem("user")).id
-            );
-          
-          setIsLoading(false);
-        }, 2000);
+        );
+
+        getUserLabels(
+          localStorage.getItem("token"),
+          JSON.parse(localStorage.getItem("user")).id
+        );
+
+        setIsLoading(false);
+      }, 2000);
     }
 
-      setHasLoaded(true);
+    setHasLoaded(true);
   }, []);
 
   const getUserNotes = async (token, id) => {
@@ -145,8 +148,7 @@ const NoteAppProvider = ({ children }) => {
     JSON.stringify(localStorage.setItem("user", JSON.stringify(newUser)));
     setUser(newUser);
   };
-  
-  console.log(userLabels)
+
   const createNote = async (
     title,
     itemName,
@@ -159,7 +161,9 @@ const NoteAppProvider = ({ children }) => {
     let has_checklist = true;
     let is_deleted = false;
 
-    let labelCheck = userLabels.find((label) => label.label_name === "Not Labeled");
+    let labelCheck = userLabels.find(
+      (label) => label.label_name === "Not Labeled"
+    );
     if (!label_name && userLabels.length === 0) {
       label_name = "Not Labeled";
     }
@@ -475,12 +479,14 @@ const NoteAppProvider = ({ children }) => {
   const testEmail = async () => {
     const result = await testEmailCall(token);
     console.log(result);
-  }
+  };
 
-  const sendOTP = async (email) => {
-    const result = await sendOTPCall(email, OTP);
+  const sendOTP = async (email, newOTP) => {
+    console.log(email);
+    console.log(newOTP);
+    const result = await sendOTPCall(email, newOTP);
     console.log(result);
-  }
+  };
 
   return (
     <NoteAppProviderContext.Provider
@@ -509,6 +515,10 @@ const NoteAppProvider = ({ children }) => {
         setIsLoading,
         OTP,
         setOTP,
+        email,
+        setEmail,
+        OTPVerified,
+        setOTPVerified,
 
         //actions
         getUserNotes,
