@@ -38,11 +38,26 @@ function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
     let openNoteItems = unCompletedNoteItems.map((item) => item.item_name);
     let finishedNoteItems = completedNoteItems.map((item) => item.item_name);
 
-    let noteItems = openNoteItems.join("%0D%0A- ");
-    let finishedItems = finishedNoteItems.join("%0D%0A- (\u2713)");
+    let noteItems = "- " + openNoteItems.join("%0D%0A- ");
+    let finishedItems =
+      "- (\u2713) " + finishedNoteItems.join("%0D%0A- (\u2713) ");
 
-    let link = `mailto:?subject=${note.title}&body=- ${noteItems} %0D%0A%0D%0A- (\u2713)${finishedItems}`;
-    window.open(link);
+    if (openNoteItems.length === 0 && finishedNoteItems.length !== 0) {
+      let link = `mailto:?subject=${note.title}&body=${finishedItems}`;
+      window.open(link);
+    }
+    if (finishedNoteItems.length === 0 && openNoteItems.length !== 0) {
+      let link = `mailto:?subject=${note.title}&body=${noteItems}`;
+      window.open(link);
+    }
+    if (openNoteItems.length === 0 && finishedNoteItems.length === 0) {
+      let link = `mailto:?subject=${note.title}`;
+      window.open(link);
+    }
+    if (openNoteItems.length !== 0 && finishedNoteItems.length !== 0) {
+      let link = `mailto:?subject=${note.title}&body=${noteItems}%0D%0A%0D%0A${finishedItems}`;
+      window.open(link);
+    }
   };
 
   const handleShareNote = () => {
@@ -58,12 +73,29 @@ function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
     let openNoteItems = unCompletedNoteItems.map((item) => item.item_name);
     let finishedNoteItems = completedNoteItems.map((item) => item.item_name);
 
-    let noteItems = openNoteItems.join("\n - ");
-    let finishedItems = finishedNoteItems.join("\n - (\u2713)");
+    let noteItems = "- " + openNoteItems.join("\n- ");
+    let finishedItems = "- (\u2713) " + finishedNoteItems.join("\n- (\u2713) ");
 
-    let copiedNote = `${noteTitle}\n - ${noteItems}\n\n - (\u2713)${finishedItems}\n`;
+    if (openNoteItems.length === 0 && finishedNoteItems.length !== 0) {
+      let copiedNote = `${noteTitle}\n${finishedItems}\n`;
 
-    navigator.clipboard.writeText(copiedNote);
+      navigator.clipboard.writeText(copiedNote);
+    }
+    if (finishedNoteItems.length === 0 && openNoteItems.length !== 0) {
+      let copiedNote = `${noteTitle}\n${noteItems}\n`;
+
+      navigator.clipboard.writeText(copiedNote);
+    }
+    if (openNoteItems.length === 0 && finishedNoteItems.length === 0) {
+      let copiedNote = `${noteTitle}\n`;
+
+      navigator.clipboard.writeText(copiedNote);
+    }
+    if (openNoteItems.length !== 0 && finishedNoteItems.length !== 0) {
+      let copiedNote = `${noteTitle}\n${noteItems}\n\n${finishedItems}\n`;
+
+      navigator.clipboard.writeText(copiedNote);
+    }
   };
 
   let style = {
@@ -77,8 +109,11 @@ function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
   return (
     <Dropdown autoClose="outside">
       <Dropdown.Toggle style={style}>
-        <OverlayTrigger placement="bottom" overlay={<Tooltip>More Options</Tooltip>}>
-        <MoreVertOutlined />
+        <OverlayTrigger
+          placement="bottom"
+          overlay={<Tooltip>More Options</Tooltip>}
+        >
+          <MoreVertOutlined />
         </OverlayTrigger>
       </Dropdown.Toggle>
       <DropdownMenu id="dropdown-menu">
@@ -110,7 +145,9 @@ function EditNoteDropDown({ id, title, items, color, labels, has_checklist }) {
           Save to clipboard
         </Dropdown.Item>
         <Dropdown.Divider />
-        <Dropdown.Item style={{color: "red"}}onClick={handleDeleteNote}>Delete Forever</Dropdown.Item>
+        <Dropdown.Item style={{ color: "red" }} onClick={handleDeleteNote}>
+          Delete Forever
+        </Dropdown.Item>
       </DropdownMenu>
     </Dropdown>
   );
