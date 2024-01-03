@@ -34,7 +34,7 @@ function ItemList({ item, has_checklist }) {
     setCompleted(!completed);
     checkItem(id, !completed, noteId);
   };
-  
+
   const handleEditItemSubmit = (e) => {
     const itemName = "";
     const id = item.id;
@@ -45,10 +45,6 @@ function ItemList({ item, has_checklist }) {
 
     if (e.keyCode === 13 && e.target.value === item.item_name) {
       createItem(noteId, itemName);
-    }
-
-    if (e.keyCode === 13 && e.target.value.trim().length === 0) {
-      createItem(noteId, editedItem);
     }
   };
 
@@ -77,6 +73,7 @@ function ItemList({ item, has_checklist }) {
             onKeyDown={handleEditItemSubmit}
             defaultValue={item.item_name}
             id={`item-${item.id}`}
+            autoFocus
           ></Form.Control>
 
           <HighlightOffIcon

@@ -596,3 +596,25 @@ export const sendOTPCall = async (email, OTP) => {
     throw error;
   }
 };
+
+export const resetPasswordCall = async (email, password) => {
+  try {
+    const response = await fetch(`${URL}/api/users/me/reset-password`, {
+      method: "PATCH",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+
+    console.log("Result from updatePasswordCall: ", response);
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

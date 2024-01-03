@@ -28,6 +28,8 @@ import {
   updateUserCall,
   testEmailCall,
   sendOTPCall,
+  resetPasswordCall,
+
 } from "../API-Adapter";
 
 const DEFAULT_NOTE_COLOR = "#eeeee4";
@@ -106,20 +108,20 @@ const NoteAppProvider = ({ children }) => {
         localStorage.getItem("token"),
         JSON.parse(localStorage.getItem("user")).id
       );
-      setTimeout(() => {
-        getUserNotes(
-          localStorage.getItem("token"),
-          JSON.parse(localStorage.getItem("user")).id
-        );
-
-        getUserLabels(
-          localStorage.getItem("token"),
-          JSON.parse(localStorage.getItem("user")).id
-        );
-
-        setIsLoading(false);
-      }, 2000);
     }
+    setTimeout(() => {
+      getUserNotes(
+        localStorage.getItem("token"),
+        JSON.parse(localStorage.getItem("user")).id
+      );
+
+      getUserLabels(
+        localStorage.getItem("token"),
+        JSON.parse(localStorage.getItem("user")).id
+      );
+
+      setIsLoading(false);
+    }, 2000);
 
     setHasLoaded(true);
   }, []);
@@ -468,26 +470,31 @@ const NoteAppProvider = ({ children }) => {
     });
     setNotes(newNotes);
   };
-  if (!hasLoaded) {
-    return (
-      <div className="d-flex justify-content-center align-items-center">
-        <Spinner animation="border" role="status"></Spinner>
-      </div>
-    );
-  }
-
+  
   const testEmail = async () => {
     const result = await testEmailCall(token);
     console.log(result);
   };
-
+  
   const sendOTP = async (email, newOTP) => {
     console.log(email);
     console.log(newOTP);
     const result = await sendOTPCall(email, newOTP);
     console.log(result);
   };
-
+  
+  const resetPassword = async (email, password) => {
+    const result = await resetPasswordCall(email, password);
+    console.log(result);
+  }
+  
+  if (!hasLoaded) {
+    return (
+      <div className="d-flex justify-content-center align-items-center">
+        <Spinner animation="border" role="status"></Spinner>
+      </div>
+    );
+  } else {
   return (
     <NoteAppProviderContext.Provider
       value={{
@@ -547,11 +554,13 @@ const NoteAppProvider = ({ children }) => {
         updateUser,
         testEmail,
         sendOTP,
+        resetPassword,
       }}
     >
       {children}
     </NoteAppProviderContext.Provider>
   );
 };
+}
 
 export default NoteAppProvider;

@@ -109,7 +109,7 @@ function Note({
                 {has_checklist === true ? <Form.Check type="checkbox" /> : null}
                 <Form.Control
                   style={styles}
-                  placeholder="Create Item"
+                  placeholder="Add Item"
                   onKeyDown={handleCreateItem}
                 />
               </InputGroup>
