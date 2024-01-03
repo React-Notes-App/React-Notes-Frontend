@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 
 function ForgotPassword() {
-  const { OTP, setOTP, sendOTP, testEmail, email, setEmail } = useNoteAppContext();
+  const { setOTP, sendOTP, testEmail, email, setEmail } = useNoteAppContext();
   
 
   const navigate = useNavigate();
