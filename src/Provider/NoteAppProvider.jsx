@@ -175,6 +175,9 @@ const NoteAppProvider = ({ children }) => {
     if (!label_name && !labelId && !labelCheck) {
       label_name = "Not Labeled";
     }
+    if (!label_name && !labelId && labelCheck === undefined) {
+      label_name = "Not Labeled";
+    }
 
     const result = await createNoteCall(
       token,
