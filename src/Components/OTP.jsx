@@ -9,15 +9,11 @@ function OTP() {
   const [OTPinput, setOTPinput] = useState([0, 0, 0, 0]);
   const [disabled, setDisabled] = useState(true);
   const [timer, setTimer] = useState(60);
-//   console.log(OTPinput);
-//   console.log(OTP);
 
   const navigate = useNavigate();
 
   const handleVerifyOTP = (e) => {
     e.preventDefault();
-    console.log(OTP);
-    console.log(OTPinput.join(""));
     if (OTPinput.join("") === "0000") {
       alert("Please enter OTP");
     }
@@ -31,7 +27,6 @@ function OTP() {
 
   const handleResendOTP = (e) => {
     if (disabled) return;
-    console.log(email, OTP);
     sendOTP(email, OTP);
     setDisabled(true);
     setTimer(60);

@@ -13,7 +13,7 @@ import {
 } from "react-bootstrap";
 
 function Profile() {
-  const { user, updateUser, testEmail } = useNoteAppContext();
+  const { user, updateUser } = useNoteAppContext();
 
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
@@ -171,12 +171,12 @@ function Profile() {
           </Button>
         </div>
       </Form>
-      <div id="test-email-container">
+      {/* <div id="test-email-container">
         <h3>Test Email</h3>
         <Button variant="warning" onClick={testEmail}>
           Send Test Email
         </Button>
-      </div>
+      </div> */}
       <Toast show={showToast} onClose={toggleShowToast}>
         <Toast.Header>
           <strong className="me-auto">Profile Updated</strong>

@@ -109,15 +109,15 @@ const NoteAppProvider = ({ children }) => {
         JSON.parse(localStorage.getItem("user")).id
       );
       setTimeout(() => {
-        getUserNotes(
-          localStorage.getItem("token"),
-          JSON.parse(localStorage.getItem("user")).id
-        );
+        // getUserNotes(
+        //   localStorage.getItem("token"),
+        //   JSON.parse(localStorage.getItem("user")).id
+        // );
   
-        getUserLabels(
-          localStorage.getItem("token"),
-          JSON.parse(localStorage.getItem("user")).id
-        );
+        // getUserLabels(
+        //   localStorage.getItem("token"),
+        //   JSON.parse(localStorage.getItem("user")).id
+        // );
   
         setIsLoading(false);
       }, 2000);
@@ -166,7 +166,7 @@ const NoteAppProvider = ({ children }) => {
     let labelCheck = userLabels.find(
       (label) => label.label_name === "Not Labeled"
     );
-    console.log(labelCheck);
+  
     if (!label_name && userLabels.length === 0) {
       label_name = "Not Labeled";
     }
@@ -176,10 +176,7 @@ const NoteAppProvider = ({ children }) => {
     if (!label_name && !labelId && !labelCheck) {
       label_name = "Not Labeled";
     }
-    if (labelCheck === undefined) {
-      label_name = "Not Labeled";
-    }
-
+  
     const result = await createNoteCall(
       token,
       title,
@@ -481,8 +478,6 @@ const NoteAppProvider = ({ children }) => {
   };
   
   const sendOTP = async (email, newOTP) => {
-    console.log(email);
-    console.log(newOTP);
     const result = await sendOTPCall(email, newOTP);
     console.log(result);
   };

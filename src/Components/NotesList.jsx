@@ -6,10 +6,6 @@ import Note from "./Note";
 function NotesList() {
   const { notes, searchText, columnView, isLoading } = useNoteAppContext();
  
-
-
-
-  console.log(isLoading)
   if (isLoading) {
     return (
       <div className="d-flex justify-content-center align-items-center">
