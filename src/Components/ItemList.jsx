@@ -69,7 +69,7 @@ function ItemList({ item, has_checklist }) {
           <Form.Control
             key={item.item_name}
             style={styles}
-            placeholder={item.item_name}
+            // placeholder={item.item_name}
             onKeyDown={handleEditItemSubmit}
             defaultValue={item.item_name}
             id={`item-${item.id}`}

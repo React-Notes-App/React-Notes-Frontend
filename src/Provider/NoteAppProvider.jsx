@@ -108,20 +108,20 @@ const NoteAppProvider = ({ children }) => {
         localStorage.getItem("token"),
         JSON.parse(localStorage.getItem("user")).id
       );
+      setTimeout(() => {
+        getUserNotes(
+          localStorage.getItem("token"),
+          JSON.parse(localStorage.getItem("user")).id
+        );
+  
+        getUserLabels(
+          localStorage.getItem("token"),
+          JSON.parse(localStorage.getItem("user")).id
+        );
+  
+        setIsLoading(false);
+      }, 2000);
     }
-    setTimeout(() => {
-      getUserNotes(
-        localStorage.getItem("token"),
-        JSON.parse(localStorage.getItem("user")).id
-      );
-
-      getUserLabels(
-        localStorage.getItem("token"),
-        JSON.parse(localStorage.getItem("user")).id
-      );
-
-      setIsLoading(false);
-    }, 2000);
 
     setHasLoaded(true);
   }, []);
