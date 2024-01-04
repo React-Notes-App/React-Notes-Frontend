@@ -166,6 +166,7 @@ const NoteAppProvider = ({ children }) => {
     let labelCheck = userLabels.find(
       (label) => label.label_name === "Not Labeled"
     );
+    console.log(labelCheck);
     if (!label_name && userLabels.length === 0) {
       label_name = "Not Labeled";
     }
@@ -175,7 +176,7 @@ const NoteAppProvider = ({ children }) => {
     if (!label_name && !labelId && !labelCheck) {
       label_name = "Not Labeled";
     }
-    if (!label_name && !labelId && labelCheck === undefined) {
+    if (labelCheck === undefined) {
       label_name = "Not Labeled";
     }
 
