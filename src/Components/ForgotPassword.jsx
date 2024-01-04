@@ -1,11 +1,11 @@
 import React from "react";
-// import { useState } from "react";
 import { Form, FloatingLabel, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
 
 function ForgotPassword() {
-  const { setOTP, sendOTP, testEmail, email, setEmail } = useNoteAppContext();
+  const { setOTP, sendOTP, email, setEmail } = useNoteAppContext();
+  // testEmail,
   
 
   const navigate = useNavigate();
@@ -16,9 +16,7 @@ function ForgotPassword() {
       alert("Please enter email");
       return;
     } else if (email) {
-      console.log(email);
       const newOTP = Math.floor(Math.random() * 9000 + 1000);
-      console.log(newOTP);
       setOTP(newOTP);
       sendOTP(email, newOTP);
     } 
@@ -54,12 +52,12 @@ function ForgotPassword() {
             Already reset your password ? <a href="/login">Login</a>
           </Form.Text>
         </Form.Group>
-        <div id="test-email-container">
+        {/* <div id="test-email-container">
         <h3>Test Email</h3>
         <Button variant="warning" onClick={testEmail}>
           Send Test Email
         </Button>
-      </div>
+      </div> */}
       </Form>
     </div>
   );
