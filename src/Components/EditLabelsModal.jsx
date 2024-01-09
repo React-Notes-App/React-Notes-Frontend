@@ -23,13 +23,14 @@ function EditLabelsModal() {
   };
 
   const handleCreateLabel = (e) => {
-    setLabel_Name(e.target.value);
+    console.log(e.target.value);
     if (e.keyCode === 13 && userLabels.map((label) => label.label_name).includes(e.target.value)) {
       alert("Label already exists");
-    } else if (e.keyCode ===13 && label_name.trim().length === 0) {
+    } else if (e.keyCode === 13 && label_name.trim().length === 0) {
       alert("Please enter a label");
     } else {
       if (e.keyCode === 13) {
+        e.preventDefault()
         createLabel(label_name);
         setLabel_Name("");
       }
@@ -55,6 +56,8 @@ function EditLabelsModal() {
               style={createLabelStyles}
               placeholder="Create Label"
               onKeyDown={handleCreateLabel}
+              onChange={(e) => setLabel_Name(e.target.value)}
+              value={label_name}
             />
           </InputGroup>
           <hr className="horizontal-rule" />
