@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { useNoteAppContext } from "../Provider/NoteAppProvider";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Form from "react-bootstrap/Form";
@@ -18,16 +18,29 @@ function ItemList({ item, has_checklist }) {
 
   const { deleteItem, editItemName, checkItem, createItem } =
     useNoteAppContext();
+
   const [completed, setCompleted] = useState(item.completed);
+
   const noteId = item.notes_id;
 
-  const styles = {
+  const textAreaStyle = {
     textDecoration: item.completed ? "line-through" : "none",
     backgroundColor: "transparent",
     border: "none",
     fontSize: ".8rem",
     boxShadow: "none",
+    wordWrap: "break-word",
+    whiteSpace: "initial",
+    resize: "none",
+    paddingTop: "0",
   };
+
+  const textAreaRef = useRef(null);
+
+  useLayoutEffect(() => {
+    textAreaRef.current.style.height = "inherit";
+    textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+  }, [item.item_name]);
 
   const handleCheck = () => {
     const id = item.id;
@@ -35,17 +48,28 @@ function ItemList({ item, has_checklist }) {
     checkItem(id, !completed, noteId);
   };
 
-  const handleEditItemSubmit = (e) => {
-    const itemName = "";
+  const handleItem = (e) => {
     const id = item.id;
     const editedItem = e.target.value;
-    if (e.keyCode === 13 && editedItem.trim().length > 0) {
+    const itemName = "";
+    e.target.style.height = "inherit";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+
+    if (e.keyCode === 13 && !e.shiftKey) {
+      e.preventDefault();
       editItemName(id, editedItem, noteId);
     }
 
-    if (e.keyCode === 13 && e.target.value === item.item_name) {
+    if (e.keyCode === 13 && !e.shiftKey && e.target.value === item.item_name) {
+      e.preventDefault();
       createItem(noteId, itemName);
     }
+  };
+
+
+  const handleResizeTextArea = (e) => {
+    e.target.style.height = "inherit";
+    e.target.style.height = `${e.target.scrollHeight}px`;
   };
 
   function handleDeleteItemClick() {
@@ -56,7 +80,7 @@ function ItemList({ item, has_checklist }) {
   return (
     <div>
       <div key={item.id}>
-        <InputGroup className="mb-0 align-items-center">
+        <InputGroup className="mb-0 align-items-top">
           {has_checklist === true ? (
             <Form.Check
               type="checkbox"
@@ -67,10 +91,20 @@ function ItemList({ item, has_checklist }) {
             />
           ) : null}
           <Form.Control
+            ref={textAreaRef}
+            as={"textarea"}
+            rows={1}
             key={item.item_name}
-            style={styles}
-            // placeholder={item.item_name}
-            onKeyDown={handleEditItemSubmit}
+            style={textAreaStyle}
+            placeholder={"Add Item"}
+            onKeyDown={handleItem}
+            onChange={handleResizeTextArea}
+            onFocus={(e) => {
+              e.currentTarget.setSelectionRange(
+                e.currentTarget.value.length,
+                e.currentTarget.value.length
+              );
+            }}
             defaultValue={item.item_name}
             id={`item-${item.id}`}
             autoFocus

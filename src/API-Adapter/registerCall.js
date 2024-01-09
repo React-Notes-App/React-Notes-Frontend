@@ -1,5 +1,5 @@
-const URL = "https://react-notes-app-dy4o.onrender.com";
-// const URL = "http://localhost:4000";
+// const URL = "https://react-notes-app-dy4o.onrender.com";
+const URL = "http://localhost:4000";
 
 export const registerCall = async (name, email, password) => {
   try {

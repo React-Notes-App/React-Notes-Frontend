@@ -325,7 +325,9 @@ const NoteAppProvider = ({ children }) => {
       }
       return note;
     });
+  
     setNotes(newNotes);
+    
   };
 
   const editItemName = async (id, name, noteId) => {
