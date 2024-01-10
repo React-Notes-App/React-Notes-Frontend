@@ -14,7 +14,6 @@ function CreateLabel({ setLabel_Name, setLabelPreview }) {
     boxShadow: "none",
   };
   const existingLabels = userLabels.map((label) => label.label_name);
-  console.log(userLabels);
  
   
 
