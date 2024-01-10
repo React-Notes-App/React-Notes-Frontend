@@ -325,7 +325,6 @@ const NoteAppProvider = ({ children }) => {
       }
       return note;
     });
-  
     setNotes(newNotes);
     
   };
